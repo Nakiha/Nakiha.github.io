@@ -14,7 +14,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang>
+<html class="theme-next muse use-motion" lang="Simple Chinese">
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -96,13 +96,14 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
+  <meta name="keywords" content="Android">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Nakiha&#39;s Blog">
 <meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:locale" content="default">
+<meta property="og:site_name" content="Nakiha&#39;s Blog">
+<meta property="og:locale" content="Simple Chinese">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="Nakiha&#39;s Blog">
 
 
 
@@ -120,7 +121,7 @@
   };
 </script>
 
-  <title>Hexo</title>
+  <title>Nakiha's Blog</title>
   
 
 
@@ -161,7 +162,7 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+<body itemscope itemtype="http://schema.org/WebPage" lang="Simple Chinese">
 
   
   
@@ -180,7 +181,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">Nakiha's Blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -286,16 +287,230 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/30/OSI七层模型/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/30/又遇四大组件/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="Nakiha">
       <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="Nakiha's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/04/30/又遇四大组件/" class="post-title-link" itemprop="url">又遇四大组件</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-04-30 15:40:15 / Modified: 17:48:26" itemprop="dateCreated datePublished" datetime="2019-04-30T15:40:15+08:00">2019-04-30</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="契机"><a href="#契机" class="headerlink" title="契机"></a>契机</h1><p>​    做app的时候一直感觉力不从心, 总是掉入<em>只见树木不见森林</em>的误区里. 零零散散学的Android现在回忆起来的知识点也是零零散散, 需要开始系统化地学习了.</p>
+<p>​    花了点钱加入了Android方面的大牛玉刚的知识星球, 用Hexo架了这个博客, 希望能激励我学习, 并且记录下我的学习历程.</p>
+<p>​    从今天开始, Android Learning <strong>RESTART</strong> !</p>
+<h2 id="Activity"><a href="#Activity" class="headerlink" title="Activity"></a>Activity</h2><p>参考: </p>
+<ol>
+<li><a href="https://developer.android.com/guide/components/activities?hl=zh_cn" target="_blank" rel="noopener">谷歌官方指南-组件-Activity篇</a></li>
+<li><a href="https://www.jianshu.com/p/51aaa65d5d25" target="_blank" rel="noopener">Lemon_95 简书博客 Android 四大组件</a></li>
+</ol>
+<h3 id="继承结构"><a href="#继承结构" class="headerlink" title="继承结构"></a>继承结构</h3><blockquote>
+<p><code>java.lang.Object</code><br>   ↳    <code>android.content.Context</code><br>        ↳    <code>android.content.ContextWrapper</code><br>             ↳    <code>android.view.ContextThemeWrapper</code><br>                  ↳    <code>android.app.Activity</code></p>
+</blockquote>
+<h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><blockquote>
+<p><code>onCreate()</code> -&gt; <code>onStart()</code> - &gt; <code>onResume()</code> -&gt; <code>onPause()</code> -&gt; <code>onStop()</code> -&gt; <code>onDestroy()</code></p>
+</blockquote>
+<p>至于具体的回调顺序, google官方有非常棒的图示, 我这里直接引用官方原图</p>
+<p><img src="/2019/04/30/又遇四大组件/activity_lifecycle.png" alt="activity_lifecycle"></p>
+<p>下面时对各个回调方法进行的简单描述</p>
+<h4 id="onCreate-gt-onDestroy-整个生命期"><a href="#onCreate-gt-onDestroy-整个生命期" class="headerlink" title="onCreate() -&gt; onDestroy() 整个生命期"></a>onCreate() -&gt; onDestroy() 整个生命期</h4><ul>
+<li><p><strong>onCreate()</strong></p>
+<p><strong>在 Activity 首次被创建时调用</strong></p>
+<p>应该在这里 执行全局状态设置</p>
+<p>例如: 定义与绑定布局, 创建必要的网络连接线程, </p>
+</li>
+<li><p><strong>onDestroy()</strong></p>
+<p><strong>在 Activity 被销毁时调用</strong></p>
+<p>应该在这里 释放所有的资源</p>
+<p>例如: 注销之前创建的 “全局” 广播接收器, 停止创建的网络线程</p>
+</li>
+</ul>
+<h4 id="onStart-gt-onStop-可见生命期"><a href="#onStart-gt-onStop-可见生命期" class="headerlink" title="onStart() -&gt; onStop() 可见生命期"></a>onStart() -&gt; onStop() 可见生命期</h4><p>onStart()调用完成后, 意味着程序已经准备好与用户交互, 但需要等待进入前台才能开始交互, 这意味着</p>
+<ul>
+<li><p><strong>onStart()</strong></p>
+<p><strong>在 Activity 即将对用户可见之前调用</strong></p>
+<p>可以在这里 注册关于监听UI变化的广播接收器</p>
+</li>
+<li><p><strong>onStop()</strong></p>
+<p><strong>在 Activity 对用户不再可见时调用</strong></p>
+</li>
+</ul>
+<h4 id="onResume-gt-onPause-前台生命期"><a href="#onResume-gt-onPause-前台生命期" class="headerlink" title="onResume() -&gt; onPause() 前台生命期"></a>onResume() -&gt; onPause() 前台生命期</h4><ul>
+<li><p><strong>onResume()</strong></p>
+<p><strong>在 Activity 即将开始与用户进行交互之前调用</strong></p>
+<p>应该在这里 开启动画, 打开本活动需要使用的一些设备(如照相机)</p>
+</li>
+<li><p><strong>onPause()</strong></p>
+<p><strong>当系统即将开始继续另一个 Activity 时调用</strong></p>
+<p>应该在这里 确认对未保存的持久性数据的更改, 停止动画以及其他可能消耗 CPU 的内容, 这里的操作需要被非常迅速地完成</p>
+</li>
+</ul>
+<h4 id="生命周期Tips"><a href="#生命周期Tips" class="headerlink" title="生命周期Tips"></a>生命周期Tips</h4><ol>
+<li><p>弹出dialog对话框时, onPause()不会被回调</p>
+</li>
+<li><p>启动dialog风格的activity时, 会回调onPause()</p>
+</li>
+<li><p>异常情况下 Activity 会被销毁并重新创建</p>
+<p><img src="/2019/04/30/又遇四大组件/异常时的生命周期.png" alt="异常时的生命周期"></p>
+<ul>
+<li><p>异常情形1: 资源相关的系统配置改变</p>
+<p>例如 屏幕旋转</p>
+<p>​        此时, activity 依次调用</p>
+<blockquote>
+<p><code>onCreate -&gt; onStart  -&gt; onResume-&gt;onPause -&gt; 保存状态 onSaveInstanceState -&gt; onStop -&gt; 销毁 onDestroy -&gt; 重新创建 onCreate -&gt; onStart -&gt; 恢复之前保存的状态 onRestoreInstanceState -&gt; onResume</code></p>
+</blockquote>
+<p>​        <em>引用自 <a href="https://bbs.csdn.net/topics/392319812" target="_blank" rel="noopener">https://bbs.csdn.net/topics/392319812</a></em></p>
+<p>其中<code>onRestoreInstanceState</code>被保证在<code>onStop</code>之前被调用, 并留下一个<code>Bundle</code>作为<code>onCreate</code>和<code>onRestoreInstanceState</code>的传参</p>
+<p><code>view</code>和<code>activity</code>一样都有<code>onSaveInstanceState</code>和<code>onRestoreInstanceState</code>方法, 都用于之前状态的恢复, 例如: <code>EditView</code>会恢复用户输入的数据, <code>ListView</code>会恢复滚动的位置</p>
+</li>
+<li><p>异常情形2: 内存不足导致低优先级的<code>activity</code>被销毁</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h3>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/30/OSI七层模型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nakiha">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nakiha's Blog">
     </span>
 
     
@@ -482,7 +697,7 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-author-name" itemprop="name">Nakiha</p>
               <div class="site-description motion-element" itemprop="description"></div>
           </div>
 
@@ -493,7 +708,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-count">2</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -510,7 +725,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">1</span>
+                      
+                    
+                    <span class="site-state-item-count">2</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
@@ -556,7 +773,7 @@
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">John Doe</span>
+  <span class="author" itemprop="copyrightHolder">Nakiha</span>
 
   
 
