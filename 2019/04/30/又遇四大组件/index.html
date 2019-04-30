@@ -106,7 +106,8 @@
 <meta property="og:locale" content="Simple Chinese">
 <meta property="og:image" content="http://yoursite.com/2019/04/30/又遇四大组件/activity_lifecycle.png">
 <meta property="og:image" content="http://yoursite.com/2019/04/30/又遇四大组件/异常时的生命周期.png">
-<meta property="og:updated_time" content="2019-04-30T16:30:32.385Z">
+<meta property="og:image" content="http://yoursite.com/2019/04/30/又遇四大组件/service_lifecycle.png">
+<meta property="og:updated_time" content="2019-04-30T17:50:14.657Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="又遇四大组件">
 <meta name="twitter:description" content="契机​    做app的时候一直感觉力不从心, 总是掉入只见树木不见森林的误区里. 零零散散学的Android现在回忆起来的知识点也是零零散散, 需要开始系统化地学习了. ​    花了点钱加入了Android方面的大牛玉刚的知识星球, 用Hexo架了这个博客, 希望能激励我学习, 并且记录下我的学习历程. ​    从今天开始, Android Learning RESTART ! 新词汇积累">
@@ -353,7 +354,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-05-01 00:30:32" itemprop="dateModified" datetime="2019-05-01T00:30:32+08:00">2019-05-01</time>
+                <time title="Modified: 2019-05-01 01:50:14" itemprop="dateModified" datetime="2019-05-01T01:50:14+08:00">2019-05-01</time>
               
             
           </span>
@@ -390,7 +391,7 @@
         <h1 id="契机"><a href="#契机" class="headerlink" title="契机"></a>契机</h1><p>​    做app的时候一直感觉力不从心, 总是掉入<em>只见树木不见森林</em>的误区里. 零零散散学的Android现在回忆起来的知识点也是零零散散, 需要开始系统化地学习了.</p>
 <p>​    花了点钱加入了Android方面的大牛玉刚的知识星球, 用Hexo架了这个博客, 希望能激励我学习, 并且记录下我的学习历程.</p>
 <p>​    从今天开始, Android Learning <strong>RESTART</strong> !</p>
-<h2 id="新词汇积累"><a href="#新词汇积累" class="headerlink" title="新词汇积累"></a>新词汇积累</h2><ul>
+<h1 id="新词汇积累"><a href="#新词汇积累" class="headerlink" title="新词汇积累"></a>新词汇积累</h1><ul>
 <li><p><strong>be bound to</strong> 绑定 </p>
 <p>Each activity <strong>is</strong> only loosely <strong>bound to</strong> the other activities</p>
 </li>
@@ -404,14 +405,14 @@
 <p>Supply <strong>functionality</strong> for other applications to use</p>
 </li>
 </ul>
-<h2 id="Activity"><a href="#Activity" class="headerlink" title="Activity"></a>Activity</h2><p><code>Activitiy</code>是 Android app 中最重要的一个组件, <code>Activity</code>如何被启动和如何被组合也是 Android app 模型中最基本的一部分, Android 系统将在应用的特定生命期阶段, 调用特定的回调方法. Android 中的回调方法全部以on开头</p>
+<h1 id="Activity"><a href="#Activity" class="headerlink" title="Activity"></a>Activity</h1><p><code>Activitiy</code>是 Android app 中最重要的一个组件, <code>Activity</code>如何被启动和如何被组合也是 Android app 模型中最基本的一部分, Android 系统将在应用的特定生命期阶段, 调用特定的回调方法. Android 中的回调方法全部以on开头</p>
 <p>每个 app 都以数个<code>Activity</code>松散地组合, 这种设计模式使得每个<code>Activity</code>都可以作为被其他应用调用的入口</p>
 <p>这使得 Android app 既可以给予用户一个完整的应用体验, 又可以被单独地抽取一些页面作为其他应用的工具来使用 </p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ol>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
 <li><a href="https://developer.android.com/guide/components/activities?hl=zh_cn" target="_blank" rel="noopener">谷歌官方指南-组件-Activity篇</a></li>
 <li><a href="https://www.jianshu.com/p/51aaa65d5d25" target="_blank" rel="noopener">Lemon_95 简书博客 Android 四大组件</a></li>
 </ol>
-<h3 id="继承结构"><a href="#继承结构" class="headerlink" title="继承结构"></a>继承结构</h3><blockquote>
+<h2 id="继承结构"><a href="#继承结构" class="headerlink" title="继承结构"></a>继承结构</h2><blockquote>
 <p><code>java.lang.Object
    ↳    android.content.Context
         ↳    android.content.ContextWrapper
@@ -424,7 +425,7 @@
 <p>至于具体的回调顺序, google官方有非常棒的图示, 我这里直接引用官方原图</p>
 <p><img src="/2019/04/30/又遇四大组件/activity_lifecycle.png" alt="activity_lifecycle"></p>
 <p>下面时对各个回调方法进行的简单描述</p>
-<h4 id="onCreate-gt-onDestroy-整个生命期"><a href="#onCreate-gt-onDestroy-整个生命期" class="headerlink" title="onCreate() -&gt; onDestroy() 整个生命期"></a>onCreate() -&gt; onDestroy() 整个生命期</h4><ul>
+<h3 id="onCreate-gt-onDestroy-整个生命期"><a href="#onCreate-gt-onDestroy-整个生命期" class="headerlink" title="onCreate() -&gt; onDestroy() 整个生命期"></a>onCreate() -&gt; onDestroy() 整个生命期</h3><ul>
 <li><p><strong>onCreate()</strong></p>
 <p><strong>在 Activity 首次被创建时调用</strong></p>
 <p>应该在这里 执行全局状态设置</p>
@@ -436,7 +437,7 @@
 <p>例如: 注销之前创建的 “全局” 广播接收器, 停止创建的网络线程</p>
 </li>
 </ul>
-<h4 id="onStart-gt-onStop-可见生命期"><a href="#onStart-gt-onStop-可见生命期" class="headerlink" title="onStart() -&gt; onStop() 可见生命期"></a>onStart() -&gt; onStop() 可见生命期</h4><p>onStart()调用完成后, 意味着程序已经准备好与用户交互, 但需要等待进入前台才能开始交互, 这意味着</p>
+<h3 id="onStart-gt-onStop-可见生命期"><a href="#onStart-gt-onStop-可见生命期" class="headerlink" title="onStart() -&gt; onStop() 可见生命期"></a>onStart() -&gt; onStop() 可见生命期</h3><p>onStart()调用完成后, 意味着程序已经准备好与用户交互, 但需要等待进入前台才能开始交互, 这意味着</p>
 <ul>
 <li><p><strong>onStart()</strong></p>
 <p><strong>在 Activity 即将对用户可见之前调用</strong></p>
@@ -446,7 +447,7 @@
 <p><strong>在 Activity 对用户不再可见时调用</strong></p>
 </li>
 </ul>
-<h4 id="onResume-gt-onPause-前台生命期"><a href="#onResume-gt-onPause-前台生命期" class="headerlink" title="onResume() -&gt; onPause() 前台生命期"></a>onResume() -&gt; onPause() 前台生命期</h4><ul>
+<h3 id="onResume-gt-onPause-前台生命期"><a href="#onResume-gt-onPause-前台生命期" class="headerlink" title="onResume() -&gt; onPause() 前台生命期"></a>onResume() -&gt; onPause() 前台生命期</h3><ul>
 <li><p><strong>onResume()</strong></p>
 <p><strong>在 Activity 即将开始与用户进行交互之前调用</strong></p>
 <p><code>onCreateOptionsMenu</code>在这之后调用</p>
@@ -458,7 +459,7 @@
 <p>应该在这里 确认对未保存的持久性数据的更改, 停止动画以及其他可能消耗 CPU 的内容, 这里的操作需要被非常迅速地完成</p>
 </li>
 </ul>
-<h4 id="异常情形下的生命周期"><a href="#异常情形下的生命周期" class="headerlink" title="异常情形下的生命周期"></a>异常情形下的生命周期</h4><p>异常情况下 Activity 会被销毁并重新创建</p>
+<h3 id="异常情形下的生命周期"><a href="#异常情形下的生命周期" class="headerlink" title="异常情形下的生命周期"></a>异常情形下的生命周期</h3><p>异常情况下 Activity 会被销毁并重新创建</p>
 <p>   <img src="/2019/04/30/又遇四大组件/异常时的生命周期.png" alt="异常时的生命周期"></p>
 <ul>
 <li><p>异常情形1: 资源相关的系统配置改变</p>
@@ -491,26 +492,53 @@
 </ol>
 </li>
 </ul>
-<h3 id="启动模式"><a href="#启动模式" class="headerlink" title="启动模式"></a>启动模式</h3><p>看上去不是很重要, 主要就是定义在一些情况下activity的复用情况, 用到时查下百度就好, 就不在此罗列了</p>
-<h2 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h2><p><em>(作为四大组件之一, 我至今都没有用过, 学的是个什么 Android 啊……)</em></p>
+<h2 id="启动模式"><a href="#启动模式" class="headerlink" title="启动模式"></a>启动模式</h2><p>看上去不是很重要, 主要就是定义在一些情况下activity的复用情况, 用到时查下百度就好, 就不在此罗列了</p>
+<h1 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h1><p><em>(作为四大组件之一, 我至今都没有用过, 学的是个什么 Android 啊……)</em></p>
 <p><code>Service</code>是一个可以在后台执行长时间运行操作, 但不提供用户界面的应用组件</p>
 <p>其他组件可以绑定到相应的服务, 甚至进行<em>进程间通信</em>(IPC Inter-Process Communication 不同进程之间通过共享内存区, 或者磁盘上的普通文件传播或交换信息)</p>
 <p>服务最常见的作用: 处理网络事务, 播放音乐, 执行文件I/O, 与内容提供程序交互</p>
-<h3 id="参考-1"><a href="#参考-1" class="headerlink" title="参考"></a>参考</h3><blockquote>
+<h2 id="参考-1"><a href="#参考-1" class="headerlink" title="参考"></a>参考</h2><blockquote>
 <p><a href="https://developer.android.google.cn/guide/components/services" target="_blank" rel="noopener">谷歌官方指南-组件-Service篇</a></p>
 </blockquote>
-<h3 id="继承结构-1"><a href="#继承结构-1" class="headerlink" title="继承结构"></a>继承结构</h3><blockquote>
+<h2 id="继承结构-1"><a href="#继承结构-1" class="headerlink" title="继承结构"></a>继承结构</h2><blockquote>
 <p><code>java.lang.Object
-   ↳    android.content.Context
-        ↳    android.content.ContextWrapper
-             ↳    android.app.Service</code></p>
+↳    android.content.Context
+       ↳    android.content.ContextWrapper
+            ↳    android.app.Service
+               ↳    android.app.IntentService</code></p>
 </blockquote>
-<h3 id="使用服务还是线程"><a href="#使用服务还是线程" class="headerlink" title="使用服务还是线程?"></a>使用服务还是线程?</h3><p>由于服务是一种即使用户未与应用交互也可以在后台运行的组件, 秉承<a href="https://baike.baidu.com/item/奥卡姆剃刀原理" target="_blank" rel="noopener">奥卡姆剃刀原理</a>, 应该只在必要时才创建服务</p>
+<h2 id="使用服务还是线程"><a href="#使用服务还是线程" class="headerlink" title="使用服务还是线程?"></a>使用服务还是线程?</h2><p>由于服务是一种即使用户未与应用交互也可以在后台运行的组件, 秉承<a href="https://baike.baidu.com/item/奥卡姆剃刀原理" target="_blank" rel="noopener">奥卡姆剃刀原理</a>, 应该只在必要时才创建服务</p>
 <p>如果需要在主线程外执行工作, 不过仅仅与用户交互时才有需要, 应该创建新线程</p>
 <p><strong>注意! </strong>在默认情况下, 服务仍在应用的主线程中运行 如果需要服务实现<em>密集型</em>或<em>阻止性</em>操作 (例如 MP3 播放或联网) , 仍应在服务内创建新线程, 使主线程专注于前台 Activity 与用户的交互</p>
-<h3 id="Service-的两种形式"><a href="#Service-的两种形式" class="headerlink" title="Service 的两种形式"></a>Service 的两种形式</h3><h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><p>应用组件通过 调用<code>startService()</code>启动服务时, 服务处于<strong>启动</strong>状态, 一旦启动, 服务可在后台无期限运行, 直到被指派的事务被完成</p>
-<p>这种<code>Service</code>通常执行的是单一操作, 而且不会将结果返回给调用方. 例如: 点击下载链接后, 浏览器在后台下载文件</p>
-<h4 id="绑定"><a href="#绑定" class="headerlink" title="绑定"></a>绑定</h4>
+<h2 id="Service-的两种形式"><a href="#Service-的两种形式" class="headerlink" title="Service 的两种形式"></a>Service 的两种形式</h2><h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><p>应用组件通过 调用<code>startService()</code>启动服务时, 服务处于<strong>启动</strong>状态, 一旦启动, 服务可在后台无期限运行, 直到被指派的事务被完成</p>
+<p>启动状态下, 服务通常执行的是一些单一操作, 而且不会将结果返回给调用方. 例如: 点击下载链接后, 浏览器在后台下载文件</p>
+<h3 id="绑定"><a href="#绑定" class="headerlink" title="绑定"></a>绑定</h3><p>应用组件通过 调用<code>bindService()</code>绑定到服务时, 服务处于<strong>绑定</strong>状态</p>
+<p>绑定状态下, 服务提供了一个<em>客户端-服务器</em>接口, 允许组件与服务进行交互, 发送请求与获取结果, 并且允许多个组件同时绑定到一个服务. 值得注意的是, 如果全部的绑定被取消, 服务会<strong>立即被销毁</strong></p>
+<h2 id="使用清单文件声明服务"><a href="#使用清单文件声明服务" class="headerlink" title="使用清单文件声明服务"></a>使用清单文件声明服务</h2><p>与其他组件一样, 服务应该在清单文件中被声明</p>
+<p><code>android:name</code>是唯一必须的属性, 用于指定服务的类名</p>
+<p>Google建议, 为保证应用的安全性, 应仅使用显式 Intent 启动或绑定 Service, 不应该为服务添加<code>intent-filter</code>, 通过更改<code>android:exported</code>属性可以有效阻止其他应用启动服务</p>
+<h2 id="创建与启动服务"><a href="#创建与启动服务" class="headerlink" title="创建与启动服务"></a>创建与启动服务</h2><p><img src="/2019/04/30/又遇四大组件/service_lifecycle.png" alt="service_lifecycle"></p>
+<p>服务由另一个组件通过调用<code>startService()</code>方法来启动, 之后服务会调用 <code>onStartCommand()</code>方法<br>用于启动服务的 Intent 对象应包含待使用服务的所有数据, 服务会在 <code>onStartCommand</code>中接收到这个 Intent</p>
+<p>服务启动后通过<code>stopSelf</code>来自动停止工作, 也可以由另外一个组件调用 <code>stopService</code>来停止</p>
+<blockquote>
+<p>假设某 Activity 需要将一些数据保存到在线数据库中。该 Activity 可以启动一个协同服务，并通过向 <code>startService()</code> 传递一个 Intent，为该服务提供要保存的数据。服务通过 <code>onStartCommand()</code> 接收 Intent，连接到互联网并执行数据库事务。事务完成之后，服务会自行停止运行并随即被销毁。</p>
+</blockquote>
+<h2 id="两个常见的服务类"><a href="#两个常见的服务类" class="headerlink" title="两个常见的服务类"></a>两个常见的服务类</h2><ul>
+<li><p>Service</p>
+<blockquote>
+<p>适用于所有服务的基类。扩展此类时，必须创建一个用于执行所有服务工作的新线程，因为默认情况下，服务将使用应用的主线程，这会降低应用正在运行的所有 Activity 的性能。</p>
+</blockquote>
+</li>
+<li><p>IntentService</p>
+<p>实际上大多数启动服务都不必同时处理多个请求, IntentService 是日常使用中最好的选择</p>
+<blockquote>
+<p>Service 的子类，它使用工作线程逐一处理所有启动请求。只需实现 onHandleIntent() 方法即可，该方法会接收每个启动请求的 Intent，以便执行相应后台工作, 处理完请求后, IntentService会自动停止</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="拓展-IntentService-类"><a href="#拓展-IntentService-类" class="headerlink" title="拓展 IntentService 类"></a>拓展 IntentService 类</h3><p>IntentService 执行以下操作</p>
+<p>- </p>
+
       
     </div>
 
@@ -680,7 +708,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#契机"><span class="nav-number">1.</span> <span class="nav-text">契机</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#新词汇积累"><span class="nav-number">1.1.</span> <span class="nav-text">新词汇积累</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Activity"><span class="nav-number">1.2.</span> <span class="nav-text">Activity</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">1.2.1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#继承结构"><span class="nav-number">1.2.2.</span> <span class="nav-text">继承结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生命周期"><span class="nav-number">1.2.3.</span> <span class="nav-text">生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#onCreate-gt-onDestroy-整个生命期"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">onCreate() -&gt; onDestroy() 整个生命期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#onStart-gt-onStop-可见生命期"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">onStart() -&gt; onStop() 可见生命期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#onResume-gt-onPause-前台生命期"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">onResume() -&gt; onPause() 前台生命期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#异常情形下的生命周期"><span class="nav-number">1.2.3.4.</span> <span class="nav-text">异常情形下的生命周期</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动模式"><span class="nav-number">1.2.4.</span> <span class="nav-text">启动模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Service"><span class="nav-number">1.3.</span> <span class="nav-text">Service</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#继承结构-1"><span class="nav-number">1.3.2.</span> <span class="nav-text">继承结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用服务还是线程"><span class="nav-number">1.3.3.</span> <span class="nav-text">使用服务还是线程?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Service-的两种形式"><span class="nav-number">1.3.4.</span> <span class="nav-text">Service 的两种形式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#启动"><span class="nav-number">1.3.4.1.</span> <span class="nav-text">启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#绑定"><span class="nav-number">1.3.4.2.</span> <span class="nav-text">绑定</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#契机"><span class="nav-number">1.</span> <span class="nav-text">契机</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#新词汇积累"><span class="nav-number">2.</span> <span class="nav-text">新词汇积累</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Activity"><span class="nav-number">3.</span> <span class="nav-text">Activity</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">3.1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#继承结构"><span class="nav-number">3.2.</span> <span class="nav-text">继承结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#生命周期"><span class="nav-number">3.2.1.</span> <span class="nav-text">生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#onCreate-gt-onDestroy-整个生命期"><span class="nav-number">3.2.2.</span> <span class="nav-text">onCreate() -&gt; onDestroy() 整个生命期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#onStart-gt-onStop-可见生命期"><span class="nav-number">3.2.3.</span> <span class="nav-text">onStart() -&gt; onStop() 可见生命期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#onResume-gt-onPause-前台生命期"><span class="nav-number">3.2.4.</span> <span class="nav-text">onResume() -&gt; onPause() 前台生命期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异常情形下的生命周期"><span class="nav-number">3.2.5.</span> <span class="nav-text">异常情形下的生命周期</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动模式"><span class="nav-number">3.3.</span> <span class="nav-text">启动模式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Service"><span class="nav-number">4.</span> <span class="nav-text">Service</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#参考-1"><span class="nav-number">4.1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#继承结构-1"><span class="nav-number">4.2.</span> <span class="nav-text">继承结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用服务还是线程"><span class="nav-number">4.3.</span> <span class="nav-text">使用服务还是线程?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Service-的两种形式"><span class="nav-number">4.4.</span> <span class="nav-text">Service 的两种形式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动"><span class="nav-number">4.4.1.</span> <span class="nav-text">启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绑定"><span class="nav-number">4.4.2.</span> <span class="nav-text">绑定</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用清单文件声明服务"><span class="nav-number">4.5.</span> <span class="nav-text">使用清单文件声明服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建与启动服务"><span class="nav-number">4.6.</span> <span class="nav-text">创建与启动服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#两个常见的服务类"><span class="nav-number">4.7.</span> <span class="nav-text">两个常见的服务类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#拓展-IntentService-类"><span class="nav-number">4.7.1.</span> <span class="nav-text">拓展 IntentService 类</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
