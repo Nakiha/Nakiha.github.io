@@ -287,6 +287,234 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/02/又遇持久性储存/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nakiha">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nakiha's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/05/02/又遇持久性储存/" class="post-title-link" itemprop="url">又遇永久性储存</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-02 21:59:19" itemprop="dateCreated datePublished" datetime="2019-05-02T21:59:19+08:00">2019-05-02</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-05-03 00:03:55" itemprop="dateModified" datetime="2019-05-03T00:03:55+08:00">2019-05-03</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="契机"><a href="#契机" class="headerlink" title="契机"></a>契机</h1><p>这篇博客写在 “又遇四大组件” 的写作途中<br>遇到内容提供器, 完全没办法, 只能反过头来学 data &amp; file</p>
+<p>本文依旧大幅参照谷歌官方档案, 仅仅用于记录自己的学习和回顾历程</p>
+<h1 id="新词汇积累"><a href="#新词汇积累" class="headerlink" title="新词汇积累"></a>新词汇积累</h1><ul>
+<li><p>mechanism 机制</p>
+<p>Frequently changing properties or properties where loss can be tolerated should use other <strong>mechanisms</strong>.</p>
+</li>
+</ul>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><blockquote>
+<p><a href="https://developer.android.google.cn/guide/topics/data/data-storage" target="_blank" rel="noopener">谷歌官方指南-储存选项</a></p>
+</blockquote>
+<h1 id="储存总览"><a href="#储存总览" class="headerlink" title="储存总览"></a>储存总览</h1><p>Android提供了多种自带的储存选项来保存永久性应用数据</p>
+<ul>
+<li><p><a href="#SharedPreference - 共享首选项">SharedPreferences - 共享首选项</a></p>
+<p>提供一个用于保存和检索原始数据的通用框架</p>
+</li>
+<li><p><a href="#内部储存">内部储存</a></p>
+<p>直接在设备的内部储存中保存文件, 应用私有的, 其他应用和用户不能访问这些文件</p>
+</li>
+</ul>
+<h1 id="SharedPreference-共享首选项"><a href="#SharedPreference-共享首选项" class="headerlink" title="SharedPreference - 共享首选项"></a><span id="SharedPreference - 共享首选项">SharedPreference - 共享首选项</span></h1><p>这个类提供了一个框架用于保存非结构化的任何原始数据, key-value 模式, 这些数据会跨越多个用户会话永久保留</p>
+<p><strong>注意!:</strong> 这个类提供了强度很高的一致性保证, 这样的开销在是<strong>很昂贵</strong>的, 所以如果能容忍数据的丢失, 或者需要高频率地更改数据, 应该使用其他机制</p>
+<h2 id="接口描述与从属"><a href="#接口描述与从属" class="headerlink" title="接口描述与从属"></a>接口描述与从属</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">SharedPreferences</span> </span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">android</span>.<span class="title">content</span>.<span class="title">SharedPreferences</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="可保存的数据类型"><a href="#可保存的数据类型" class="headerlink" title="可保存的数据类型"></a>可保存的数据类型</h2><ul>
+<li>布尔值 boolean</li>
+<li>浮点值 double</li>
+<li>整型值 int</li>
+<li>长整型 long</li>
+<li>字符串 String</li>
+</ul>
+<h2 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h2><h3 id="关于写入"><a href="#关于写入" class="headerlink" title="关于写入"></a>关于写入</h3><ol>
+<li><p>获取对象</p>
+<p>有两个方法获取<code>SharedPreference</code>对象</p>
+<ul>
+<li><p><code>getSharedPreferences()</code></p>
+<p>获取使用键值对来储存的普通<code>SharedPreference</code> 对象</p>
+</li>
+<li><p><code>getPreferences()</code></p>
+<p>获取仅用于当前<code>Activity</code>的唯一首选项文件</p>
+<p>这个方法调用了<code>ContextWrapper.getSharedPreferences(java.lang.String, int)</code> , 并且将当前<code>Activitiy</code>的类名作为第一个传参</p>
+</li>
+</ul>
+</li>
+<li><p>写入值</p>
+<p>获取到对象后通过三个步骤来写入值</p>
+<ol>
+<li>调用<code>edit()</code>获取<code>SharedPreferences.Editor</code></li>
+<li>使用对应的<code>put</code>方法来添加键值对</li>
+<li>使用<code>commit()</code>来提交新值</li>
+</ol>
+</li>
+</ol>
+<h3 id="关于读取"><a href="#关于读取" class="headerlink" title="关于读取"></a>关于读取</h3><p>调用对应的<code>get</code>方法, 传入键 并提供默认返回值 来获取原值</p>
+<h1 id="内部储存"><a href="#内部储存" class="headerlink" title="内部储存"></a><span id="内部储存">内部储存</span></h1><p>内部储存的使用围绕着<code>java.io.FileOutputStream</code>和<code>java.io.FileInputStream</code>进行, 进行字节流输入输出</p>
+<h2 id="继承结构"><a href="#继承结构" class="headerlink" title="继承结构"></a>继承结构</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">java.lang.Object</span><br><span class="line">   ↳	java.io.OutputStream</span><br><span class="line"> 	   ↳	java.io.FileOutputStream</span><br><span class="line"> 	   </span><br><span class="line">java.lang.Object</span><br><span class="line">   ↳	java.io.InputStream</span><br><span class="line"> 	   ↳	java.io.FileInputStream</span><br></pre></td></tr></table></figure>
+<h2 id="如何使用-1"><a href="#如何使用-1" class="headerlink" title="如何使用"></a>如何使用</h2><h3 id="关于写入-1"><a href="#关于写入-1" class="headerlink" title="关于写入"></a>关于写入</h3><ol>
+<li><p>调用<code>Context</code>类中的<code>openFileOutput()</code>方法获取<code>FileOutputStream()</code>对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> FileOutputStream <span class="title">openFileOutput</span> <span class="params">(String name, <span class="keyword">int</span> mode)</span></span></span><br></pre></td></tr></table></figure>
+<ol>
+<li><code>name</code> - 要使用的文件名, 不能包含路径分隔符</li>
+<li><code>mod</code> - 两种<code>Context</code>中定义的常量 (已经被淘汰的常量在这里不再罗列)<ul>
+<li><code>Context.MODE_PRIVATE</code> 根据<code>name</code>创建新文件, 并设置为私有</li>
+<li><code>Context.MODE_APPEND</code> 根据<code>name</code>查询文件, 如果存在则续写, 否则新建</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>调用<code>OutputStream</code>都有的<code>write()</code>方法, 写入内容, 自然也可以对<code>FileOutputStream</code>进行进一步包装, 例如: 包装成<code>ObjectOutputStream</code>再调用<code>writeObject()</code></p>
+</li>
+<li><p><strong>调用<code>close()</code>关闭流式输入</strong></p>
+</li>
+</ol>
+<h3 id="关于读取-1"><a href="#关于读取-1" class="headerlink" title="关于读取"></a>关于读取</h3><ol>
+<li>调用<code>openFileInput()</code>传递<code>String name</code>来获取姓名</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/30/又遇四大组件/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -349,7 +577,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-05-01 17:11:17" itemprop="dateModified" datetime="2019-05-01T17:11:17+08:00">2019-05-01</time>
+                <time title="Modified: 2019-05-02 22:56:26" itemprop="dateModified" datetime="2019-05-02T22:56:26+08:00">2019-05-02</time>
               
             
           </span>
@@ -390,19 +618,46 @@
 <p>​    从今天开始, Android Learning <strong>RESTART</strong> !</p>
 <h1 id="新词汇积累"><a href="#新词汇积累" class="headerlink" title="新词汇积累"></a>新词汇积累</h1><ul>
 <li><p><strong>be bound to</strong> 绑定 </p>
-<p>Each activity <strong>is</strong> only loosely <strong>bound to</strong> the other activities</p>
+<p>Each activity <strong>is</strong> only loosely <strong>bound to</strong> the other activities.</p>
 </li>
 <li><p><strong>foreground</strong> 前台 </p>
-<p>Activity or dialog appears in <strong>foreground</strong></p>
+<p>Activity or dialog appears in <strong>foreground</strong>.</p>
 </li>
 <li><p><strong>transition</strong> 过渡</p>
-<p>The activity <strong>transitions</strong> through the a series of callbacks</p>
+<p>The activity <strong>transitions</strong> through the a series of callbacks.</p>
 </li>
 <li><p><strong>functionality</strong> 功能</p>
-<p>Supply <strong>functionality</strong> for other applications to use</p>
+<p>Supply <strong>functionality</strong> for other applications to use.</p>
 </li>
 <li><p><strong>retrieve</strong> 取回</p>
-<p>A PendingIntent itself is simply a reference to a token maintained by the system describing the original data used to <strong>retrieve</strong> it</p>
+<p>A PendingIntent itself is simply a reference to a token maintained by the system describing the original data used to <strong>retrieve</strong> it.</p>
+</li>
+<li><p><strong>restriction</strong> 限制</p>
+<p>The system imposes additional <strong>restrictions</strong> on manifest-declared receivers.</p>
+</li>
+<li><p><strong>exempt</strong> 被免除, 被豁免的</p>
+<p>A few implicit broadcasts are <strong>exempted</strong> from that restriction.</p>
+</li>
+<li><p><strong>containing process</strong> 宿主进程; <strong>turn in</strong> 继而; <strong>likelihood</strong> 可能性</p>
+<p>The state of your <code>BroadcastReceiver</code> affects the state of its <strong>containing process</strong>, which can <strong>in turn</strong> affect its <strong>likelihood</strong> of being killed by the system.</p>
+</li>
+<li><p><strong>snippet</strong> 片段(代码片段)</p>
+<p>The following <strong>snippet</strong> shows a <code>BroadcastReceiver</code> that uses <code>goAsync()</code> to flag that it needs more time to finish after <code>onReceive()</code> is complete.</p>
+</li>
+<li><p><strong>frame</strong> 帧, <em>框架</em></p>
+<p> This work is long enough to cause the UI thread to miss a <strong>frame</strong> (&gt;16ms).</p>
+</li>
+<li><p><strong>propagate</strong> 传播</p>
+<p>As each receiver executes in turn, it can <strong>propagate</strong> a result to the next receiver, or it can completely abort the broadcast so that it won’t be passed to other receivers.</p>
+</li>
+<li><p><strong>malicious</strong> 恶毒</p>
+<p>When you register a receiver, any app can send potentially <strong>malicious</strong> broadcasts to your app’s receiver.</p>
+</li>
+<li><p><strong>jarring</strong> (对…)产生不快的影响</p>
+<p>Do not start activities from broadcast receivers because the user experience is <strong>jarring</strong>.</p>
+</li>
+<li><p><strong>retrieve</strong> 检索</p>
+<p> “CRUD” means “create, <strong>retrieve</strong>, update, delete”.</p>
 </li>
 </ul>
 <h1 id="Activity"><a href="#Activity" class="headerlink" title="Activity"></a>Activity</h1><p><code>Activitiy</code>是 Android app 中最重要的一个组件, <code>Activity</code>如何被启动和如何被组合也是 Android app 模型中最基本的一部分, Android 系统将在应用的特定生命期阶段, 调用特定的回调方法. Android 中的回调方法全部以on开头</p>
@@ -412,13 +667,7 @@
 <li><a href="https://developer.android.com/guide/components/activities?hl=zh_cn" target="_blank" rel="noopener">谷歌官方指南-组件-Activity篇</a></li>
 <li><a href="https://www.jianshu.com/p/51aaa65d5d25" target="_blank" rel="noopener">Lemon_95 简书博客 Android 四大组件</a></li>
 </ol>
-<h2 id="继承结构"><a href="#继承结构" class="headerlink" title="继承结构"></a>继承结构</h2><blockquote>
-<p><code>java.lang.Object
-   ↳    android.content.Context
-        ↳    android.content.ContextWrapper
-             ↳    android.view.ContextThemeWrapper
-                  ↳    android.app.Activity</code></p>
-</blockquote>
+<h2 id="继承结构"><a href="#继承结构" class="headerlink" title="继承结构"></a>继承结构</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">java.lang.Object</span><br><span class="line">↳	android.content.Context</span><br><span class="line">	   ↳	android.content.ContextWrapper</span><br><span class="line">	 	   ↳	android.view.ContextThemeWrapper</span><br><span class="line">	 	 	   ↳	android.app.Activity</span><br></pre></td></tr></table></figure>
 <h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><blockquote>
 <p><code>onCreate()</code> -&gt; <code>onStart()</code> - &gt; <code>onResume()</code> -&gt; <code>onPause()</code> -&gt; <code>onStop()</code> -&gt; <code>onDestroy()</code></p>
 </blockquote>
@@ -498,13 +747,7 @@
 <h2 id="参考-1"><a href="#参考-1" class="headerlink" title="参考"></a>参考</h2><blockquote>
 <p><a href="https://developer.android.google.cn/guide/components/services" target="_blank" rel="noopener">谷歌官方指南-组件-Service篇</a></p>
 </blockquote>
-<h2 id="继承结构-1"><a href="#继承结构-1" class="headerlink" title="继承结构"></a>继承结构</h2><blockquote>
-<p><code>java.lang.Object
-↳    android.content.Context
-       ↳    android.content.ContextWrapper
-            ↳    android.app.Service
-               ↳    android.app.IntentService</code></p>
-</blockquote>
+<h2 id="继承结构-1"><a href="#继承结构-1" class="headerlink" title="继承结构"></a>继承结构</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">java.lang.Object</span><br><span class="line">↳	android.content.Context</span><br><span class="line">	   ↳	android.content.ContextWrapper</span><br><span class="line">	 	   ↳	android.app.Service</span><br><span class="line">				↳	android.app.IntentService</span><br></pre></td></tr></table></figure>
 <h2 id="使用服务还是线程"><a href="#使用服务还是线程" class="headerlink" title="使用服务还是线程?"></a>使用服务还是线程?</h2><p>由于服务是一种即使用户未与应用交互也可以在后台运行的组件, 秉承<a href="https://baike.baidu.com/item/奥卡姆剃刀原理" target="_blank" rel="noopener">奥卡姆剃刀原理</a>, 应该只在必要时才创建服务</p>
 <p>如果需要在主线程外执行工作, 不过仅仅与用户交互时才有需要, 应该创建新线程</p>
 <p><strong>注意! </strong>在默认情况下, 服务仍在应用的主线程中运行 如果需要服务实现<em>密集型</em>或<em>阻止性</em>操作 (例如 MP3 播放或联网) , 仍应在服务内创建新线程, 使主线程专注于前台 Activity 与用户的交互</p>
@@ -580,6 +823,82 @@
 <p><img src="/2019/04/30/又遇四大组件/service_lifecycle.png" alt="service_lifecycle"></p>
 <h3 id="onCreate-gt-onDestroy-整个生命"><a href="#onCreate-gt-onDestroy-整个生命" class="headerlink" title="onCreate() -&gt; onDestroy() 整个生命"></a>onCreate() -&gt; onDestroy() 整个生命</h3><p>应该在这里 完成初始化设置. 例如: 完成线程的创建</p>
 <h3 id="onStartCommand-onBind-有效生命期"><a href="#onStartCommand-onBind-有效生命期" class="headerlink" title="onStartCommand() / onBind() 有效生命期"></a>onStartCommand() / onBind() 有效生命期</h3><p>应该在这里 完成<code>Intent</code>解析, 完成<code>startId</code>与全局服务处理器类包含的<code>msg</code>的绑定</p>
+<h1 id="Broadcasts"><a href="#Broadcasts" class="headerlink" title="Broadcasts"></a>Broadcasts</h1><h2 id="参考-2"><a href="#参考-2" class="headerlink" title="参考"></a>参考</h2><blockquote>
+<p><a href="https://developer.android.google.cn/guide/components/broadcasts#java" target="_blank" rel="noopener">谷歌官方指南-组件-Broadcasts篇</a></p>
+</blockquote>
+<p>Android 的广播系统是发布者-订阅者 (publish-subscribe) 模式的典型例子</p>
+<p>每个广播信息都包装在<code>Intent</code>类中, 并且用特定的标识字符串来描述所广播的内容 (例如<code>android.intent.action.AIRPLANE_MODE</code>), 有的<code>Intent</code>中还会捆绑一些额外信息, 用于描述具体的广播内容, 例如飞行模式的广播就包含有一个描述飞行模式是打开还是关闭的 <code>Boolean</code> 值</p>
+<p>值得注意的是, <code>onReceive(Context, Intent)</code>是运行在主线程里的. 而<code>BroadcastReceiver</code>的扩展类也仅仅在<code>onReceive</code>时存活, 如果监听器执行时间超过10秒, app 将会被系统判定为 ANR (Application Not Responding). 所以如果需要执行耗时的工作, 应调用 <a href="https://developer.android.google.cn/reference/android/content/BroadcastReceiver.html#goAsync(" target="_blank" rel="noopener">goAsync()</a>) 或者 使用 <a href="https://developer.android.google.cn/reference/android/app/job/JobService.html" target="_blank" rel="noopener">JobService</a> 等来启动后台服务完成耗时工作. 因为即使普通地创建了子线程, 广播接收器实例在被销毁后, 子线程也仅有一个宿主进程, 此时它被判定为一个空进程 (没有任何活动组件的进程) , 很容易被系统在需要内存时优先销毁, 子线程也会随之被销毁</p>
+<h2 id="Oreo-API-level-26-带来的变化"><a href="#Oreo-API-level-26-带来的变化" class="headerlink" title="Oreo (API level 26) 带来的变化"></a>Oreo (API level 26) 带来的变化</h2><p>从Oreo开始, 系统开始对静态注册的广播接收器强加限制, 仍有部分隐式广播得到保留, 剩余的部分请参阅谷歌官方提供的<a href="https://developer.android.google.cn/guide/components/broadcast-exceptions.html" target="_blank" rel="noopener">隐式广播例外</a></p>
+<p>这样做的目的是为了减少不必要的后台服务, 毕竟 Android app 开发者一直都喜欢申请不必要的权限, 监听一些不必要的广播, 如果还想使用静态注册的广播, 需要使用 <a href="https://developer.android.com/reference/android/app/job/JobScheduler.html" target="_blank" rel="noopener">JobScheduler</a> </p>
+<h2 id="注册广播监听器"><a href="#注册广播监听器" class="headerlink" title="注册广播监听器"></a>注册广播监听器</h2><h3 id="静态注册"><a href="#静态注册" class="headerlink" title="静态注册"></a>静态注册</h3><p>静态注册的广播接收器在app被安装时就会被注册到系统中, 这意味着, 这个接收器将成为相应app的分入口, </p>
+<p>静态注册广播监听器需要两个步骤</p>
+<ol>
+<li><p>在清单文件中添加<code>&lt;receiver&gt;</code>元素</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">receiver</span> <span class="attr">android:name</span>=<span class="string">".MyBroadcastReceiver"</span>  <span class="attr">android:exported</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"android.intent.action.BOOT_COMPLETED"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">receiver</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>示例里对开机完成的广播监听的action在上一目的例外列表中</p>
+</li>
+<li><p>创建一个实现了<code>onReceive()</code>方法的<code>BroadcastReceiver</code>子类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyBroadcastReceiver</span> <span class="keyword">extends</span> <span class="title">BroadcastReceiver</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"MyBroadcastReceiver"</span>;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onReceive</span><span class="params">(Context context, Intent intent)</span> </span>&#123;</span><br><span class="line">            StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">            sb.append(<span class="string">"Action: "</span> + intent.getAction() + <span class="string">"\n"</span>);</span><br><span class="line">            sb.append(<span class="string">"URI: "</span> + intent.toUri(Intent.URI_INTENT_SCHEME).toString() + <span class="string">"\n"</span>);</span><br><span class="line">            String log = sb.toString();</span><br><span class="line">            Log.d(TAG, log);</span><br><span class="line">            Toast.makeText(context, log, Toast.LENGTH_LONG).show();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="动态注册"><a href="#动态注册" class="headerlink" title="动态注册"></a>动态注册</h3><p>动态注册广播监听器有四个步骤</p>
+<ol>
+<li><p>创建一个实现了<code>onReceive()</code>方法的<code>BroadcastReceiver</code>子类</p>
+</li>
+<li><p>创建<code>BroadcastReceiver</code>的实例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BroadcastReceiver br = <span class="keyword">new</span> MyBroadcastReceiver();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建<code>IntentFilter</code>实例, 通过调用 <code>registerReceiver(BroadcastReceiver, IntentFilter)</code>来注册监听器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">IntentFilter filter = <span class="keyword">new</span> IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);</span><br><span class="line">    filter.addAction(Intent.ACTION_AIRPLANE_MODE_CHANGED);</span><br><span class="line">    <span class="keyword">this</span>.registerReceiver(br, filter);</span><br></pre></td></tr></table></figure>
+<p>动态注册的监听器, 只要注册他们的上下文对象是有效的, 他们就不会被销毁</p>
+</li>
+<li><p>调用<code>unregisterReceiver(android.content.BroadcastReceiver)</code>来注销监听器</p>
+<p>监听器注册与注销的位置应该和<code>Activity</code>的生命期对应, 例如 在<code>onCreate()</code>中注册, 就该在<code>onDestrory()</code>中销毁</p>
+</li>
+</ol>
+<h2 id="发送广播"><a href="#发送广播" class="headerlink" title="发送广播"></a>发送广播</h2><p>Android 提供了三种方法给 app 来发送广播</p>
+<ul>
+<li><p>发送有序广播 <code>sendOrderedBroadcast(Intent, String)</code></p>
+<p>顺序广播将根据接收器的<code>&lt;android:priority&gt;</code>属性, 依次递交广播信息, 每个接收器都能完全阻止广播的进一步传播. 同优先级的接收器收到广播的次序是随机的</p>
+</li>
+<li><p>发送标准广播<code>sendBroadcast(Intent)</code></p>
+<p>标准广播将会发送给目前全部注册完成的监听器</p>
+</li>
+<li><p>发送本地广播<code>LocalBroadcastManager.sendBroadcast</code></p>
+<p>这是最有效率的广播发送形式, 如果不需要跨 app 发送广播, 任何时候都应该使用本地广播</p>
+</li>
+</ul>
+<p>这里提供一个发送标准广播的例子</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = <span class="keyword">new</span> Intent();</span><br><span class="line">intent.setAction(<span class="string">"com.example.broadcast.MY_NOTIFICATION"</span>);</span><br><span class="line">intent.putExtra(<span class="string">"data"</span>,<span class="string">"Notice me senpai!"</span>);<span class="comment">//Google的这个键值对太草了</span></span><br><span class="line">sendBroadcast(intent);</span><br></pre></td></tr></table></figure>
+<h3 id="通过权限属性限制广播"><a href="#通过权限属性限制广播" class="headerlink" title="通过权限属性限制广播"></a>通过权限属性限制广播</h3><p>可以通过向<code>IntentFilter</code>中添加权限属性, 来进一步地限制广播的传递</p>
+<p>如果想使用这个功能, 需要先在清单文件里声明权限</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.SEND_SMS"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>接下来就是接收器这边, 写法很简单, 这里直接提供官方示例</p>
+<ul>
+<li><p>静态的接收器</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">receiver</span> <span class="attr">android:name</span>=<span class="string">".MyBroadcastReceiver"</span></span></span><br><span class="line"><span class="tag">          <span class="attr">android:permission</span>=<span class="string">"android.permission.SEND_SMS"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"android.intent.action.AIRPLANE_MODE"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">receiver</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>动态注册的接收器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">IntentFilter filter = <span class="keyword">new</span> IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED);</span><br><span class="line">registerReceiver(receiver, filter, Manifest.permission.SEND_SMS, <span class="keyword">null</span> );</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="ContentProvider"><a href="#ContentProvider" class="headerlink" title="ContentProvider"></a>ContentProvider</h1><p>和Service一样, 门都没入的我至今从没用过. 要是当初早点接触到玉刚哥就好了, 闭塞的学习环境只会越学越菜</p>
+<p>实际上内容提供器并不是一定需要的, 开发应用前就该根据业务的性质, 决定是否需要使用它<br>以下罗列了谷歌官方给出的相关建议, 如果满足其中一条, 则需要开发内容提供程序</p>
+<p>以下罗列了谷歌官方给出的相关建议</p>
+<ul>
+<li>想为其他应用提供复杂的数据或文件</li>
+<li>想允许用户将复杂的数据从应用复制到其他应用中</li>
+<li>想使用搜索框架提供自定义搜索建议</li>
+</ul>
+<p>如果单单只需要在自己的应用中使用, 则不需要提供程序, 直接使用 SQLite 即可</p>
+<h2 id="参考-3"><a href="#参考-3" class="headerlink" title="参考"></a>参考</h2><blockquote>
+<p><a href="https://developer.android.google.cn/guide/topics/providers/content-providers" target="_blank" rel="noopener">谷歌官方指南-组件-Content-provider篇</a></p>
+<p>[第一行代码 第七章] 郭霖</p>
+</blockquote>
+<h2 id="继承结构-2"><a href="#继承结构-2" class="headerlink" title="继承结构"></a>继承结构</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java.lang.Object</span><br><span class="line">   ↳	android.content.ContentResolver</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java.lang.Object</span><br><span class="line">   ↳	android.content.ContentProvider</span><br></pre></td></tr></table></figure>
+<h2 id="插入话题-运行时权限"><a href="#插入话题-运行时权限" class="headerlink" title="插入话题 运行时权限"></a>插入话题 运行时权限</h2><p>为了使用内容提供器, 需要程序将所需的权限写入清单, 并在需要的时候进行申请权限</p>
 
           
         
@@ -843,7 +1162,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>

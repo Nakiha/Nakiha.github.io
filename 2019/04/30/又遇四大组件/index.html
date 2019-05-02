@@ -108,7 +108,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/04/30/又遇四大组件/异常时的生命周期.png">
 <meta property="og:image" content="http://yoursite.com/2019/04/30/又遇四大组件/service_lifecycle.png">
 <meta property="og:image" content="http://yoursite.com/2019/04/30/又遇四大组件/service_lifecycle.png">
-<meta property="og:updated_time" content="2019-05-01T09:11:17.808Z">
+<meta property="og:updated_time" content="2019-05-02T14:56:26.636Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="又遇四大组件">
 <meta name="twitter:description" content="契机​    做app的时候一直感觉力不从心, 总是掉入只见树木不见森林的误区里. 零零散散学的Android现在回忆起来的知识点也是零零散散, 需要开始系统化地学习了. ​    花了点钱加入了Android方面的大牛玉刚的知识星球, 用Hexo架了这个博客, 希望能激励我学习, 并且记录下我的学习历程. ​    从今天开始, Android Learning RESTART ! 新词汇积累">
@@ -355,7 +355,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-05-01 17:11:17" itemprop="dateModified" datetime="2019-05-01T17:11:17+08:00">2019-05-01</time>
+                <time title="Modified: 2019-05-02 22:56:26" itemprop="dateModified" datetime="2019-05-02T22:56:26+08:00">2019-05-02</time>
               
             
           </span>
@@ -394,19 +394,46 @@
 <p>​    从今天开始, Android Learning <strong>RESTART</strong> !</p>
 <h1 id="新词汇积累"><a href="#新词汇积累" class="headerlink" title="新词汇积累"></a>新词汇积累</h1><ul>
 <li><p><strong>be bound to</strong> 绑定 </p>
-<p>Each activity <strong>is</strong> only loosely <strong>bound to</strong> the other activities</p>
+<p>Each activity <strong>is</strong> only loosely <strong>bound to</strong> the other activities.</p>
 </li>
 <li><p><strong>foreground</strong> 前台 </p>
-<p>Activity or dialog appears in <strong>foreground</strong></p>
+<p>Activity or dialog appears in <strong>foreground</strong>.</p>
 </li>
 <li><p><strong>transition</strong> 过渡</p>
-<p>The activity <strong>transitions</strong> through the a series of callbacks</p>
+<p>The activity <strong>transitions</strong> through the a series of callbacks.</p>
 </li>
 <li><p><strong>functionality</strong> 功能</p>
-<p>Supply <strong>functionality</strong> for other applications to use</p>
+<p>Supply <strong>functionality</strong> for other applications to use.</p>
 </li>
 <li><p><strong>retrieve</strong> 取回</p>
-<p>A PendingIntent itself is simply a reference to a token maintained by the system describing the original data used to <strong>retrieve</strong> it</p>
+<p>A PendingIntent itself is simply a reference to a token maintained by the system describing the original data used to <strong>retrieve</strong> it.</p>
+</li>
+<li><p><strong>restriction</strong> 限制</p>
+<p>The system imposes additional <strong>restrictions</strong> on manifest-declared receivers.</p>
+</li>
+<li><p><strong>exempt</strong> 被免除, 被豁免的</p>
+<p>A few implicit broadcasts are <strong>exempted</strong> from that restriction.</p>
+</li>
+<li><p><strong>containing process</strong> 宿主进程; <strong>turn in</strong> 继而; <strong>likelihood</strong> 可能性</p>
+<p>The state of your <code>BroadcastReceiver</code> affects the state of its <strong>containing process</strong>, which can <strong>in turn</strong> affect its <strong>likelihood</strong> of being killed by the system.</p>
+</li>
+<li><p><strong>snippet</strong> 片段(代码片段)</p>
+<p>The following <strong>snippet</strong> shows a <code>BroadcastReceiver</code> that uses <code>goAsync()</code> to flag that it needs more time to finish after <code>onReceive()</code> is complete.</p>
+</li>
+<li><p><strong>frame</strong> 帧, <em>框架</em></p>
+<p> This work is long enough to cause the UI thread to miss a <strong>frame</strong> (&gt;16ms).</p>
+</li>
+<li><p><strong>propagate</strong> 传播</p>
+<p>As each receiver executes in turn, it can <strong>propagate</strong> a result to the next receiver, or it can completely abort the broadcast so that it won’t be passed to other receivers.</p>
+</li>
+<li><p><strong>malicious</strong> 恶毒</p>
+<p>When you register a receiver, any app can send potentially <strong>malicious</strong> broadcasts to your app’s receiver.</p>
+</li>
+<li><p><strong>jarring</strong> (对…)产生不快的影响</p>
+<p>Do not start activities from broadcast receivers because the user experience is <strong>jarring</strong>.</p>
+</li>
+<li><p><strong>retrieve</strong> 检索</p>
+<p> “CRUD” means “create, <strong>retrieve</strong>, update, delete”.</p>
 </li>
 </ul>
 <h1 id="Activity"><a href="#Activity" class="headerlink" title="Activity"></a>Activity</h1><p><code>Activitiy</code>是 Android app 中最重要的一个组件, <code>Activity</code>如何被启动和如何被组合也是 Android app 模型中最基本的一部分, Android 系统将在应用的特定生命期阶段, 调用特定的回调方法. Android 中的回调方法全部以on开头</p>
@@ -416,13 +443,7 @@
 <li><a href="https://developer.android.com/guide/components/activities?hl=zh_cn" target="_blank" rel="noopener">谷歌官方指南-组件-Activity篇</a></li>
 <li><a href="https://www.jianshu.com/p/51aaa65d5d25" target="_blank" rel="noopener">Lemon_95 简书博客 Android 四大组件</a></li>
 </ol>
-<h2 id="继承结构"><a href="#继承结构" class="headerlink" title="继承结构"></a>继承结构</h2><blockquote>
-<p><code>java.lang.Object
-   ↳    android.content.Context
-        ↳    android.content.ContextWrapper
-             ↳    android.view.ContextThemeWrapper
-                  ↳    android.app.Activity</code></p>
-</blockquote>
+<h2 id="继承结构"><a href="#继承结构" class="headerlink" title="继承结构"></a>继承结构</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">java.lang.Object</span><br><span class="line">↳	android.content.Context</span><br><span class="line">	   ↳	android.content.ContextWrapper</span><br><span class="line">	 	   ↳	android.view.ContextThemeWrapper</span><br><span class="line">	 	 	   ↳	android.app.Activity</span><br></pre></td></tr></table></figure>
 <h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><blockquote>
 <p><code>onCreate()</code> -&gt; <code>onStart()</code> - &gt; <code>onResume()</code> -&gt; <code>onPause()</code> -&gt; <code>onStop()</code> -&gt; <code>onDestroy()</code></p>
 </blockquote>
@@ -502,13 +523,7 @@
 <h2 id="参考-1"><a href="#参考-1" class="headerlink" title="参考"></a>参考</h2><blockquote>
 <p><a href="https://developer.android.google.cn/guide/components/services" target="_blank" rel="noopener">谷歌官方指南-组件-Service篇</a></p>
 </blockquote>
-<h2 id="继承结构-1"><a href="#继承结构-1" class="headerlink" title="继承结构"></a>继承结构</h2><blockquote>
-<p><code>java.lang.Object
-↳    android.content.Context
-       ↳    android.content.ContextWrapper
-            ↳    android.app.Service
-               ↳    android.app.IntentService</code></p>
-</blockquote>
+<h2 id="继承结构-1"><a href="#继承结构-1" class="headerlink" title="继承结构"></a>继承结构</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">java.lang.Object</span><br><span class="line">↳	android.content.Context</span><br><span class="line">	   ↳	android.content.ContextWrapper</span><br><span class="line">	 	   ↳	android.app.Service</span><br><span class="line">				↳	android.app.IntentService</span><br></pre></td></tr></table></figure>
 <h2 id="使用服务还是线程"><a href="#使用服务还是线程" class="headerlink" title="使用服务还是线程?"></a>使用服务还是线程?</h2><p>由于服务是一种即使用户未与应用交互也可以在后台运行的组件, 秉承<a href="https://baike.baidu.com/item/奥卡姆剃刀原理" target="_blank" rel="noopener">奥卡姆剃刀原理</a>, 应该只在必要时才创建服务</p>
 <p>如果需要在主线程外执行工作, 不过仅仅与用户交互时才有需要, 应该创建新线程</p>
 <p><strong>注意! </strong>在默认情况下, 服务仍在应用的主线程中运行 如果需要服务实现<em>密集型</em>或<em>阻止性</em>操作 (例如 MP3 播放或联网) , 仍应在服务内创建新线程, 使主线程专注于前台 Activity 与用户的交互</p>
@@ -584,6 +599,82 @@
 <p><img src="/2019/04/30/又遇四大组件/service_lifecycle.png" alt="service_lifecycle"></p>
 <h3 id="onCreate-gt-onDestroy-整个生命"><a href="#onCreate-gt-onDestroy-整个生命" class="headerlink" title="onCreate() -&gt; onDestroy() 整个生命"></a>onCreate() -&gt; onDestroy() 整个生命</h3><p>应该在这里 完成初始化设置. 例如: 完成线程的创建</p>
 <h3 id="onStartCommand-onBind-有效生命期"><a href="#onStartCommand-onBind-有效生命期" class="headerlink" title="onStartCommand() / onBind() 有效生命期"></a>onStartCommand() / onBind() 有效生命期</h3><p>应该在这里 完成<code>Intent</code>解析, 完成<code>startId</code>与全局服务处理器类包含的<code>msg</code>的绑定</p>
+<h1 id="Broadcasts"><a href="#Broadcasts" class="headerlink" title="Broadcasts"></a>Broadcasts</h1><h2 id="参考-2"><a href="#参考-2" class="headerlink" title="参考"></a>参考</h2><blockquote>
+<p><a href="https://developer.android.google.cn/guide/components/broadcasts#java" target="_blank" rel="noopener">谷歌官方指南-组件-Broadcasts篇</a></p>
+</blockquote>
+<p>Android 的广播系统是发布者-订阅者 (publish-subscribe) 模式的典型例子</p>
+<p>每个广播信息都包装在<code>Intent</code>类中, 并且用特定的标识字符串来描述所广播的内容 (例如<code>android.intent.action.AIRPLANE_MODE</code>), 有的<code>Intent</code>中还会捆绑一些额外信息, 用于描述具体的广播内容, 例如飞行模式的广播就包含有一个描述飞行模式是打开还是关闭的 <code>Boolean</code> 值</p>
+<p>值得注意的是, <code>onReceive(Context, Intent)</code>是运行在主线程里的. 而<code>BroadcastReceiver</code>的扩展类也仅仅在<code>onReceive</code>时存活, 如果监听器执行时间超过10秒, app 将会被系统判定为 ANR (Application Not Responding). 所以如果需要执行耗时的工作, 应调用 <a href="https://developer.android.google.cn/reference/android/content/BroadcastReceiver.html#goAsync(" target="_blank" rel="noopener">goAsync()</a>) 或者 使用 <a href="https://developer.android.google.cn/reference/android/app/job/JobService.html" target="_blank" rel="noopener">JobService</a> 等来启动后台服务完成耗时工作. 因为即使普通地创建了子线程, 广播接收器实例在被销毁后, 子线程也仅有一个宿主进程, 此时它被判定为一个空进程 (没有任何活动组件的进程) , 很容易被系统在需要内存时优先销毁, 子线程也会随之被销毁</p>
+<h2 id="Oreo-API-level-26-带来的变化"><a href="#Oreo-API-level-26-带来的变化" class="headerlink" title="Oreo (API level 26) 带来的变化"></a>Oreo (API level 26) 带来的变化</h2><p>从Oreo开始, 系统开始对静态注册的广播接收器强加限制, 仍有部分隐式广播得到保留, 剩余的部分请参阅谷歌官方提供的<a href="https://developer.android.google.cn/guide/components/broadcast-exceptions.html" target="_blank" rel="noopener">隐式广播例外</a></p>
+<p>这样做的目的是为了减少不必要的后台服务, 毕竟 Android app 开发者一直都喜欢申请不必要的权限, 监听一些不必要的广播, 如果还想使用静态注册的广播, 需要使用 <a href="https://developer.android.com/reference/android/app/job/JobScheduler.html" target="_blank" rel="noopener">JobScheduler</a> </p>
+<h2 id="注册广播监听器"><a href="#注册广播监听器" class="headerlink" title="注册广播监听器"></a>注册广播监听器</h2><h3 id="静态注册"><a href="#静态注册" class="headerlink" title="静态注册"></a>静态注册</h3><p>静态注册的广播接收器在app被安装时就会被注册到系统中, 这意味着, 这个接收器将成为相应app的分入口, </p>
+<p>静态注册广播监听器需要两个步骤</p>
+<ol>
+<li><p>在清单文件中添加<code>&lt;receiver&gt;</code>元素</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">receiver</span> <span class="attr">android:name</span>=<span class="string">".MyBroadcastReceiver"</span>  <span class="attr">android:exported</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"android.intent.action.BOOT_COMPLETED"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">receiver</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>示例里对开机完成的广播监听的action在上一目的例外列表中</p>
+</li>
+<li><p>创建一个实现了<code>onReceive()</code>方法的<code>BroadcastReceiver</code>子类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyBroadcastReceiver</span> <span class="keyword">extends</span> <span class="title">BroadcastReceiver</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"MyBroadcastReceiver"</span>;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onReceive</span><span class="params">(Context context, Intent intent)</span> </span>&#123;</span><br><span class="line">            StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">            sb.append(<span class="string">"Action: "</span> + intent.getAction() + <span class="string">"\n"</span>);</span><br><span class="line">            sb.append(<span class="string">"URI: "</span> + intent.toUri(Intent.URI_INTENT_SCHEME).toString() + <span class="string">"\n"</span>);</span><br><span class="line">            String log = sb.toString();</span><br><span class="line">            Log.d(TAG, log);</span><br><span class="line">            Toast.makeText(context, log, Toast.LENGTH_LONG).show();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="动态注册"><a href="#动态注册" class="headerlink" title="动态注册"></a>动态注册</h3><p>动态注册广播监听器有四个步骤</p>
+<ol>
+<li><p>创建一个实现了<code>onReceive()</code>方法的<code>BroadcastReceiver</code>子类</p>
+</li>
+<li><p>创建<code>BroadcastReceiver</code>的实例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BroadcastReceiver br = <span class="keyword">new</span> MyBroadcastReceiver();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建<code>IntentFilter</code>实例, 通过调用 <code>registerReceiver(BroadcastReceiver, IntentFilter)</code>来注册监听器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">IntentFilter filter = <span class="keyword">new</span> IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);</span><br><span class="line">    filter.addAction(Intent.ACTION_AIRPLANE_MODE_CHANGED);</span><br><span class="line">    <span class="keyword">this</span>.registerReceiver(br, filter);</span><br></pre></td></tr></table></figure>
+<p>动态注册的监听器, 只要注册他们的上下文对象是有效的, 他们就不会被销毁</p>
+</li>
+<li><p>调用<code>unregisterReceiver(android.content.BroadcastReceiver)</code>来注销监听器</p>
+<p>监听器注册与注销的位置应该和<code>Activity</code>的生命期对应, 例如 在<code>onCreate()</code>中注册, 就该在<code>onDestrory()</code>中销毁</p>
+</li>
+</ol>
+<h2 id="发送广播"><a href="#发送广播" class="headerlink" title="发送广播"></a>发送广播</h2><p>Android 提供了三种方法给 app 来发送广播</p>
+<ul>
+<li><p>发送有序广播 <code>sendOrderedBroadcast(Intent, String)</code></p>
+<p>顺序广播将根据接收器的<code>&lt;android:priority&gt;</code>属性, 依次递交广播信息, 每个接收器都能完全阻止广播的进一步传播. 同优先级的接收器收到广播的次序是随机的</p>
+</li>
+<li><p>发送标准广播<code>sendBroadcast(Intent)</code></p>
+<p>标准广播将会发送给目前全部注册完成的监听器</p>
+</li>
+<li><p>发送本地广播<code>LocalBroadcastManager.sendBroadcast</code></p>
+<p>这是最有效率的广播发送形式, 如果不需要跨 app 发送广播, 任何时候都应该使用本地广播</p>
+</li>
+</ul>
+<p>这里提供一个发送标准广播的例子</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = <span class="keyword">new</span> Intent();</span><br><span class="line">intent.setAction(<span class="string">"com.example.broadcast.MY_NOTIFICATION"</span>);</span><br><span class="line">intent.putExtra(<span class="string">"data"</span>,<span class="string">"Notice me senpai!"</span>);<span class="comment">//Google的这个键值对太草了</span></span><br><span class="line">sendBroadcast(intent);</span><br></pre></td></tr></table></figure>
+<h3 id="通过权限属性限制广播"><a href="#通过权限属性限制广播" class="headerlink" title="通过权限属性限制广播"></a>通过权限属性限制广播</h3><p>可以通过向<code>IntentFilter</code>中添加权限属性, 来进一步地限制广播的传递</p>
+<p>如果想使用这个功能, 需要先在清单文件里声明权限</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.SEND_SMS"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>接下来就是接收器这边, 写法很简单, 这里直接提供官方示例</p>
+<ul>
+<li><p>静态的接收器</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">receiver</span> <span class="attr">android:name</span>=<span class="string">".MyBroadcastReceiver"</span></span></span><br><span class="line"><span class="tag">          <span class="attr">android:permission</span>=<span class="string">"android.permission.SEND_SMS"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"android.intent.action.AIRPLANE_MODE"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">receiver</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>动态注册的接收器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">IntentFilter filter = <span class="keyword">new</span> IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED);</span><br><span class="line">registerReceiver(receiver, filter, Manifest.permission.SEND_SMS, <span class="keyword">null</span> );</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="ContentProvider"><a href="#ContentProvider" class="headerlink" title="ContentProvider"></a>ContentProvider</h1><p>和Service一样, 门都没入的我至今从没用过. 要是当初早点接触到玉刚哥就好了, 闭塞的学习环境只会越学越菜</p>
+<p>实际上内容提供器并不是一定需要的, 开发应用前就该根据业务的性质, 决定是否需要使用它<br>以下罗列了谷歌官方给出的相关建议, 如果满足其中一条, 则需要开发内容提供程序</p>
+<p>以下罗列了谷歌官方给出的相关建议</p>
+<ul>
+<li>想为其他应用提供复杂的数据或文件</li>
+<li>想允许用户将复杂的数据从应用复制到其他应用中</li>
+<li>想使用搜索框架提供自定义搜索建议</li>
+</ul>
+<p>如果单单只需要在自己的应用中使用, 则不需要提供程序, 直接使用 SQLite 即可</p>
+<h2 id="参考-3"><a href="#参考-3" class="headerlink" title="参考"></a>参考</h2><blockquote>
+<p><a href="https://developer.android.google.cn/guide/topics/providers/content-providers" target="_blank" rel="noopener">谷歌官方指南-组件-Content-provider篇</a></p>
+<p>[第一行代码 第七章] 郭霖</p>
+</blockquote>
+<h2 id="继承结构-2"><a href="#继承结构-2" class="headerlink" title="继承结构"></a>继承结构</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java.lang.Object</span><br><span class="line">   ↳	android.content.ContentResolver</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java.lang.Object</span><br><span class="line">   ↳	android.content.ContentProvider</span><br></pre></td></tr></table></figure>
+<h2 id="插入话题-运行时权限"><a href="#插入话题-运行时权限" class="headerlink" title="插入话题 运行时权限"></a>插入话题 运行时权限</h2><p>为了使用内容提供器, 需要程序将所需的权限写入清单, 并在需要的时候进行申请权限</p>
 
       
     </div>
@@ -629,6 +720,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/02/又遇持久性储存/" rel="prev" title="又遇永久性储存">
+                又遇永久性储存 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -697,7 +792,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -754,7 +849,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#契机"><span class="nav-number">1.</span> <span class="nav-text">契机</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#新词汇积累"><span class="nav-number">2.</span> <span class="nav-text">新词汇积累</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Activity"><span class="nav-number">3.</span> <span class="nav-text">Activity</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">3.1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#继承结构"><span class="nav-number">3.2.</span> <span class="nav-text">继承结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#生命周期"><span class="nav-number">3.2.1.</span> <span class="nav-text">生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#onCreate-gt-onDestroy-整个生命期"><span class="nav-number">3.2.2.</span> <span class="nav-text">onCreate() -&gt; onDestroy() 整个生命期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#onStart-gt-onStop-可见生命期"><span class="nav-number">3.2.3.</span> <span class="nav-text">onStart() -&gt; onStop() 可见生命期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#onResume-gt-onPause-前台生命期"><span class="nav-number">3.2.4.</span> <span class="nav-text">onResume() -&gt; onPause() 前台生命期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异常情形下的生命周期"><span class="nav-number">3.2.5.</span> <span class="nav-text">异常情形下的生命周期</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动模式"><span class="nav-number">3.3.</span> <span class="nav-text">启动模式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Service"><span class="nav-number">4.</span> <span class="nav-text">Service</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#参考-1"><span class="nav-number">4.1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#继承结构-1"><span class="nav-number">4.2.</span> <span class="nav-text">继承结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用服务还是线程"><span class="nav-number">4.3.</span> <span class="nav-text">使用服务还是线程?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Service-的两种形式"><span class="nav-number">4.4.</span> <span class="nav-text">Service 的两种形式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动"><span class="nav-number">4.4.1.</span> <span class="nav-text">启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绑定"><span class="nav-number">4.4.2.</span> <span class="nav-text">绑定</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用清单文件声明服务"><span class="nav-number">4.5.</span> <span class="nav-text">使用清单文件声明服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务运行流程"><span class="nav-number">4.6.</span> <span class="nav-text">服务运行流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拓展两个常见的服务类"><span class="nav-number">4.7.</span> <span class="nav-text">拓展两个常见的服务类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#拓展-IntentService-类"><span class="nav-number">4.7.1.</span> <span class="nav-text">拓展 IntentService 类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拓展-Service-类"><span class="nav-number">4.7.2.</span> <span class="nav-text">拓展 Service 类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动服务"><span class="nav-number">4.8.</span> <span class="nav-text">启动服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#插入话题-PendingIntent"><span class="nav-number">4.8.1.</span> <span class="nav-text">插入话题 PendingIntent</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#停止服务"><span class="nav-number">4.9.</span> <span class="nav-text">停止服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#绑定服务"><span class="nav-number">4.10.</span> <span class="nav-text">绑定服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#活动的生命周期"><span class="nav-number">4.11.</span> <span class="nav-text">活动的生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#onCreate-gt-onDestroy-整个生命"><span class="nav-number">4.11.1.</span> <span class="nav-text">onCreate() -&gt; onDestroy() 整个生命</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#onStartCommand-onBind-有效生命期"><span class="nav-number">4.11.2.</span> <span class="nav-text">onStartCommand() / onBind() 有效生命期</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#契机"><span class="nav-number">1.</span> <span class="nav-text">契机</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#新词汇积累"><span class="nav-number">2.</span> <span class="nav-text">新词汇积累</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Activity"><span class="nav-number">3.</span> <span class="nav-text">Activity</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">3.1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#继承结构"><span class="nav-number">3.2.</span> <span class="nav-text">继承结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#生命周期"><span class="nav-number">3.2.1.</span> <span class="nav-text">生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#onCreate-gt-onDestroy-整个生命期"><span class="nav-number">3.2.2.</span> <span class="nav-text">onCreate() -&gt; onDestroy() 整个生命期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#onStart-gt-onStop-可见生命期"><span class="nav-number">3.2.3.</span> <span class="nav-text">onStart() -&gt; onStop() 可见生命期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#onResume-gt-onPause-前台生命期"><span class="nav-number">3.2.4.</span> <span class="nav-text">onResume() -&gt; onPause() 前台生命期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异常情形下的生命周期"><span class="nav-number">3.2.5.</span> <span class="nav-text">异常情形下的生命周期</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动模式"><span class="nav-number">3.3.</span> <span class="nav-text">启动模式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Service"><span class="nav-number">4.</span> <span class="nav-text">Service</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#参考-1"><span class="nav-number">4.1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#继承结构-1"><span class="nav-number">4.2.</span> <span class="nav-text">继承结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用服务还是线程"><span class="nav-number">4.3.</span> <span class="nav-text">使用服务还是线程?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Service-的两种形式"><span class="nav-number">4.4.</span> <span class="nav-text">Service 的两种形式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动"><span class="nav-number">4.4.1.</span> <span class="nav-text">启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绑定"><span class="nav-number">4.4.2.</span> <span class="nav-text">绑定</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用清单文件声明服务"><span class="nav-number">4.5.</span> <span class="nav-text">使用清单文件声明服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务运行流程"><span class="nav-number">4.6.</span> <span class="nav-text">服务运行流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拓展两个常见的服务类"><span class="nav-number">4.7.</span> <span class="nav-text">拓展两个常见的服务类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#拓展-IntentService-类"><span class="nav-number">4.7.1.</span> <span class="nav-text">拓展 IntentService 类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拓展-Service-类"><span class="nav-number">4.7.2.</span> <span class="nav-text">拓展 Service 类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动服务"><span class="nav-number">4.8.</span> <span class="nav-text">启动服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#插入话题-PendingIntent"><span class="nav-number">4.8.1.</span> <span class="nav-text">插入话题 PendingIntent</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#停止服务"><span class="nav-number">4.9.</span> <span class="nav-text">停止服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#绑定服务"><span class="nav-number">4.10.</span> <span class="nav-text">绑定服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#活动的生命周期"><span class="nav-number">4.11.</span> <span class="nav-text">活动的生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#onCreate-gt-onDestroy-整个生命"><span class="nav-number">4.11.1.</span> <span class="nav-text">onCreate() -&gt; onDestroy() 整个生命</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#onStartCommand-onBind-有效生命期"><span class="nav-number">4.11.2.</span> <span class="nav-text">onStartCommand() / onBind() 有效生命期</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Broadcasts"><span class="nav-number">5.</span> <span class="nav-text">Broadcasts</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#参考-2"><span class="nav-number">5.1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Oreo-API-level-26-带来的变化"><span class="nav-number">5.2.</span> <span class="nav-text">Oreo (API level 26) 带来的变化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注册广播监听器"><span class="nav-number">5.3.</span> <span class="nav-text">注册广播监听器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#静态注册"><span class="nav-number">5.3.1.</span> <span class="nav-text">静态注册</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态注册"><span class="nav-number">5.3.2.</span> <span class="nav-text">动态注册</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发送广播"><span class="nav-number">5.4.</span> <span class="nav-text">发送广播</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通过权限属性限制广播"><span class="nav-number">5.4.1.</span> <span class="nav-text">通过权限属性限制广播</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ContentProvider"><span class="nav-number">6.</span> <span class="nav-text">ContentProvider</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#参考-3"><span class="nav-number">6.1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#继承结构-2"><span class="nav-number">6.2.</span> <span class="nav-text">继承结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插入话题-运行时权限"><span class="nav-number">6.3.</span> <span class="nav-text">插入话题 运行时权限</span></a></li></ol></li></ol></div>
             
 
           </div>

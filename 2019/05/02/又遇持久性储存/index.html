@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="Simple Chinese">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="契机这篇博客写在 “又遇四大组件” 的写作途中遇到内容提供器, 完全没办法, 只能反过头来学 data &amp;amp; file 本文依旧大幅参照谷歌官方档案, 仅仅用于记录自己的学习和回顾历程 新词汇积累 mechanism 机制 Frequently changing properties or properties where loss can be tolerated should use o">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="又遇永久性储存">
+<meta property="og:url" content="http://yoursite.com/2019/05/02/又遇持久性储存/index.html">
+<meta property="og:site_name" content="Nakiha&#39;s Blog">
+<meta property="og:description" content="契机这篇博客写在 “又遇四大组件” 的写作途中遇到内容提供器, 完全没办法, 只能反过头来学 data &amp;amp; file 本文依旧大幅参照谷歌官方档案, 仅仅用于记录自己的学习和回顾历程 新词汇积累 mechanism 机制 Frequently changing properties or properties where loss can be tolerated should use o">
+<meta property="og:locale" content="Simple Chinese">
+<meta property="og:updated_time" content="2019-05-02T16:03:55.426Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="又遇永久性储存">
+<meta name="twitter:description" content="契机这篇博客写在 “又遇四大组件” 的写作途中遇到内容提供器, 完全没办法, 只能反过头来学 data &amp;amp; file 本文依旧大幅参照谷歌官方档案, 仅仅用于记录自己的学习和回顾历程 新词汇积累 mechanism 机制 Frequently changing properties or properties where loss can be tolerated should use o">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/05/02/又遇持久性储存/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>又遇永久性储存 | Nakiha's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="Simple Chinese">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Nakiha's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/02/又遇持久性储存/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nakiha">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nakiha's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">又遇永久性储存
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-02 21:59:19" itemprop="dateCreated datePublished" datetime="2019-05-02T21:59:19+08:00">2019-05-02</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-05-03 00:03:55" itemprop="dateModified" datetime="2019-05-03T00:03:55+08:00">2019-05-03</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="契机"><a href="#契机" class="headerlink" title="契机"></a>契机</h1><p>这篇博客写在 “又遇四大组件” 的写作途中<br>遇到内容提供器, 完全没办法, 只能反过头来学 data &amp; file</p>
+<p>本文依旧大幅参照谷歌官方档案, 仅仅用于记录自己的学习和回顾历程</p>
+<h1 id="新词汇积累"><a href="#新词汇积累" class="headerlink" title="新词汇积累"></a>新词汇积累</h1><ul>
+<li><p>mechanism 机制</p>
+<p>Frequently changing properties or properties where loss can be tolerated should use other <strong>mechanisms</strong>.</p>
+</li>
+</ul>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><blockquote>
+<p><a href="https://developer.android.google.cn/guide/topics/data/data-storage" target="_blank" rel="noopener">谷歌官方指南-储存选项</a></p>
+</blockquote>
+<h1 id="储存总览"><a href="#储存总览" class="headerlink" title="储存总览"></a>储存总览</h1><p>Android提供了多种自带的储存选项来保存永久性应用数据</p>
+<ul>
+<li><p><a href="#SharedPreference - 共享首选项">SharedPreferences - 共享首选项</a></p>
+<p>提供一个用于保存和检索原始数据的通用框架</p>
+</li>
+<li><p><a href="#内部储存">内部储存</a></p>
+<p>直接在设备的内部储存中保存文件, 应用私有的, 其他应用和用户不能访问这些文件</p>
+</li>
+</ul>
+<h1 id="SharedPreference-共享首选项"><a href="#SharedPreference-共享首选项" class="headerlink" title="SharedPreference - 共享首选项"></a><span id="SharedPreference - 共享首选项">SharedPreference - 共享首选项</span></h1><p>这个类提供了一个框架用于保存非结构化的任何原始数据, key-value 模式, 这些数据会跨越多个用户会话永久保留</p>
+<p><strong>注意!:</strong> 这个类提供了强度很高的一致性保证, 这样的开销在是<strong>很昂贵</strong>的, 所以如果能容忍数据的丢失, 或者需要高频率地更改数据, 应该使用其他机制</p>
+<h2 id="接口描述与从属"><a href="#接口描述与从属" class="headerlink" title="接口描述与从属"></a>接口描述与从属</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">SharedPreferences</span> </span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">android</span>.<span class="title">content</span>.<span class="title">SharedPreferences</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="可保存的数据类型"><a href="#可保存的数据类型" class="headerlink" title="可保存的数据类型"></a>可保存的数据类型</h2><ul>
+<li>布尔值 boolean</li>
+<li>浮点值 double</li>
+<li>整型值 int</li>
+<li>长整型 long</li>
+<li>字符串 String</li>
+</ul>
+<h2 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h2><h3 id="关于写入"><a href="#关于写入" class="headerlink" title="关于写入"></a>关于写入</h3><ol>
+<li><p>获取对象</p>
+<p>有两个方法获取<code>SharedPreference</code>对象</p>
+<ul>
+<li><p><code>getSharedPreferences()</code></p>
+<p>获取使用键值对来储存的普通<code>SharedPreference</code> 对象</p>
+</li>
+<li><p><code>getPreferences()</code></p>
+<p>获取仅用于当前<code>Activity</code>的唯一首选项文件</p>
+<p>这个方法调用了<code>ContextWrapper.getSharedPreferences(java.lang.String, int)</code> , 并且将当前<code>Activitiy</code>的类名作为第一个传参</p>
+</li>
+</ul>
+</li>
+<li><p>写入值</p>
+<p>获取到对象后通过三个步骤来写入值</p>
+<ol>
+<li>调用<code>edit()</code>获取<code>SharedPreferences.Editor</code></li>
+<li>使用对应的<code>put</code>方法来添加键值对</li>
+<li>使用<code>commit()</code>来提交新值</li>
+</ol>
+</li>
+</ol>
+<h3 id="关于读取"><a href="#关于读取" class="headerlink" title="关于读取"></a>关于读取</h3><p>调用对应的<code>get</code>方法, 传入键 并提供默认返回值 来获取原值</p>
+<h1 id="内部储存"><a href="#内部储存" class="headerlink" title="内部储存"></a><span id="内部储存">内部储存</span></h1><p>内部储存的使用围绕着<code>java.io.FileOutputStream</code>和<code>java.io.FileInputStream</code>进行, 进行字节流输入输出</p>
+<h2 id="继承结构"><a href="#继承结构" class="headerlink" title="继承结构"></a>继承结构</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">java.lang.Object</span><br><span class="line">   ↳	java.io.OutputStream</span><br><span class="line"> 	   ↳	java.io.FileOutputStream</span><br><span class="line"> 	   </span><br><span class="line">java.lang.Object</span><br><span class="line">   ↳	java.io.InputStream</span><br><span class="line"> 	   ↳	java.io.FileInputStream</span><br></pre></td></tr></table></figure>
+<h2 id="如何使用-1"><a href="#如何使用-1" class="headerlink" title="如何使用"></a>如何使用</h2><h3 id="关于写入-1"><a href="#关于写入-1" class="headerlink" title="关于写入"></a>关于写入</h3><ol>
+<li><p>调用<code>Context</code>类中的<code>openFileOutput()</code>方法获取<code>FileOutputStream()</code>对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> FileOutputStream <span class="title">openFileOutput</span> <span class="params">(String name, <span class="keyword">int</span> mode)</span></span></span><br></pre></td></tr></table></figure>
+<ol>
+<li><code>name</code> - 要使用的文件名, 不能包含路径分隔符</li>
+<li><code>mod</code> - 两种<code>Context</code>中定义的常量 (已经被淘汰的常量在这里不再罗列)<ul>
+<li><code>Context.MODE_PRIVATE</code> 根据<code>name</code>创建新文件, 并设置为私有</li>
+<li><code>Context.MODE_APPEND</code> 根据<code>name</code>查询文件, 如果存在则续写, 否则新建</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>调用<code>OutputStream</code>都有的<code>write()</code>方法, 写入内容, 自然也可以对<code>FileOutputStream</code>进行进一步包装, 例如: 包装成<code>ObjectOutputStream</code>再调用<code>writeObject()</code></p>
+</li>
+<li><p><strong>调用<code>close()</code>关闭流式输入</strong></p>
+</li>
+</ol>
+<h3 id="关于读取-1"><a href="#关于读取-1" class="headerlink" title="关于读取"></a>关于读取</h3><ol>
+<li>调用<code>openFileInput()</code>传递<code>String name</code>来获取姓名</li>
+</ol>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/30/又遇四大组件/" rel="next" title="又遇四大组件">
+                <i class="fa fa-chevron-left"></i> 又遇四大组件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Nakiha</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#契机"><span class="nav-number">1.</span> <span class="nav-text">契机</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#新词汇积累"><span class="nav-number">2.</span> <span class="nav-text">新词汇积累</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#储存总览"><span class="nav-number">4.</span> <span class="nav-text">储存总览</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SharedPreference-共享首选项"><span class="nav-number">5.</span> <span class="nav-text">SharedPreference - 共享首选项</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#接口描述与从属"><span class="nav-number">5.1.</span> <span class="nav-text">接口描述与从属</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可保存的数据类型"><span class="nav-number">5.2.</span> <span class="nav-text">可保存的数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何使用"><span class="nav-number">5.3.</span> <span class="nav-text">如何使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于写入"><span class="nav-number">5.3.1.</span> <span class="nav-text">关于写入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于读取"><span class="nav-number">5.3.2.</span> <span class="nav-text">关于读取</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内部储存"><span class="nav-number">6.</span> <span class="nav-text">内部储存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#继承结构"><span class="nav-number">6.1.</span> <span class="nav-text">继承结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何使用-1"><span class="nav-number">6.2.</span> <span class="nav-text">如何使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于写入-1"><span class="nav-number">6.2.1.</span> <span class="nav-text">关于写入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于读取-1"><span class="nav-number">6.2.2.</span> <span class="nav-text">关于读取</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nakiha</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
