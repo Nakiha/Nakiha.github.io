@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="契机这篇博客写在 “又遇四大组件” 的写作途中遇到内容提供器, 完全没办法, 只能反过头来学 data &amp;amp; file 本文依旧大幅参照谷歌官方档案, 仅仅用于记录自己的学习和回顾历程 新词汇积累 mechanism 机制 Frequently changing properties or properties where loss can be tolerated should use o">
+  <meta name="description" content="契机这篇博客写在 “又遇四大组件” 的写作途中遇到内容提供器, 完全没办法, 只能反过头来学 data &amp;amp; file 本文依旧大幅参照谷歌官方档案, 仅仅用于记录自己的学习和回顾历程 注意!: 本文只简单带过两种存储方法 新词汇积累 mechanism 机制 Frequently changing properties or properties where loss can be tol">
 <meta name="keywords" content="Android">
 <meta property="og:type" content="article">
 <meta property="og:title" content="又遇永久性储存">
 <meta property="og:url" content="http://yoursite.com/2019/05/02/又遇持久性储存/index.html">
 <meta property="og:site_name" content="Nakiha&#39;s Blog">
-<meta property="og:description" content="契机这篇博客写在 “又遇四大组件” 的写作途中遇到内容提供器, 完全没办法, 只能反过头来学 data &amp;amp; file 本文依旧大幅参照谷歌官方档案, 仅仅用于记录自己的学习和回顾历程 新词汇积累 mechanism 机制 Frequently changing properties or properties where loss can be tolerated should use o">
+<meta property="og:description" content="契机这篇博客写在 “又遇四大组件” 的写作途中遇到内容提供器, 完全没办法, 只能反过头来学 data &amp;amp; file 本文依旧大幅参照谷歌官方档案, 仅仅用于记录自己的学习和回顾历程 注意!: 本文只简单带过两种存储方法 新词汇积累 mechanism 机制 Frequently changing properties or properties where loss can be tol">
 <meta property="og:locale" content="Simple Chinese">
-<meta property="og:updated_time" content="2019-05-02T16:03:55.426Z">
+<meta property="og:updated_time" content="2019-05-03T03:08:31.288Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="又遇永久性储存">
-<meta name="twitter:description" content="契机这篇博客写在 “又遇四大组件” 的写作途中遇到内容提供器, 完全没办法, 只能反过头来学 data &amp;amp; file 本文依旧大幅参照谷歌官方档案, 仅仅用于记录自己的学习和回顾历程 新词汇积累 mechanism 机制 Frequently changing properties or properties where loss can be tolerated should use o">
+<meta name="twitter:description" content="契机这篇博客写在 “又遇四大组件” 的写作途中遇到内容提供器, 完全没办法, 只能反过头来学 data &amp;amp; file 本文依旧大幅参照谷歌官方档案, 仅仅用于记录自己的学习和回顾历程 注意!: 本文只简单带过两种存储方法 新词汇积累 mechanism 机制 Frequently changing properties or properties where loss can be tol">
 
 
 
@@ -350,7 +350,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-05-03 00:03:55" itemprop="dateModified" datetime="2019-05-03T00:03:55+08:00">2019-05-03</time>
+                <time title="Modified: 2019-05-03 11:08:31" itemprop="dateModified" datetime="2019-05-03T11:08:31+08:00">2019-05-03</time>
               
             
           </span>
@@ -386,6 +386,7 @@
       
         <h1 id="契机"><a href="#契机" class="headerlink" title="契机"></a>契机</h1><p>这篇博客写在 “又遇四大组件” 的写作途中<br>遇到内容提供器, 完全没办法, 只能反过头来学 data &amp; file</p>
 <p>本文依旧大幅参照谷歌官方档案, 仅仅用于记录自己的学习和回顾历程</p>
+<p><strong>注意!:</strong> 本文只简单带过两种存储方法</p>
 <h1 id="新词汇积累"><a href="#新词汇积累" class="headerlink" title="新词汇积累"></a>新词汇积累</h1><ul>
 <li><p>mechanism 机制</p>
 <p>Frequently changing properties or properties where loss can be tolerated should use other <strong>mechanisms</strong>.</p>
@@ -399,8 +400,15 @@
 <li><p><a href="#SharedPreference - 共享首选项">SharedPreferences - 共享首选项</a></p>
 <p>提供一个用于保存和检索原始数据的通用框架</p>
 </li>
-<li><p><a href="#内部储存">内部储存</a></p>
+<li><p><a href="#内部存储">内部储存</a></p>
 <p>直接在设备的内部储存中保存文件, 应用私有的, 其他应用和用户不能访问这些文件</p>
+</li>
+<li><p>外部储存</p>
+<p>保存全局可读文件到 “外部” 存储介质中, 这些文件将可被用户修改</p>
+<p>外部储存是不可靠而且不安全的, 但它可以被其他用户简单访问到, 这是一个绝妙的用来分享文件的地方</p>
+</li>
+<li><p>SQLite 数据库</p>
+<p>在私有的数据库中储存结构化数据</p>
 </li>
 </ul>
 <h1 id="SharedPreference-共享首选项"><a href="#SharedPreference-共享首选项" class="headerlink" title="SharedPreference - 共享首选项"></a><span id="SharedPreference - 共享首选项">SharedPreference - 共享首选项</span></h1><p>这个类提供了一个框架用于保存非结构化的任何原始数据, key-value 模式, 这些数据会跨越多个用户会话永久保留</p>
@@ -436,7 +444,7 @@
 </li>
 </ol>
 <h3 id="关于读取"><a href="#关于读取" class="headerlink" title="关于读取"></a>关于读取</h3><p>调用对应的<code>get</code>方法, 传入键 并提供默认返回值 来获取原值</p>
-<h1 id="内部储存"><a href="#内部储存" class="headerlink" title="内部储存"></a><span id="内部储存">内部储存</span></h1><p>内部储存的使用围绕着<code>java.io.FileOutputStream</code>和<code>java.io.FileInputStream</code>进行, 进行字节流输入输出</p>
+<h1 id="内部存储"><a href="#内部存储" class="headerlink" title="内部存储"></a><span id="内部存储">内部存储</span></h1><p>内部储存的使用围绕着<code>java.io.FileOutputStream</code>和<code>java.io.FileInputStream</code>进行, 进行字节流输入输出</p>
 <h2 id="继承结构"><a href="#继承结构" class="headerlink" title="继承结构"></a>继承结构</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">java.lang.Object</span><br><span class="line">   ↳	java.io.OutputStream</span><br><span class="line"> 	   ↳	java.io.FileOutputStream</span><br><span class="line"> 	   </span><br><span class="line">java.lang.Object</span><br><span class="line">   ↳	java.io.InputStream</span><br><span class="line"> 	   ↳	java.io.FileInputStream</span><br></pre></td></tr></table></figure>
 <h2 id="如何使用-1"><a href="#如何使用-1" class="headerlink" title="如何使用"></a>如何使用</h2><h3 id="关于写入-1"><a href="#关于写入-1" class="headerlink" title="关于写入"></a>关于写入</h3><ol>
 <li><p>调用<code>Context</code>类中的<code>openFileOutput()</code>方法获取<code>FileOutputStream()</code>对象</p>
@@ -450,14 +458,31 @@
 </li>
 </ol>
 </li>
-<li><p>调用<code>OutputStream</code>都有的<code>write()</code>方法, 写入内容, 自然也可以对<code>FileOutputStream</code>进行进一步包装, 例如: 包装成<code>ObjectOutputStream</code>再调用<code>writeObject()</code></p>
+<li><p>调用<code>write()</code>方法, 写入内容, 自然也可以对<code>FileOutputStream</code>进行进一步包装, 例如: 包装成<code>ObjectOutputStream</code>再调用<code>writeObject()</code></p>
 </li>
-<li><p><strong>调用<code>close()</code>关闭流式输入</strong></p>
+<li><p><strong>调用最后一次包装类的<code>close()</code>关闭流式输入</strong></p>
 </li>
 </ol>
 <h3 id="关于读取-1"><a href="#关于读取-1" class="headerlink" title="关于读取"></a>关于读取</h3><ol>
-<li>调用<code>openFileInput()</code>传递<code>String name</code>来获取姓名</li>
+<li>调用<code>openFileInput()</code>传递<code>String name</code>来获取<code>FileInputStream</code></li>
+<li>调用<code>read()</code>读出内容, 进一步包装自己解决</li>
+<li><strong>调用最后一次包装类的<code>close()</code>关闭流式输入</strong></li>
 </ol>
+<h3 id="其他实用方法"><a href="#其他实用方法" class="headerlink" title="其他实用方法"></a>其他实用方法</h3><ul>
+<li><p><code>getFilesDir()</code></p>
+<p>获取在其中存储内部文件的文件系统目录的绝对路径。</p>
+</li>
+<li><p><code>getDir()</code></p>
+<p>在您的内部存储空间内创建（或打开现有的）目录。</p>
+</li>
+<li><p><code>deleteFile()</code></p>
+<p>删除保存在内部存储的文件。</p>
+</li>
+<li><p><code>fileList()</code></p>
+<p>返回您的应用当前保存的一系列文件。</p>
+</li>
+</ul>
+<h2 id="若需使用缓存"><a href="#若需使用缓存" class="headerlink" title="若需使用缓存"></a>若需使用缓存</h2><p> <code>getCacheDir()</code>方法将会返回指向缓存区文件路径的一个<code>File</code>类, 然后就是使用Java IO库进行操作了</p>
 
       
     </div>
@@ -628,7 +653,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#契机"><span class="nav-number">1.</span> <span class="nav-text">契机</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#新词汇积累"><span class="nav-number">2.</span> <span class="nav-text">新词汇积累</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#储存总览"><span class="nav-number">4.</span> <span class="nav-text">储存总览</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SharedPreference-共享首选项"><span class="nav-number">5.</span> <span class="nav-text">SharedPreference - 共享首选项</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#接口描述与从属"><span class="nav-number">5.1.</span> <span class="nav-text">接口描述与从属</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可保存的数据类型"><span class="nav-number">5.2.</span> <span class="nav-text">可保存的数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何使用"><span class="nav-number">5.3.</span> <span class="nav-text">如何使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于写入"><span class="nav-number">5.3.1.</span> <span class="nav-text">关于写入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于读取"><span class="nav-number">5.3.2.</span> <span class="nav-text">关于读取</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内部储存"><span class="nav-number">6.</span> <span class="nav-text">内部储存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#继承结构"><span class="nav-number">6.1.</span> <span class="nav-text">继承结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何使用-1"><span class="nav-number">6.2.</span> <span class="nav-text">如何使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于写入-1"><span class="nav-number">6.2.1.</span> <span class="nav-text">关于写入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于读取-1"><span class="nav-number">6.2.2.</span> <span class="nav-text">关于读取</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#契机"><span class="nav-number">1.</span> <span class="nav-text">契机</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#新词汇积累"><span class="nav-number">2.</span> <span class="nav-text">新词汇积累</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#储存总览"><span class="nav-number">4.</span> <span class="nav-text">储存总览</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SharedPreference-共享首选项"><span class="nav-number">5.</span> <span class="nav-text">SharedPreference - 共享首选项</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#接口描述与从属"><span class="nav-number">5.1.</span> <span class="nav-text">接口描述与从属</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可保存的数据类型"><span class="nav-number">5.2.</span> <span class="nav-text">可保存的数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何使用"><span class="nav-number">5.3.</span> <span class="nav-text">如何使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于写入"><span class="nav-number">5.3.1.</span> <span class="nav-text">关于写入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于读取"><span class="nav-number">5.3.2.</span> <span class="nav-text">关于读取</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内部存储"><span class="nav-number">6.</span> <span class="nav-text">内部存储</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#继承结构"><span class="nav-number">6.1.</span> <span class="nav-text">继承结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何使用-1"><span class="nav-number">6.2.</span> <span class="nav-text">如何使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于写入-1"><span class="nav-number">6.2.1.</span> <span class="nav-text">关于写入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于读取-1"><span class="nav-number">6.2.2.</span> <span class="nav-text">关于读取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他实用方法"><span class="nav-number">6.2.3.</span> <span class="nav-text">其他实用方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#若需使用缓存"><span class="nav-number">6.3.</span> <span class="nav-text">若需使用缓存</span></a></li></ol></li></ol></div>
             
 
           </div>
