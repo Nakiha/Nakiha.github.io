@@ -96,14 +96,18 @@
 
 
 
-  <meta name="keywords" content="Android">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Nakiha&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/archives/2019/05/index.html">
+  <meta name="description" content="参考 Google官方文档-布局篇  Android UI 的声明与管理概述Android 的 UI 控件由两种方法声明和设置  于 XML 中声明 UI 元素, 利用 Android 提供的对应于View类的简明XML词汇, 构建默认界面 运行时实例化布局元素, 在编程中创建 View 对象和 ViewGroup 对象, 并操作其属性  Android 的这种设计使得应用的外观更好地于控制应用行">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入layout">
+<meta property="og:url" content="http://yoursite.com/2019/05/03/深入layout/index.html">
 <meta property="og:site_name" content="Nakiha&#39;s Blog">
+<meta property="og:description" content="参考 Google官方文档-布局篇  Android UI 的声明与管理概述Android 的 UI 控件由两种方法声明和设置  于 XML 中声明 UI 元素, 利用 Android 提供的对应于View类的简明XML词汇, 构建默认界面 运行时实例化布局元素, 在编程中创建 View 对象和 ViewGroup 对象, 并操作其属性  Android 的这种设计使得应用的外观更好地于控制应用行">
 <meta property="og:locale" content="Simple Chinese">
+<meta property="og:updated_time" content="2019-05-03T13:08:24.678Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Nakiha&#39;s Blog">
+<meta name="twitter:title" content="深入layout">
+<meta name="twitter:description" content="参考 Google官方文档-布局篇  Android UI 的声明与管理概述Android 的 UI 控件由两种方法声明和设置  于 XML 中声明 UI 元素, 利用 Android 提供的对应于View类的简明XML词汇, 构建默认界面 运行时实例化布局元素, 在编程中创建 View 对象和 ViewGroup 对象, 并操作其属性  Android 的这种设计使得应用的外观更好地于控制应用行">
 
 
 
@@ -111,7 +115,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/archives/2019/05/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/03/深入layout/">
 
 
 
@@ -121,7 +125,7 @@
   };
 </script>
 
-  <title>Archive | Nakiha's Blog</title>
+  <title>深入layout | Nakiha's Blog</title>
   
 
 
@@ -169,7 +173,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -224,7 +228,7 @@
         
         
           
-          <li class="menu-item menu-item-archives menu-item-active">
+          <li class="menu-item menu-item-archives">
 
     
     
@@ -245,19 +249,6 @@
 
   
     
-
-    
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
 
   
 
@@ -283,148 +274,182 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/03/深入layout/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nakiha">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nakiha's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">深入layout
+
+              
+            
+          </h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-03 20:54:14 / Modified: 21:08:24" itemprop="dateCreated datePublished" datetime="2019-05-03T20:54:14+08:00">2019-05-03</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
           
-        
-        Um..! 5 posts in total. Keep on posting.
-      </span>
-      
 
-      
-
-        
-        
-        
-
-        
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
-          </div>
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/05/03/深入layout/" itemprop="url">
             
-              <span itemprop="name">深入layout</span>
             
-          </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-05-03T20:54:14+08:00" content="2019-05-03">
-          05-03
-        </time>
-      </div>
+          
+          
 
-    </header>
-  </article>
+          
 
+          
 
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/05/03/Activity四大启动模式/" itemprop="url">
-            
-              <span itemprop="name">Activity四大启动模式</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-05-03T11:13:26+08:00" content="2019-05-03">
-          05-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/05/02/又遇持久性储存/" itemprop="url">
-            
-              <span itemprop="name">浅淡永久性储存</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-05-02T21:59:19+08:00" content="2019-05-02">
-          05-02
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><blockquote>
+<p><a href="https://developer.android.google.cn/guide/topics/ui/declaring-layout" target="_blank" rel="noopener">Google官方文档-布局篇</a></p>
+</blockquote>
+<h1 id="Android-UI-的声明与管理概述"><a href="#Android-UI-的声明与管理概述" class="headerlink" title="Android UI 的声明与管理概述"></a>Android UI 的声明与管理概述</h1><p>Android 的 UI 控件由两种方法声明和设置</p>
+<ul>
+<li><strong>于 XML 中声明 UI 元素</strong>, 利用 Android 提供的对应于<code>View</code>类的简明XML词汇, 构建默认界面</li>
+<li><strong>运行时实例化布局元素</strong>, 在编程中创建 View 对象和 ViewGroup 对象, 并操作其属性</li>
+</ul>
+<p>Android 的这种设计使得应用的外观更好地于控制应用行为的代码隔离, 调整外观时, 无需修改源代码, 并且可以根据不同的屏幕建立不同的 XML 布局</p>
 
       
-
     </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/03/Activity四大启动模式/" rel="next" title="Activity四大启动模式">
+                <i class="fa fa-chevron-left"></i> Activity四大启动模式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -444,8 +469,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -506,6 +540,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-UI-的声明与管理概述"><span class="nav-number">2.</span> <span class="nav-text">Android UI 的声明与管理概述</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -634,6 +685,10 @@
 
 
   
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
 
   
 
@@ -649,6 +704,8 @@
 
   
 
+
+  
 
 
   
