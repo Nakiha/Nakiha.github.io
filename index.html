@@ -287,6 +287,189 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/03/Activity四大启动模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nakiha">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nakiha's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/05/03/Activity四大启动模式/" class="post-title-link" itemprop="url">Activity四大启动模式</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-03 11:13:26 / Modified: 20:34:55" itemprop="dateCreated datePublished" datetime="2019-05-03T11:13:26+08:00">2019-05-03</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><blockquote>
+<p><a href="https://developer.android.google.cn/guide/components/tasks-and-back-stack.html" target="_blank" rel="noopener">Google官方-任务和返回栈</a></p>
+</blockquote>
+<h1 id="Activity-与-任务"><a href="#Activity-与-任务" class="headerlink" title="Activity 与 任务"></a>Activity 与 任务</h1><p>在讨论启动模式前, 需要先对 Android 的应用启动流程进行了解</p>
+<p>当用户通过应用启动器打开新应用时, 该应用的任务将出现在前台, (如果不存在原任务实例, 将创建一个新任务), 该应用的 “主” <code>Activity</code> 将作为堆栈的根<code>Activity</code>打开. 每次在任务中启动一个新<code>Activity</code>时, 新<code>Activity</code>将会被推送到堆栈顶部, 并获得焦点. 前一个应用调用<code>onPause()</code>后处于停止状态, 并保留在堆栈中. 当<code>finish()</code>被调用时, 前台的<code>activity</code>将从栈顶移除</p>
+<p><img src="/2019/05/03/Activity四大启动模式/diagram_backstack.png" alt="diagram_backstack"></p>
+<p>任务是一个整体, 另一个任务发生时, 当前任务中失去焦点移至后台, 但返回栈不会改变, 将保留用户离开时的状态. 当内存不足时, 后台的任务会被优先销毁</p>
+<p><img src="/2019/05/03/Activity四大启动模式/diagram_multitasking.png" alt="diagram_multitasking"></p>
+<p>在默认启动模式下, 多次在一个任务中启动特定的一个<code>Acitivity</code>, 将会使它会多次实例化. </p>
+<p><img src="/2019/05/03/Activity四大启动模式/diagram_multiple_instances.png" alt="diagram_multiple_instances"></p>
+<p>启动一个应用, 就意味着启动一个任务 (Task), 也意味着用于管理任务中<code>Activity</code>的返回栈被创建</p>
+<h2 id="主动保存状态"><a href="#主动保存状态" class="headerlink" title="主动保存状态"></a>主动保存状态</h2><p>系统自带的需要保留当前状态数据的组件都实现了<code>onSaveInstanceState()</code>和<code>onRestoreInstanceState()</code>方法, 用于在<code>Activity</code>转入后台再回到前台时, 保存用户留下的状态</p>
+<p>如果使用了继承于<code>view</code>的 自定义UI控件, 若需要保留当前数据, 例如: 复选框状态, 内容文字等, 也需要实现<code>onSaveInstanceState()</code>和<code>onRestoreInstanceState()</code>方法</p>
+<p>相关内容请参阅<a href="https://developer.android.google.cn/guide/components/tasks-and-back-stack.html#ActivityState" target="_blank" rel="noopener">Google官方文档-保存Activity状态</a></p>
+<h1 id="管理任务"><a href="#管理任务" class="headerlink" title="管理任务"></a>管理任务</h1><p>Android 的默认管理任务和返回栈的模式非常适合大多数应用. 但如果有特殊需求, 例如多次启动同一个<code>Activity</code>但有需要它是同一个<code>Activity</code>实例, 就需要更改启动模式</p>
+<h2 id="定义启动模式"><a href="#定义启动模式" class="headerlink" title="定义启动模式"></a>定义启动模式</h2><p>启动模式定义了新<code>Activity</code>与当前任务的关联情况, 有两种方法定义它</p>
+<ul>
+<li><p>使用清单文件</p>
+<p>在对应的<code>&lt;activity&gt;</code>元素中插入特定的<code>launchMode</code>属性</p>
+</li>
+<li><p>使用<code>Intent</code>标志</p>
+<p>在<code>startActivity</code>时, 向<code>Intent</code>中插入一个启动模式标志</p>
+</li>
+</ul>
+<p>如果可能, 清单文件定义启动模式的方法应该被优先使用. 在两种方法都被使用的情况下, 清单文件的优先级更高</p>
+<h1 id="四大启动模式概述"><a href="#四大启动模式概述" class="headerlink" title="四大启动模式概述"></a>四大启动模式概述</h1><h2 id="“standard”-默认模式"><a href="#“standard”-默认模式" class="headerlink" title="“standard”  (默认模式)"></a>“standard”  (默认模式)</h2><p>在启动 Activity 的任务中创建 Activity 的新实例, 且Activity 可被多次实例化, 正如之前讨论的那样</p>
+<h2 id="“singleTop”-栈顶复用模式"><a href="#“singleTop”-栈顶复用模式" class="headerlink" title="“singleTop” (栈顶复用模式)"></a>“singleTop” (栈顶复用模式)</h2><p>保证再次启动<strong>位于栈顶</strong>的<code>Activity</code>时, 不会创建新实例, 而是将<code>intent</code>传递给<code>onNewIntent()</code>方法. </p>
+<h2 id="“singleTask”-栈内复用模式"><a href="#“singleTask”-栈内复用模式" class="headerlink" title="“singleTask” (栈内复用模式)"></a>“singleTask” (栈内复用模式)</h2><p>检查所有的任务中是否存在该<code>Activity</code>实例, 如果存在, 将调用其<code>onNewIntent()</code>方法, 并将对应的<code>Activity</code>移至前台. 如果不存在, 系统将为其创建一个新任务, 并将这个<code>Activity</code>作为堆栈的根<code>Activity</code></p>
+<h2 id="“singleInstance”-全局唯一模式"><a href="#“singleInstance”-全局唯一模式" class="headerlink" title="“singleInstance” (全局唯一模式)"></a>“singleInstance” (全局唯一模式)</h2><p>与<strong>singleTask</strong>的判定相同, 但启动的<code>Activity</code>将会是任务中唯一的实例, 由此<code>Activity</code>启动的任何<code>Activity</code>都会在单独的任务中打开</p>
+<h1 id="与启动模式有关的属性"><a href="#与启动模式有关的属性" class="headerlink" title="与启动模式有关的属性"></a>与启动模式有关的属性</h1><h2 id="taskAffinity-属性"><a href="#taskAffinity-属性" class="headerlink" title="taskAffinity 属性"></a>taskAffinity 属性</h2><p><strong>注意!:</strong> 仅在 <strong>singleTask</strong> 和 <strong>singleInstance</strong> 模式下, 该属性才起作用</p>
+<p>这个属性用来定义<code>Activity</code>将会优先属于哪个任务中, 默认时, 系统使用包名作为它的值.</p>
+<p>如果更改这个属性的值, 应该保证用户能返回这个任务, 否则会出现用户离开后<a href="#无法返回到任务">无法返回到任务</a>的情况, 所以需要对新任务的根<code>Activity</code>添加<code>CATEGORY_LAUNCHER</code> Intent 过滤器</p>
+<h2 id="allowTaskReparenting-属性"><a href="#allowTaskReparenting-属性" class="headerlink" title="allowTaskReparenting 属性"></a>allowTaskReparenting 属性</h2><p>这个属性被设置为<code>true</code>时, 被启动的<code>Activity</code>允许被转移到非本应用, 而是启动它的活动存在的任务栈中</p>
+<h1 id="一些-“有趣”-的现象"><a href="#一些-“有趣”-的现象" class="headerlink" title="一些 “有趣” 的现象"></a>一些 “有趣” 的现象</h1><h2 id="用户体验被破坏"><a href="#用户体验被破坏" class="headerlink" title="用户体验被破坏"></a>用户体验被破坏</h2><p>一般来说, 用户按下返回按钮后, 始终会转到最近的一个的<code>Activity</code>, 但是如果用<code>singleTask</code>启动时, 如果后台任务中存在该<code>Activity</code>实例时, 将会使整个任务都转移到前台, 很多时候, 这会破坏用户的体验, 或者说 jarring</p>
+<p><img src="/2019/05/03/Activity四大启动模式/diagram_backstack_singletask_multiactivity.png" alt="diagram_backstack_singletask_multiactivity"></p>
+<h2 id="非根-Activity-被自动销毁"><a href="#非根-Activity-被自动销毁" class="headerlink" title="非根 Activity 被自动销毁"></a>非根 Activity 被自动销毁</h2><p>当用户长时间离开任务时, 系统会清理除根<code>Activity</code>之外的所有<code>Activity</code>. 如果需要修改这个逻辑, 请参阅<a href="https://developer.android.google.cn/guide/components/tasks-and-back-stack.html#Clearing" target="_blank" rel="noopener">Google官方文档-任务与返回栈-清理返回栈</a></p>
+<h2 id="无法返回到任务"><a href="#无法返回到任务" class="headerlink" title="无法返回到任务"></a><span id="无法返回到任务">无法返回到任务</span></h2><p>注意到, 大多数应用的根<code>Activity</code>都具有<code>ACTION_MAIN</code> 和 <code>CATEGORY_LAUNCHER</code> 两个过滤器. 例如:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span> <span class="attr">...</span> &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">intent-filter</span> <span class="attr">...</span> &gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"android.intent.action.MAIN"</span> /&gt;</span>Start as a main entry point, does not expect to receive data.</span><br><span class="line">        <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.LAUNCHER"</span> /&gt;</span> Should be displayed in the top-level launcher.</span><br><span class="line">    <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><a href="https://developer.android.google.cn/reference/android/content/Intent.html#ACTION_MAIN" target="_blank" rel="noopener">ACTION_MAIN</a> 过滤器让该活动成为应用的主入口, 并意味着实例化这个<code>Activity</code>不需要接受数据<br><a href="https://developer.android.google.cn/reference/android/content/Intent.html#CATEGORY_LAUNCHER" target="_blank" rel="noopener">CATEGORY_LAUNCHER</a> 过滤器让该活动能显示在应用启动器中<br>仅当这两个标签存在时, 才该使用应该 <strong>singleTask</strong> 和 <strong>singleInstance</strong> 这种始终启动任务的 启动模式</p>
+<p>如果缺少第二个标签, 在任务移至后台后, 用户将无法返回该任务, 只能等待系统清理, 无疑是非常糟糕的用户体验.</p>
+<h1 id="对启动模式进行实践"><a href="#对启动模式进行实践" class="headerlink" title="对启动模式进行实践"></a>对启动模式进行实践</h1><p>相关文章请参阅<a href="[猴子搬来的救兵Castiel](https://me.csdn.net/mynameishuangshuai">彻底弄懂Activity四大启动模式 作者: 猴子搬来的救兵Castiel</a>)</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/02/又遇持久性储存/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -602,7 +785,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-05-02 22:56:26" itemprop="dateModified" datetime="2019-05-02T22:56:26+08:00">2019-05-02</time>
+                <time title="Modified: 2019-05-03 14:48:27" itemprop="dateModified" datetime="2019-05-03T14:48:27+08:00">2019-05-03</time>
               
             
           </span>
@@ -741,14 +924,13 @@
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:configChanges="orientation|screenSize"</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<pre><code>如果不进行设置来覆盖默认操作, 在销毁重建时, activity 依次调用
-
-&gt; `onCreate -&gt; onStart  -&gt; onResume-&gt;onPause -&gt; 保存状态 onSaveInstanceState -&gt; onStop -&gt; 销毁 onDestroy -&gt; 重新创建 onCreate -&gt; onStart -&gt; 恢复之前保存的状态 onRestoreInstanceState -&gt; onResume`
-
-其中`onRestoreInstanceState`被保证在`onStop`之前被调用, 并留下一个`Bundle`作为`onCreate`和`onRestoreInstanceState`的传参
-
-`view`和`activity`一样都有`onSaveInstanceState`和`onRestoreInstanceState`方法, 都用于之前状态的恢复, 例如: `EditView`会恢复用户输入的数据, `ListView`会恢复滚动的位置
-</code></pre><ul>
+<p>如果不进行设置来覆盖默认操作, 在销毁重建时, activity 依次调用</p>
+<blockquote>
+<p><code>onCreate -&gt; onStart  -&gt; onResume-&gt;onPause -&gt; 保存状态 onSaveInstanceState -&gt; onStop -&gt; 销毁 onDestroy -&gt; 重新创建 onCreate -&gt; onStart -&gt; 恢复之前保存的状态 onRestoreInstanceState -&gt; onResume</code></p>
+</blockquote>
+<p>其中<code>onRestoreInstanceState</code>被保证在<code>onStop</code>之前被调用, 并留下一个<code>Bundle</code>作为<code>onCreate</code>和<code>onRestoreInstanceState</code>的传参</p>
+<p>值得注意的是:  系统提供的<code>view</code>都实现了<code>onSaveInstanceState</code>和<code>onRestoreInstanceState</code>方法, 用于恢复被销毁之前的状态, 例如: <code>EditView</code>会恢复用户输入的数据, <code>ListView</code>会恢复滚动的位置</p>
+<ul>
 <li><p>异常情形2: 内存不足导致低优先级的<code>activity</code>被销毁</p>
 <p><code>activity</code>的优先级从高到低可分为以下三种</p>
 <ol>
@@ -1187,7 +1369,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>

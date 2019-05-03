@@ -108,7 +108,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/04/30/又遇四大组件/异常时的生命周期.png">
 <meta property="og:image" content="http://yoursite.com/2019/04/30/又遇四大组件/service_lifecycle.png">
 <meta property="og:image" content="http://yoursite.com/2019/04/30/又遇四大组件/service_lifecycle.png">
-<meta property="og:updated_time" content="2019-05-02T14:56:26.636Z">
+<meta property="og:updated_time" content="2019-05-03T06:48:27.531Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="又遇四大组件">
 <meta name="twitter:description" content="契机​    做app的时候一直感觉力不从心, 总是掉入只见树木不见森林的误区里. 零零散散学的Android现在回忆起来的知识点也是零零散散, 需要开始系统化地学习了. ​    花了点钱加入了Android方面的大牛玉刚的知识星球, 用Hexo架了这个博客, 希望能激励我学习, 并且记录下我的学习历程. ​    从今天开始, Android Learning RESTART ! 新词汇积累">
@@ -355,7 +355,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-05-02 22:56:26" itemprop="dateModified" datetime="2019-05-02T22:56:26+08:00">2019-05-02</time>
+                <time title="Modified: 2019-05-03 14:48:27" itemprop="dateModified" datetime="2019-05-03T14:48:27+08:00">2019-05-03</time>
               
             
           </span>
@@ -492,14 +492,13 @@
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:configChanges="orientation|screenSize"</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<pre><code>如果不进行设置来覆盖默认操作, 在销毁重建时, activity 依次调用
-
-&gt; `onCreate -&gt; onStart  -&gt; onResume-&gt;onPause -&gt; 保存状态 onSaveInstanceState -&gt; onStop -&gt; 销毁 onDestroy -&gt; 重新创建 onCreate -&gt; onStart -&gt; 恢复之前保存的状态 onRestoreInstanceState -&gt; onResume`
-
-其中`onRestoreInstanceState`被保证在`onStop`之前被调用, 并留下一个`Bundle`作为`onCreate`和`onRestoreInstanceState`的传参
-
-`view`和`activity`一样都有`onSaveInstanceState`和`onRestoreInstanceState`方法, 都用于之前状态的恢复, 例如: `EditView`会恢复用户输入的数据, `ListView`会恢复滚动的位置
-</code></pre><ul>
+<p>如果不进行设置来覆盖默认操作, 在销毁重建时, activity 依次调用</p>
+<blockquote>
+<p><code>onCreate -&gt; onStart  -&gt; onResume-&gt;onPause -&gt; 保存状态 onSaveInstanceState -&gt; onStop -&gt; 销毁 onDestroy -&gt; 重新创建 onCreate -&gt; onStart -&gt; 恢复之前保存的状态 onRestoreInstanceState -&gt; onResume</code></p>
+</blockquote>
+<p>其中<code>onRestoreInstanceState</code>被保证在<code>onStop</code>之前被调用, 并留下一个<code>Bundle</code>作为<code>onCreate</code>和<code>onRestoreInstanceState</code>的传参</p>
+<p>值得注意的是:  系统提供的<code>view</code>都实现了<code>onSaveInstanceState</code>和<code>onRestoreInstanceState</code>方法, 用于恢复被销毁之前的状态, 例如: <code>EditView</code>会恢复用户输入的数据, <code>ListView</code>会恢复滚动的位置</p>
+<ul>
 <li><p>异常情形2: 内存不足导致低优先级的<code>activity</code>被销毁</p>
 <p><code>activity</code>的优先级从高到低可分为以下三种</p>
 <ol>
@@ -792,7 +791,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
