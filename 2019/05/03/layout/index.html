@@ -99,14 +99,14 @@
   <meta name="description" content="参考 Google官方文档-布局篇  Android UI 的声明与管理概述Android 的 UI 控件由两种方法声明和设置  于 XML 中声明 UI 元素, 利用 Android 提供的对应于View类的简明XML词汇, 构建默认界面 运行时实例化布局元素, 在编程中创建 View 对象和 ViewGroup 对象, 并操作其属性  Android 的这种设计使得应用的外观更好地于控制应用行">
 <meta name="keywords" content="Android">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深入layout">
-<meta property="og:url" content="http://yoursite.com/2019/05/03/深入layout/index.html">
+<meta property="og:title" content="layout">
+<meta property="og:url" content="http://yoursite.com/2019/05/03/layout/index.html">
 <meta property="og:site_name" content="Nakiha&#39;s Blog">
 <meta property="og:description" content="参考 Google官方文档-布局篇  Android UI 的声明与管理概述Android 的 UI 控件由两种方法声明和设置  于 XML 中声明 UI 元素, 利用 Android 提供的对应于View类的简明XML词汇, 构建默认界面 运行时实例化布局元素, 在编程中创建 View 对象和 ViewGroup 对象, 并操作其属性  Android 的这种设计使得应用的外观更好地于控制应用行">
 <meta property="og:locale" content="Simple Chinese">
-<meta property="og:updated_time" content="2019-05-03T13:08:24.678Z">
+<meta property="og:updated_time" content="2019-05-03T15:33:17.625Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="深入layout">
+<meta name="twitter:title" content="layout">
 <meta name="twitter:description" content="参考 Google官方文档-布局篇  Android UI 的声明与管理概述Android 的 UI 控件由两种方法声明和设置  于 XML 中声明 UI 元素, 利用 Android 提供的对应于View类的简明XML词汇, 构建默认界面 运行时实例化布局元素, 在编程中创建 View 对象和 ViewGroup 对象, 并操作其属性  Android 的这种设计使得应用的外观更好地于控制应用行">
 
 
@@ -115,7 +115,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/05/03/深入layout/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/03/layout/">
 
 
 
@@ -125,7 +125,7 @@
   };
 </script>
 
-  <title>深入layout | Nakiha's Blog</title>
+  <title>layout | Nakiha's Blog</title>
   
 
 
@@ -290,7 +290,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/03/深入layout/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/03/layout/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nakiha">
@@ -307,7 +307,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">深入layout
+          <h1 class="post-title" itemprop="name headline">layout
 
               
             
@@ -333,7 +333,7 @@
                 
               
 
-              <time title="Created: 2019-05-03 20:54:14 / Modified: 21:08:24" itemprop="dateCreated datePublished" datetime="2019-05-03T20:54:14+08:00">2019-05-03</time>
+              <time title="Created: 2019-05-03 20:54:14 / Modified: 23:33:17" itemprop="dateCreated datePublished" datetime="2019-05-03T20:54:14+08:00">2019-05-03</time>
             
 
             
@@ -381,6 +381,59 @@
 <li><strong>运行时实例化布局元素</strong>, 在编程中创建 View 对象和 ViewGroup 对象, 并操作其属性</li>
 </ul>
 <p>Android 的这种设计使得应用的外观更好地于控制应用行为的代码隔离, 调整外观时, 无需修改源代码, 并且可以根据不同的屏幕建立不同的 XML 布局</p>
+<h2 id="ID"><a href="#ID" class="headerlink" title="ID"></a>ID</h2><p>如果对一个 View 对象在 XML 文档中添加 id 标签, 它将会被作为整型引用, 被解析到 R.java 文件中, 即在结构树中对 View 对象进行唯一标识. </p>
+<p>在 XML 文档中, 它总是这样的</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:id="@+id/my_ui_widget"</span><br></pre></td></tr></table></figure>
+<p>字符串开头处的 @ 用来指示 XML 解析程序应解析并展开 ID 字符串之后的部分,<br>加号 ( + ) 标识这是一个新的资源名称</p>
+<h1 id="就此打止"><a href="#就此打止" class="headerlink" title="就此打止"></a>就此打止</h1><p>事实上, LinearLayout 和 ConstrainLayout 已经被我用烂了……</p>
+<p>这也许是做了几个APP得到的好处?</p>
+<p>这里就不再赘述了, 仅仅放出一个表格, 用来便于之后查询 drawble 中 selector 的写法</p>
+<table>
+<thead>
+<tr>
+<th>XML属性</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>android:drawable</td>
+<td style="text-align:center">放一个drawable资源</td>
+</tr>
+<tr>
+<td>android:state_pressed</td>
+<td style="text-align:center">按下状态，如一个按钮触摸或者点击。</td>
+</tr>
+<tr>
+<td>android:state_focused</td>
+<td style="text-align:center">取得焦点状态，比如用户选择了一个文本框。</td>
+</tr>
+<tr>
+<td>android:state_hovered</td>
+<td style="text-align:center">光标悬停状态，通常与focused state相同，它是4.0的新特性</td>
+</tr>
+<tr>
+<td>android:state_selected</td>
+<td style="text-align:center">选中状态</td>
+</tr>
+<tr>
+<td>android:state_enabled</td>
+<td style="text-align:center">能够接受触摸或者点击事件</td>
+</tr>
+<tr>
+<td>android:state_checked</td>
+<td style="text-align:center">被checked了，如：一个RadioButton可以被check了。</td>
+</tr>
+<tr>
+<td>android:state_enabled</td>
+<td style="text-align:center">能够接受触摸或者点击事件</td>
+</tr>
+</tbody>
+</table>
+<p>作者：Carson_Ho</p>
+<p>链接：<a href="https://www.jianshu.com/p/4fac6304d872" target="_blank" rel="noopener">https://www.jianshu.com/p/4fac6304d872</a></p>
+<p>来源：简书</p>
+<p>简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。</p>
 
       
     </div>
@@ -426,6 +479,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/04/自定义Vjew/" rel="prev" title="自定义View">
+                自定义View <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -494,7 +551,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -513,7 +570,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">2</span>
+                      
+                    
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
@@ -551,7 +610,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-UI-的声明与管理概述"><span class="nav-number">2.</span> <span class="nav-text">Android UI 的声明与管理概述</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-UI-的声明与管理概述"><span class="nav-number">2.</span> <span class="nav-text">Android UI 的声明与管理概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ID"><span class="nav-number">2.1.</span> <span class="nav-text">ID</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#就此打止"><span class="nav-number">3.</span> <span class="nav-text">就此打止</span></a></li></ol></div>
             
 
           </div>

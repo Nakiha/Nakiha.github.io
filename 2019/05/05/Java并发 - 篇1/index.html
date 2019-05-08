@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="Simple Chinese">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="这篇文章主要用来记录一点计算机组成原理和学习 Java高并发程序设计 这本书的历程, 这里为第一篇 冯 - 诺伊曼机体系 冯 - 诺伊曼机结构功耗 ~= 1/2 ×负载电容×电压的平方×开关频率×晶体管数量  冯 - 诺伊曼机的五个阶段 指令重排冯 - 诺依曼机的五个阶段催生了流水线技术, 对应的优化技术也就造成了指令重排 流水线技术流水线技术使得两条指令可以被同时执行    占位行 - - -">
+<meta name="keywords" content="Computer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java并发-篇1">
+<meta property="og:url" content="http://yoursite.com/2019/05/05/Java并发 - 篇1/index.html">
+<meta property="og:site_name" content="Nakiha&#39;s Blog">
+<meta property="og:description" content="这篇文章主要用来记录一点计算机组成原理和学习 Java高并发程序设计 这本书的历程, 这里为第一篇 冯 - 诺伊曼机体系 冯 - 诺伊曼机结构功耗 ~= 1/2 ×负载电容×电压的平方×开关频率×晶体管数量  冯 - 诺伊曼机的五个阶段 指令重排冯 - 诺依曼机的五个阶段催生了流水线技术, 对应的优化技术也就造成了指令重排 流水线技术流水线技术使得两条指令可以被同时执行    占位行 - - -">
+<meta property="og:locale" content="Simple Chinese">
+<meta property="og:image" content="http://yoursite.com/2019/05/05/Java并发%20-%20篇1/体系.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/05/Java并发%20-%20篇1/结构.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/05/Java并发%20-%20篇1/步骤.png">
+<meta property="og:updated_time" content="2019-05-08T15:11:18.275Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java并发-篇1">
+<meta name="twitter:description" content="这篇文章主要用来记录一点计算机组成原理和学习 Java高并发程序设计 这本书的历程, 这里为第一篇 冯 - 诺伊曼机体系 冯 - 诺伊曼机结构功耗 ~= 1/2 ×负载电容×电压的平方×开关频率×晶体管数量  冯 - 诺伊曼机的五个阶段 指令重排冯 - 诺依曼机的五个阶段催生了流水线技术, 对应的优化技术也就造成了指令重排 流水线技术流水线技术使得两条指令可以被同时执行    占位行 - - -">
+<meta name="twitter:image" content="http://yoursite.com/2019/05/05/Java并发%20-%20篇1/体系.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/05/05/Java并发 - 篇1/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Java并发-篇1 | Nakiha's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="Simple Chinese">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Nakiha's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/05/Java并发 - 篇1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nakiha">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nakiha's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java并发-篇1
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-05 22:30:22" itemprop="dateCreated datePublished" datetime="2019-05-05T22:30:22+08:00">2019-05-05</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-05-08 23:11:18" itemprop="dateModified" datetime="2019-05-08T23:11:18+08:00">2019-05-08</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这篇文章主要用来记录一点计算机组成原理和学习 Java高并发程序设计 这本书的历程, 这里为第一篇</p>
+<h1 id="冯-诺伊曼机体系"><a href="#冯-诺伊曼机体系" class="headerlink" title="冯 - 诺伊曼机体系"></a>冯 - 诺伊曼机体系</h1><p><img src="/2019/05/05/Java并发 - 篇1/体系.png" alt="体系"></p>
+<h1 id="冯-诺伊曼机结构"><a href="#冯-诺伊曼机结构" class="headerlink" title="冯 - 诺伊曼机结构"></a>冯 - 诺伊曼机结构</h1><p>功耗 ~= 1/2 ×负载电容×电压的平方×开关频率×晶体管数量</p>
+<p><img src="/2019/05/05/Java并发 - 篇1/结构.png" alt="结构"></p>
+<h1 id="冯-诺伊曼机的五个阶段"><a href="#冯-诺伊曼机的五个阶段" class="headerlink" title="冯 - 诺伊曼机的五个阶段"></a>冯 - 诺伊曼机的五个阶段</h1><p><img src="/2019/05/05/Java并发 - 篇1/步骤.png" alt="步骤"></p>
+<h2 id="指令重排"><a href="#指令重排" class="headerlink" title="指令重排"></a>指令重排</h2><p>冯 - 诺依曼机的五个阶段催生了流水线技术, 对应的优化技术也就造成了指令重排</p>
+<h3 id="流水线技术"><a href="#流水线技术" class="headerlink" title="流水线技术"></a>流水线技术</h3><p>流水线技术使得两条指令可以被同时执行</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">占位行</th>
+<th style="text-align:center">-</th>
+<th style="text-align:center">-</th>
+<th style="text-align:center">-</th>
+<th style="text-align:center">-</th>
+<th style="text-align:center">-</th>
+<th style="text-align:center">-</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">指令1</td>
+<td style="text-align:center">IF</td>
+<td style="text-align:center">ID</td>
+<td style="text-align:center">EX</td>
+<td style="text-align:center">MEM</td>
+<td style="text-align:center">WB</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">指令2</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">IF</td>
+<td style="text-align:center">ID</td>
+<td style="text-align:center">EX</td>
+<td style="text-align:center">MEM</td>
+<td style="text-align:center">WB</td>
+</tr>
+</tbody>
+</table>
+<p>在执行第二条指令时, 第一条指令并没有执行完, 这样充分地利用了硬件资源</p>
+<h3 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h3><p>这里先给出三个简单的汇编操作符</p>
+<ul>
+<li><p><strong>LW</strong> (load)<br>示例: <em>LW R1, B;</em> 将 B 的值加载到 R1 寄存器中</p>
+</li>
+<li><p><strong>ADD</strong> (add)</p>
+<p>示例: <em>ADD R3, R1, R2;</em> 将 R1, R2 的值相加, 放到 R3 中</p>
+</li>
+<li><p><strong>SW</strong> (store)</p>
+<p>示例: <em>SW A, R3;</em> 将 R3 的值存储到 A 中</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">A=B+C</th>
+<th style="text-align:center">-</th>
+<th style="text-align:center">-</th>
+<th style="text-align:center">-</th>
+<th style="text-align:center">-</th>
+<th style="text-align:center">-</th>
+<th style="text-align:center">-</th>
+<th style="text-align:center">-</th>
+<th style="text-align:center">-</th>
+<th style="text-align:center">-</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">LW R1, <strong>B</strong></td>
+<td style="text-align:center">IF</td>
+<td style="text-align:center">ID</td>
+<td style="text-align:center">EX</td>
+<td style="text-align:center">MEM</td>
+<td style="text-align:center">WB</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">LW R2, <strong>C</strong></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">IF</td>
+<td style="text-align:center">ID</td>
+<td style="text-align:center">EX</td>
+<td style="text-align:center">MEM</td>
+<td style="text-align:center">WB</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">ADD R3, R1,R2</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">IF</td>
+<td style="text-align:center">ID</td>
+<td style="text-align:center"><strong>×</strong></td>
+<td style="text-align:center">EX</td>
+<td style="text-align:center">MEM</td>
+<td style="text-align:center">WB</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">SW <strong>A</strong>, R3</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">IF</td>
+<td style="text-align:center"><strong>×</strong></td>
+<td style="text-align:center">ID</td>
+<td style="text-align:center">EX</td>
+<td style="text-align:center">MEM</td>
+<td style="text-align:center">WB</td>
+</tr>
+</tbody>
+</table>
+<p>这里有两次中断, 第一次是因为 R2 还未准备好, 第二次是因为 R3 还未准备好.</p>
+<p>而在一些更长的流水线中, 重排指令有时可以解决中断</p>
+<h3 id="指令重排的规则"><a href="#指令重排的规则" class="headerlink" title="指令重排的规则"></a>指令重排的规则</h3><ul>
+<li><p>程序顺序性原则</p>
+<p>一个线程内保证语义的串行性</p>
+</li>
+<li><p>volatile 规则</p>
+<p>volatile 变量的写, 先发生在读之后, 保证了 volatile变量 的可见性</p>
+</li>
+<li><p>锁规则</p>
+<p>解锁 (unlock) 必发生在加锁 (lock) 前</p>
+</li>
+<li><p>传递性</p>
+<p>A 先于 B, B 先于 C, 则 A 必然先于 C</p>
+</li>
+<li><p>一个线程的 <code>start()</code> 绝对优先</p>
+</li>
+<li><p>线程的所有操作先于线程的终结 (<code>Thread.join()</code>)</p>
+</li>
+<li><p>线程的中断 (<code>interrupt()</code>)先于呗中断的线程代码</p>
+</li>
+<li><p>线程的构造函数执行和结束 先于 <code>finalize()</code> 方法</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Computer/" rel="tag"># Computer</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/04/自定义Vjew/" rel="next" title="自定义View">
+                <i class="fa fa-chevron-left"></i> 自定义View
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Nakiha</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#冯-诺伊曼机体系"><span class="nav-number">1.</span> <span class="nav-text">冯 - 诺伊曼机体系</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#冯-诺伊曼机结构"><span class="nav-number">2.</span> <span class="nav-text">冯 - 诺伊曼机结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#冯-诺伊曼机的五个阶段"><span class="nav-number">3.</span> <span class="nav-text">冯 - 诺伊曼机的五个阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#指令重排"><span class="nav-number">3.1.</span> <span class="nav-text">指令重排</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#流水线技术"><span class="nav-number">3.1.1.</span> <span class="nav-text">流水线技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中断"><span class="nav-number">3.1.2.</span> <span class="nav-text">中断</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指令重排的规则"><span class="nav-number">3.1.3.</span> <span class="nav-text">指令重排的规则</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nakiha</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
