@@ -287,6 +287,192 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/08/Java并发-篇2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nakiha">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nakiha's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/05/08/Java并发-篇2/" class="post-title-link" itemprop="url">Java并发 - 篇2</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-08 23:23:07" itemprop="dateCreated datePublished" datetime="2019-05-08T23:23:07+08:00">2019-05-08</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-05-09 14:45:35" itemprop="dateModified" datetime="2019-05-09T14:45:35+08:00">2019-05-09</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="定义进程与线程"><a href="#定义进程与线程" class="headerlink" title="定义进程与线程"></a>定义进程与线程</h1><h2 id="Process-进程"><a href="#Process-进程" class="headerlink" title="Process 进程"></a>Process 进程</h2><blockquote>
+<p> <strong>进程</strong>是计算机程序关于某数据集合上的一次运行活动, 是系统进行资源分配和调度的基本单位, 是操作系统结构的基础. </p>
+<p>在早期<strong>面向进程设计</strong>的计算机结构中, 进程是程序的基本执行实体; 在当代的<strong>面向线程设计</strong>进程是线程的容器, 程序是指令数据及组织形式的描述, <strong>进程是程序的实体</strong>.</p>
+</blockquote>
+<p>在 Windows 中任务管理器看到的一个个实体就是一个个活的进程</p>
+<h2 id="Thread-线程"><a href="#Thread-线程" class="headerlink" title="Thread 线程"></a>Thread 线程</h2><blockquote>
+<p>线程是轻量级的进程, 是程序执行的最小单位.</p>
+<p>使用多线程而不是多进程进行并发程序的设计, 主要是因为线程切换和调度的成本远远小于进程.</p>
+</blockquote>
+<p>一个进程中会包含多个线程, 通过多个线程的协作来完成整个 “任务”.</p>
+<h1 id="线程的生命周期"><a href="#线程的生命周期" class="headerlink" title="线程的生命周期"></a>线程的生命周期</h1><p>线程的所有状态都在<code>Thread</code>中的<code>State</code>中枚举定义</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> State &#123;</span><br><span class="line">    NEW, <span class="comment">//A thread that has not yet started is in this state.</span></span><br><span class="line">    RUNNABEL, <span class="comment">//A thread executing in the Java virtual machine is in this state.</span></span><br><span class="line">    BLOCKED, <span class="comment">//A thread that is blocked waiting for a monitor lock is in this state.</span></span><br><span class="line">    WATTING, <span class="comment">//A thread that is waiting indefinitely for another thread to perform a particular action is in this state.</span></span><br><span class="line">    TIMEED_WATTING, <span class="comment">//A thread that is waiting for another thread to perform an action for up to a specified waiting time is in this state.</span></span><br><span class="line">    TERMINATED;<span class="comment">//A thread that has exited is in this state.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这六个状态也就组成了线程的生命周期</p>
+<p><img src="/2019/05/08/Java并发-篇2/资源 11@4x.png" alt="资源 11@4x"></p>
+<h1 id="线程的基本操作"><a href="#线程的基本操作" class="headerlink" title="线程的基本操作"></a>线程的基本操作</h1><h2 id="新建线程"><a href="#新建线程" class="headerlink" title="新建线程"></a>新建线程</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Thread t1 = <span class="keyword">new</span> Thread();</span><br><span class="line">t1.start();</span><br><span class="line"><span class="comment">// 这里的 run 只是简单地执行了 t1 包含的代码</span></span><br><span class="line">t1.run();</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>start()</code> 会开启一个新线程</li>
+<li><code>run()</code> 在当前线程中执行对应线程的代码</li>
+</ul>
+<h2 id="给线程添加-“任务”"><a href="#给线程添加-“任务”" class="headerlink" title="给线程添加 “任务”"></a>给线程添加 “任务”</h2><h3 id="重载-run"><a href="#重载-run" class="headerlink" title="重载 run()"></a>重载 run()</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Thread t2 = <span class="keyword">new</span> Thread()&#123;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"Hello, I'm t2"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">t2.start();</span><br></pre></td></tr></table></figure>
+<p>这里使用了匿名内部类, 继承了<code>Thread</code>, 通过将<code>run</code>重载把任务填进去</p>
+<p>但 Java 是单继承的, 这意味着继承是一种很宝贵的资源, 可使用接口来达到同样的效果</p>
+<h3 id="使用-Runnable-接口"><a href="#使用-Runnable-接口" class="headerlink" title="使用 Runnable 接口"></a>使用 Runnable 接口</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Thread</span><span class="params">(Runnable target)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>在构造<code>Thread</code>类时可以将传递一个<code>Runnable</code>接口来定义任务, 从而避免继承的浪费.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CreateThread</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        Thread t1 = <span class="keyword">new</span> Thread(<span class="keyword">new</span> CreateThread());</span><br><span class="line">        t1.start();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"I'm Runnable"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="停止线程"><a href="#停止线程" class="headerlink" title="停止线程"></a>停止线程</h2><p>曾经用于强制停止一个线程的<code>stop()</code>已被废弃, 它会在调用时直接终止线程, 立即释放这个线程所持有的锁, 这经常会导致一致性错误. 所以, 应该由我们自己来决定如何何时停止线程</p>
+<p>例如, 可以通过设置与检测标志符来停止一个线程</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SafeStopThread</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> User u = <span class="keyword">new</span> User();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;</span><br><span class="line">        <span class="comment">//some data with setter &amp; getter</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ChangeObjectThread</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line">        <span class="keyword">volatile</span> <span class="keyword">boolean</span> stopMe = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">stopMe</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            stopMe = <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (stopMe) &#123;</span><br><span class="line">                    System.out.println(getClass().getName() + <span class="string">" stopped"</span>);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">synchronized</span> (u)&#123;</span><br><span class="line">                    <span class="comment">//do something with u'data</span></span><br><span class="line">                    <span class="comment">//for here we just give a sleep</span></span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        Thread.sleep(<span class="number">100</span>);</span><br><span class="line">                    &#125;<span class="keyword">catch</span> (InterruptedException e)&#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            Thread.yield();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="插入话题-volatile-关键字"><a href="#插入话题-volatile-关键字" class="headerlink" title="插入话题 volatile 关键字"></a>插入话题 volatile 关键字</h4><p>将一个变量声明为<code>volatile</code>后, 编译器会注意到这个变量是共享的, 因此不会将这个变量上的操作与其他内存操作一起重排序. <strong>volatile变量不会被缓存在寄存器或者对其他处理器不可见的地方</strong></p>
+<p>而对非<code>volatile</code>变量进行读写的时候，每个线程先从内存拷贝变量到CPU缓存中。如果计算机有多个CPU，每个线程可能在不同的CPU上被处理，这意味着每个线程可以拷贝到不同的 CPU 缓存中</p>
+<p>访问<code>volatile</code>变量不需要加锁, , 它是一种比<code>synchronized</code>更轻量级的同步机制</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/05/Java并发 - 篇1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -349,7 +535,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-05-08 23:11:18" itemprop="dateModified" datetime="2019-05-08T23:11:18+08:00">2019-05-08</time>
+                <time title="Modified: 2019-05-08 23:23:35" itemprop="dateModified" datetime="2019-05-08T23:23:35+08:00">2019-05-08</time>
               
             
           </span>
@@ -2102,7 +2288,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-count">8</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
