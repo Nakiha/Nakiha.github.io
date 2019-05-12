@@ -287,7 +287,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/10/摘记/摘记/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/11/Java并发-篇4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nakiha">
@@ -307,7 +307,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/05/10/摘记/摘记/" class="post-title-link" itemprop="url">Untitled</a>
+                <a href="/2019/05/11/Java并发-篇4/" class="post-title-link" itemprop="url">Java并发 - 篇4</a>
               
             
           </h1>
@@ -332,12 +332,24 @@
                 
               
 
-              <time title="Created: 2019-05-10 18:58:38 / Modified: 19:09:50" itemprop="dateCreated datePublished" datetime="2019-05-10T18:58:38+08:00">2019-05-10</time>
+              <time title="Created: 2019-05-11 21:00:43" itemprop="dateCreated datePublished" datetime="2019-05-11T21:00:43+08:00">2019-05-11</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-05-12 23:52:55" itemprop="dateModified" datetime="2019-05-12T23:52:55+08:00">2019-05-12</time>
               
             
           </span>
@@ -374,14 +386,18 @@
         
           
             <p>
-              java的monitor机制在使用synchronized时总是需要让它与一个对象相关, 要关联的是指定的对象, 要不关联的是this或者this.class,  这里的Object和class就是一个个monitor object
-Java 对象在内存中分为三个部分, 对象头, 实例数据, 和对其
+              参考自葛一鸣与郭超的 [Java高并发程序设计]. 
+线程复用: 线程池如果频繁地创建和销毁线程, 会给GC带来很大的压力
+线程池提供了一种合理安排工作线程和空闲线程的方式, 而不是简单的不用就回收. 
+JDK提供了一套完整的Executor框架用来有效地进行线程控制, 其本质就是一个线程池
+
+其中
               ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/05/10/摘记/摘记/#more" rel="contents">
+              <a class="btn" href="/2019/05/11/Java并发-篇4/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -461,7 +477,7 @@ Java 对象在内存中分为三个部分, 对象头, 实例数据, 和对其
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/05/10/Java并发-篇3/" class="post-title-link" itemprop="url">Java并发 - 篇3 </a>
+                <a href="/2019/05/10/Java并发-篇3/" class="post-title-link" itemprop="url">Java并发 - 篇3</a>
               
             
           </h1>
@@ -486,12 +502,24 @@ Java 对象在内存中分为三个部分, 对象头, 实例数据, 和对其
                 
               
 
-              <time title="Created: 2019-05-10 16:02:51 / Modified: 21:27:24" itemprop="dateCreated datePublished" datetime="2019-05-10T16:02:51+08:00">2019-05-10</time>
+              <time title="Created: 2019-05-10 16:02:51" itemprop="dateCreated datePublished" datetime="2019-05-10T16:02:51+08:00">2019-05-10</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-05-11 21:01:06" itemprop="dateModified" datetime="2019-05-11T21:01:06+08:00">2019-05-11</time>
               
             
           </span>
@@ -528,8 +556,9 @@ Java 对象在内存中分为三个部分, 对象头, 实例数据, 和对其
         
           
             <p>
-              Object 监视器方法的另一种实现通过使用ReentrantLock和Condition, 我们可以实现和synchronized, wait()和notify()一样的效果
-重入锁: ReentrantLockjava.lang.Object	java.util.concurrent.locks
+              本文主要是介绍一系列的JDK并发包中的工具类. 参考自葛一鸣与郭超的 [Java高并发程序设计]. 
+Object 监视器方法的另一种实现通过使用ReentrantLock和Condition, 我们可以实现和synchronized, wait()和notify()一样的效果
+重入锁: Reent
               ...
             </p>
           <!--noindex-->
@@ -657,7 +686,7 @@ Java 对象在内存中分为三个部分, 对象头, 实例数据, 和对其
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-05-10 18:53:42" itemprop="dateModified" datetime="2019-05-10T18:53:42+08:00">2019-05-10</time>
+                <time title="Modified: 2019-05-11 20:47:36" itemprop="dateModified" datetime="2019-05-11T20:47:36+08:00">2019-05-11</time>
               
             
           </span>
@@ -694,9 +723,10 @@ Java 对象在内存中分为三个部分, 对象头, 实例数据, 和对其
         
           
             <p>
-              定义进程与线程Process 进程
+              本文介绍了多线程的很多概念, 给出了一些多线程中常见的操作,  参考自葛一鸣与郭超的 [Java高并发程序设计]. 
+定义进程与线程Process 进程
  进程是计算机程序关于某数据集合上的一次运行活动, 是系统进行资源分配和调度的基本单位, 是操作系统结构的基础. 
-在早期面向进程设计的计算机结构中, 进程是程序的基本执行实体; 在当代的面向线程设计进程是线程的容器, 程序是指令数据及组织形式的描述, 进程是程序
+在早期面向进程设计的计算机结构
               ...
             </p>
           <!--noindex-->
@@ -782,7 +812,7 @@ Java 对象在内存中分为三个部分, 对象头, 实例数据, 和对其
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/05/05/Java并发 - 篇1/" class="post-title-link" itemprop="url">Java并发-篇1</a>
+                <a href="/2019/05/05/Java并发 - 篇1/" class="post-title-link" itemprop="url">Java并发 - 篇1</a>
               
             
           </h1>
@@ -824,7 +854,7 @@ Java 对象在内存中分为三个部分, 对象头, 实例数据, 和对其
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-05-08 23:23:35" itemprop="dateModified" datetime="2019-05-08T23:23:35+08:00">2019-05-08</time>
+                <time title="Modified: 2019-05-11 20:45:51" itemprop="dateModified" datetime="2019-05-11T20:45:51+08:00">2019-05-11</time>
               
             
           </span>
