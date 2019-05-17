@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="Simple Chinese">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="摘录自葛一鸣与郭超的 [Java高并发程序设计].  JDK并发容器 ConcurrentHashMap: 高效并发, 线程安全的HashMap.  CopyOnWriteArrayList: 在读多写少的场合, 性能远超Vector. ConcurrentLinkedQueue: 高效的并发队列, 线程安全的LinkedList. BlockingQueue: 一个接口, JDK有链表, 数组等">
+<meta name="keywords" content="computer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java并发 - 篇5">
+<meta property="og:url" content="http://yoursite.com/2019/05/16/Java并发-篇5/index.html">
+<meta property="og:site_name" content="Nakiha&#39;s Blog">
+<meta property="og:description" content="摘录自葛一鸣与郭超的 [Java高并发程序设计].  JDK并发容器 ConcurrentHashMap: 高效并发, 线程安全的HashMap.  CopyOnWriteArrayList: 在读多写少的场合, 性能远超Vector. ConcurrentLinkedQueue: 高效的并发队列, 线程安全的LinkedList. BlockingQueue: 一个接口, JDK有链表, 数组等">
+<meta property="og:locale" content="Simple Chinese">
+<meta property="og:updated_time" content="2019-05-16T13:22:59.987Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java并发 - 篇5">
+<meta name="twitter:description" content="摘录自葛一鸣与郭超的 [Java高并发程序设计].  JDK并发容器 ConcurrentHashMap: 高效并发, 线程安全的HashMap.  CopyOnWriteArrayList: 在读多写少的场合, 性能远超Vector. ConcurrentLinkedQueue: 高效的并发队列, 线程安全的LinkedList. BlockingQueue: 一个接口, JDK有链表, 数组等">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/05/16/Java并发-篇5/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Java并发 - 篇5 | Nakiha's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="Simple Chinese">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Nakiha's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/16/Java并发-篇5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nakiha">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nakiha's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java并发 - 篇5
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-16 16:15:03 / Modified: 21:22:59" itemprop="dateCreated datePublished" datetime="2019-05-16T16:15:03+08:00">2019-05-16</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>摘录自葛一鸣与郭超的 [Java高并发程序设计]. </p>
+<h1 id="JDK并发容器"><a href="#JDK并发容器" class="headerlink" title="JDK并发容器"></a>JDK并发容器</h1><ul>
+<li><code>ConcurrentHashMap</code>: 高效并发, 线程安全的<code>HashMap</code>. </li>
+<li><code>CopyOnWriteArrayList</code>: 在读多写少的场合, 性能远超<code>Vector</code>.</li>
+<li><code>ConcurrentLinkedQueue</code>: 高效的并发队列, 线程安全的<code>LinkedList</code>.</li>
+<li><code>BlockingQueue</code>: 一个接口, JDK有链表, 数组等多种实现, 非常适用于数据共享的通道.</li>
+<li><code>ConcurrentSkipListMap</code>: 跳表的实现, 可进行快速查找.</li>
+</ul>
+<h1 id="锁的优化和注意"><a href="#锁的优化和注意" class="headerlink" title="锁的优化和注意"></a>锁的优化和注意</h1><p>相对于只要专注于任务本身的单线程应用, 多线程需要维护并行数据结构间的一致性状态, 如果处理不当, 可能在维护一致性上花费大量的时间.</p>
+<h2 id="减少锁的持有时间"><a href="#减少锁的持有时间" class="headerlink" title="减少锁的持有时间"></a>减少锁的持有时间</h2><p>例如, 只在必要时进行同步, 任何不需要同步就可以完成的操作都应该在同步区之外完成.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// bad syncMethod</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">syncMethod</span><span class="params">()</span></span>&#123;</span><br><span class="line">	otherCode1();</span><br><span class="line">    mutextMethod();</span><br><span class="line">    otherCode2();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// good syncMethod</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">syncMethod</span><span class="params">()</span></span>&#123;</span><br><span class="line">	otherCode1();</span><br><span class="line">    <span class="comment">// 这里锁住的是对象, 如果要锁住整个类, 应该使用 this.class</span></span><br><span class="line">    <span class="keyword">synchronized</span>(<span class="keyword">this</span>)&#123;</span><br><span class="line">        mutextMethod();</span><br><span class="line">    &#125;</span><br><span class="line">    otherCode2();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="减小锁粒度"><a href="#减小锁粒度" class="headerlink" title="减小锁粒度"></a>减小锁粒度</h2><p>例如为了得到一个线程安全的<code>HashMap</code>, 可以简单地对整个<code>HashMap</code>进行加锁, 但这个锁的粒度太大了. 为了减小粒度, 我们可以将<code>HashMap</code>拆成多个段(<code>SEGMENT</code>), <em>例如<code>ConcurrentHashMap</code>, 在默认时就被拆为 16 个段.</em></p>
+<p>减小锁粒度就是缩小锁定对象的范围, 从而减少冲突的可能性, 然而如果获取全局锁的操作频繁, 太小的粒度会拖慢系统运行 (在操作时需要对每个段一同加锁和解锁).</p>
+<h2 id="锁分离"><a href="#锁分离" class="headerlink" title="锁分离"></a>锁分离</h2><p>在之前讨论Condition接口时, 列出了一个<a href="https://nakiha.github.io/2019/05/10/Java并发-篇3/Condition-接口" target="_blank" rel="noopener">官方的缓冲区类的示例</a>, 它利用 重入锁 和<code>Condition</code>提供的等待通知机制, 使<code>take()</code>(取操作) 在队列的前端, 而<code>put()</code>(存操作) 在队伍的尾端, 实际上这样的结构完全可以设置两把分离的锁与对应的分离的<code>Condition</code>, 再在<code>take()</code>和<code>put()</code>里进行上锁, 等待, 通知等操作.</p>
+<p>示例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">public</span> E <span class="title">take</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">     E x;</span><br><span class="line">     <span class="comment">// 如果c保持负数, 说明操作失败</span></span><br><span class="line">     <span class="keyword">int</span> c = -<span class="number">1</span>;</span><br><span class="line">     <span class="keyword">final</span> AtomicInteger count = <span class="keyword">this</span>.count;</span><br><span class="line">     <span class="keyword">final</span> ReentrantLock takeLock = <span class="keyword">this</span>.takeLock;</span><br><span class="line">     takeLock.lockInterruptibly(); <span class="comment">// 不能有两个线程同时取数据</span></span><br><span class="line">     <span class="keyword">try</span> &#123;</span><br><span class="line">         <span class="keyword">while</span> (count.get() == <span class="number">0</span>) &#123; <span class="comment">// 如果没有可用数据, 等待put()中的通知</span></span><br><span class="line">             notEmpty.await(); <span class="comment">// 只有在队列空时才会被调用</span></span><br><span class="line">         &#125;</span><br><span class="line">         x = dequeue(); <span class="comment">// 取得第一个数据</span></span><br><span class="line">         c = count.getAndDecrement(); <span class="comment">// 数量减一, 原子操作, 为了保证</span></span><br><span class="line"><span class="comment">// 不同时和 put() 方法对 count 进行修改</span></span><br><span class="line">          <span class="comment">// c为减一前的值</span></span><br><span class="line">         </span><br><span class="line">         <span class="keyword">if</span> (c &gt; <span class="number">1</span>)</span><br><span class="line">             notEmpty.signal(); <span class="comment">// 通知 其他在等待中的 take() 操作</span></span><br><span class="line">     &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">         takeLock.unlock(); <span class="comment">// 释放锁</span></span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">if</span> (c == capacity) <span class="comment">// 检测队列的变化状态</span></span><br><span class="line">         signalNotFull();  <span class="comment">// 从已满变成未满时, 通知目前可能在等待的 put() </span></span><br><span class="line">     <span class="keyword">return</span> x;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">put</span><span class="params">(E e)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (e == <span class="keyword">null</span>) <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</span><br><span class="line">    <span class="keyword">int</span> c = -<span class="number">1</span>;</span><br><span class="line">    Node&lt;E&gt; node = <span class="keyword">new</span> Node&lt;E&gt;(e);</span><br><span class="line">    <span class="keyword">final</span> ReentrantLock putLock = <span class="keyword">this</span>.putLock;</span><br><span class="line">    <span class="keyword">final</span> AtomicInteger count = <span class="keyword">this</span>.count;</span><br><span class="line">    putLock.lockInterruptibly();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">while</span> (count.get() == capacity) &#123;</span><br><span class="line">            notFull.await(); <span class="comment">// 只有在队列满时才会被调用</span></span><br><span class="line">        &#125;</span><br><span class="line">        enqueue(node);</span><br><span class="line">        c = count.getAndIncrement();</span><br><span class="line">        <span class="keyword">if</span> (c + <span class="number">1</span> &lt; capacity)</span><br><span class="line">            notFull.signal();</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        putLock.unlock();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (c == <span class="number">0</span>) <span class="comment">// 检测队列的变化状态</span></span><br><span class="line">        signalNotEmpty(); <span class="comment">// 从空变成非空时, 通知目前可能在等待的 take()</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="锁粗化"><a href="#锁粗化" class="headerlink" title="锁粗化"></a>锁粗化</h2><p>通常情况下, 为了保证多线程的高效并发, 就要求每个线程间持有锁的时间尽可能短, 即在使用完公共资源后, 应该立即释放.</p>
+<p>然而如果对一个锁保持高频率地请求, 同步和释放, 反而不利于性能的优化. 对于这种情况, 如果被虚拟机检测到一连串地对同一锁进行请求和释放, 便会将所有的锁操作合成为一次请求, 以减少锁的同步次数.这就是一种<strong>锁的粗化</strong>.</p>
+<h1 id="Java-虚拟机对锁优化所作的努力"><a href="#Java-虚拟机对锁优化所作的努力" class="headerlink" title="Java 虚拟机对锁优化所作的努力"></a>Java 虚拟机对锁优化所作的努力</h1><h2 id="锁偏向"><a href="#锁偏向" class="headerlink" title="锁偏向"></a>锁偏向</h2><p>如果一个线程获得了锁, 则进入锁偏向模式, 再次请求锁时就无需做任何同步操作. 这种优化方法对锁竞争很少的情况下非常有效, 但是如果竞争激烈, 有不同的线程得到了锁后, <strong>偏向锁会失效</strong>.</p>
+<p>如果需要启用, 使用虚拟机参数<code>-XX:+UseBiasedLocking</code></p>
+<h2 id="轻量级锁"><a href="#轻量级锁" class="headerlink" title="轻量级锁"></a>轻量级锁</h2><p>当<strong>偏向锁失败</strong>时, 虚拟机会尝试将对象头部作为指针, 指向持有锁的线程堆栈的内部, 来简单地判断一个线程是否持有对象锁. 如果成功, 则顺利进入临界区, 如果失败, 则表明别的线程先得到了锁, 当前线程的锁请求会<strong>膨胀为重量级锁</strong>.</p>
+<h2 id="自旋锁"><a href="#自旋锁" class="headerlink" title="自旋锁"></a>自旋锁</h2><p><strong>锁膨胀</strong>后, 下一次获得这个锁还是未知的, 可能几个CPU时钟周期后就能得到, 如果立刻在此时真实地于操作系统层挂起线程, 可能是得不偿失的. 所以虚拟机会试着做几个空循环(<em>自旋的含义</em>). 在若干次循环后, 如果可以得到锁, 那么就顺利进入临界区, 如果无法得到, 才<strong>真实在操作系统层挂起</strong></p>
+<h2 id="锁消除"><a href="#锁消除" class="headerlink" title="锁消除"></a>锁消除</h2><p>Java 虚拟机在进行 JIT 编译的时候, 通过对上下文的扫描, 去除了不可能存在共享资源的锁, 通过锁消除, 可以除去毫无意义的请求锁时间操作. </p>
+<p>例如, 在不需要协作的一个线程里, 调用了一些线程安全的容器 (例如 <code>Vector</code>, <code>StringBuffer</code>), 这可能导致原来需要加锁保证线程安全的变量实际上是个无需加锁的局部变量, 虚拟机会使用<em>逃逸分析</em>来判断需要加锁的对象是否一直处于一个作用域, 从而适当地消除一些锁.</p>
+<h2 id="部分名词解释"><a href="#部分名词解释" class="headerlink" title="部分名词解释"></a>部分名词解释</h2><p>本段摘取自知乎 - <a href="https://www.zhihu.com/question/38857029" target="_blank" rel="noopener">自旋锁和使线程休眠的非自旋锁各有什么适用场景？</a></p>
+<h3 id="内核锁-重量级锁"><a href="#内核锁-重量级锁" class="headerlink" title="内核锁 (重量级锁)"></a>内核锁 (重量级锁)</h3><p><strong>内核锁：基于内核对象构造的锁机制，就是通常说的内核构造模式。</strong></p>
+<p>优点：CPU利用最大化。它发现资源被锁住，请求就排队等候。线程切换到别处干活，直到接受到可用信号，线程再切回来继续处理请求。</p>
+<p>缺点：托管代码-&gt;用户模式代码-&gt;内核代码损耗、线程上下文切换损耗。在锁的时间比较短时，系统频繁忙于休眠、切换，是个很大的性能损耗。</p>
+<h3 id="自旋锁-1"><a href="#自旋锁-1" class="headerlink" title="自旋锁"></a>自旋锁</h3><p><strong>自旋锁：原子操作+自循环。通常说的用户构造模式。 线程不休眠，一直循环尝试对资源访问，直到可用。</strong></p>
+<p>优点：完美解决内核锁的缺点。</p>
+<p>缺点：长时间一直循环会导致CPU的白白浪费，高并发竞争下、CPU的消耗特别严重。</p>
+<h3 id="混合锁"><a href="#混合锁" class="headerlink" title="混合锁"></a>混合锁</h3><p><strong>混合锁：内核锁+自旋锁。 混合锁是先自旋锁一段时间或自旋多少次，再转成内核锁。</strong></p>
+<p>优点：内核锁和自旋锁的折中方案，利用前二者优点，避免出现极端情况（自旋时间过长，内核锁时间过短）。</p>
+<p>缺点： 自旋多少时间、自旋多少次，这些策略很难把控。</p>
+<h1 id="无锁的一种实现-ThreadLocal"><a href="#无锁的一种实现-ThreadLocal" class="headerlink" title="无锁的一种实现: ThreadLocal"></a>无锁的一种实现: ThreadLocal</h1><p><code>ThreadLocal</code>可以将一个实例发配到线程中, 每个线程都拥有自己的这个实例, 而非一个引用, 这里就不再进行深入, 读者可以自己查阅 JDK 文档.</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/computer/" rel="tag"># computer</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/11/Java并发-篇4/" rel="next" title="Java并发 - 篇4">
+                <i class="fa fa-chevron-left"></i> Java并发 - 篇4
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Nakiha</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/Nakiha" title="GitHub &rarr; https://github.com/Nakiha" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:NakihaCN@outlook.com" title="E-Mail &rarr; mailto:NakihaCN@outlook.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JDK并发容器"><span class="nav-number">1.</span> <span class="nav-text">JDK并发容器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#锁的优化和注意"><span class="nav-number">2.</span> <span class="nav-text">锁的优化和注意</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#减少锁的持有时间"><span class="nav-number">2.1.</span> <span class="nav-text">减少锁的持有时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#减小锁粒度"><span class="nav-number">2.2.</span> <span class="nav-text">减小锁粒度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#锁分离"><span class="nav-number">2.3.</span> <span class="nav-text">锁分离</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#锁粗化"><span class="nav-number">2.4.</span> <span class="nav-text">锁粗化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java-虚拟机对锁优化所作的努力"><span class="nav-number">3.</span> <span class="nav-text">Java 虚拟机对锁优化所作的努力</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#锁偏向"><span class="nav-number">3.1.</span> <span class="nav-text">锁偏向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#轻量级锁"><span class="nav-number">3.2.</span> <span class="nav-text">轻量级锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自旋锁"><span class="nav-number">3.3.</span> <span class="nav-text">自旋锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#锁消除"><span class="nav-number">3.4.</span> <span class="nav-text">锁消除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部分名词解释"><span class="nav-number">3.5.</span> <span class="nav-text">部分名词解释</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#内核锁-重量级锁"><span class="nav-number">3.5.1.</span> <span class="nav-text">内核锁 (重量级锁)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自旋锁-1"><span class="nav-number">3.5.2.</span> <span class="nav-text">自旋锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#混合锁"><span class="nav-number">3.5.3.</span> <span class="nav-text">混合锁</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#无锁的一种实现-ThreadLocal"><span class="nav-number">4.</span> <span class="nav-text">无锁的一种实现: ThreadLocal</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nakiha</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
