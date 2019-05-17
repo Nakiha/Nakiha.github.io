@@ -287,7 +287,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/16/Java并发-篇5/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/17/Java并发-篇6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nakiha">
@@ -307,7 +307,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/05/16/Java并发-篇5/" class="post-title-link" itemprop="url">Java并发 - 篇5</a>
+                <a href="/2019/05/17/Java并发-篇6/" class="post-title-link" itemprop="url">Java并发 - 篇6</a>
               
             
           </h1>
@@ -332,7 +332,7 @@
                 
               
 
-              <time title="Created: 2019-05-16 16:15:03 / Modified: 21:22:59" itemprop="dateCreated datePublished" datetime="2019-05-16T16:15:03+08:00">2019-05-16</time>
+              <time title="Created: 2019-05-17 19:23:23 / Modified: 21:22:33" itemprop="dateCreated datePublished" datetime="2019-05-17T19:23:23+08:00">2019-05-17</time>
             
 
             
@@ -374,17 +374,15 @@
         
           
             <p>
-              摘录自葛一鸣与郭超的 [Java高并发程序设计]. 
-JDK并发容器
-ConcurrentHashMap: 高效并发, 线程安全的HashMap. 
-CopyOnWriteArrayList: 在读多写少的场合, 性能远超Vector.
-ConcurrentLinkedQueue: 高效的并发队列,
+              本文摘录自葛一鸣与郭超的 [Java高并发程序设计]. 
+无锁无锁是一种乐观的策略, 它假设对资源的访问是没有冲突的, 所有的线程都可以不停顿地持续执行, 它采用一种叫做比较交换的技术 (CAS Computer And Swap) 来鉴别线程冲突, 如果出现冲突, 重试操作, 直到没有冲突为止.
+
               ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/05/16/Java并发-篇5/#more" rel="contents">
+              <a class="btn" href="/2019/05/17/Java并发-篇6/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -506,7 +504,7 @@ ConcurrentLinkedQueue: 高效的并发队列,
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-05-16 16:25:06" itemprop="dateModified" datetime="2019-05-16T16:25:06+08:00">2019-05-16</time>
+                <time title="Modified: 2019-05-17 19:23:42" itemprop="dateModified" datetime="2019-05-17T19:23:42+08:00">2019-05-17</time>
               
             
           </span>
@@ -543,11 +541,12 @@ ConcurrentLinkedQueue: 高效的并发队列,
         
           
             <p>
-              , 摘录自葛一鸣与郭超的 [Java高并发程序设计]. 
-本文用于介绍, 摘录自葛一鸣与郭超的 [Java高并发程序设计]. 
+              摘录自葛一鸣与郭超的 [Java高并发程序设计]. 
 线程复用: 线程池如果频繁地创建和销毁线程, 会给GC带来很大的压力
 线程池提供了一种合理安排工作线程和空闲线程的方式, 而不是简单的不用就回收. 
-JDK提供了一套完整的
+JDK提供了一套完整的Executor框架用来有效地进行线程控制, 其本质就是一个线程池
+
+其中
               ...
             </p>
           <!--noindex-->
@@ -1979,9 +1978,7 @@ Activity 与 任务在讨论启动模式前, 需要先对 Android 的应用启�
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
