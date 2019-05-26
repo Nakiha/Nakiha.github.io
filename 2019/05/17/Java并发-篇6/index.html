@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content=", 摘录自葛一鸣与郭超的 [Java高并发程序设计].  本文主要介绍了死锁的概念与一些相关的基础类, 摘录自葛一鸣与郭超的 [Java高并发程序设计].  无锁无锁是一种乐观的策略, 它假设对资源的访问是没有冲突的, 所有的线程都可以不停顿地持续执行, 它采用一种叫做比较交换的技术 (CAS Computer And Swap) 来鉴别线程冲突, 如果出现冲突, 重试操作, 直到没有冲突为止.">
+  <meta name="description" content=", 摘录自葛一鸣与郭超的 [Java高并发程序设计].  本文主要介绍了死锁的概念与一些相关的基础类, 摘录自葛一鸣与郭超的 [Java高并发程序设计].  无锁无锁是一种乐观的策略, 它假设对资源的访问是没有冲突的, 所有的线程都可以不停顿地持续执行, 它采用一种叫做比较交换的技术 (CAS Compare And Swap) 来鉴别线程冲突, 如果出现冲突, 重试操作, 直到没有冲突为止. C">
 <meta name="keywords" content="Computer">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java并发 - 篇6">
+<meta property="og:title" content="Java并发 - (无锁)篇6">
 <meta property="og:url" content="http://yoursite.com/2019/05/17/Java并发-篇6/index.html">
 <meta property="og:site_name" content="Nakiha&#39;s Blog">
-<meta property="og:description" content=", 摘录自葛一鸣与郭超的 [Java高并发程序设计].  本文主要介绍了死锁的概念与一些相关的基础类, 摘录自葛一鸣与郭超的 [Java高并发程序设计].  无锁无锁是一种乐观的策略, 它假设对资源的访问是没有冲突的, 所有的线程都可以不停顿地持续执行, 它采用一种叫做比较交换的技术 (CAS Computer And Swap) 来鉴别线程冲突, 如果出现冲突, 重试操作, 直到没有冲突为止.">
+<meta property="og:description" content=", 摘录自葛一鸣与郭超的 [Java高并发程序设计].  本文主要介绍了死锁的概念与一些相关的基础类, 摘录自葛一鸣与郭超的 [Java高并发程序设计].  无锁无锁是一种乐观的策略, 它假设对资源的访问是没有冲突的, 所有的线程都可以不停顿地持续执行, 它采用一种叫做比较交换的技术 (CAS Compare And Swap) 来鉴别线程冲突, 如果出现冲突, 重试操作, 直到没有冲突为止. C">
 <meta property="og:locale" content="Simple Chinese">
-<meta property="og:updated_time" content="2019-05-23T07:24:25.384Z">
+<meta property="og:updated_time" content="2019-05-23T10:56:43.786Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java并发 - 篇6">
-<meta name="twitter:description" content=", 摘录自葛一鸣与郭超的 [Java高并发程序设计].  本文主要介绍了死锁的概念与一些相关的基础类, 摘录自葛一鸣与郭超的 [Java高并发程序设计].  无锁无锁是一种乐观的策略, 它假设对资源的访问是没有冲突的, 所有的线程都可以不停顿地持续执行, 它采用一种叫做比较交换的技术 (CAS Computer And Swap) 来鉴别线程冲突, 如果出现冲突, 重试操作, 直到没有冲突为止.">
+<meta name="twitter:title" content="Java并发 - (无锁)篇6">
+<meta name="twitter:description" content=", 摘录自葛一鸣与郭超的 [Java高并发程序设计].  本文主要介绍了死锁的概念与一些相关的基础类, 摘录自葛一鸣与郭超的 [Java高并发程序设计].  无锁无锁是一种乐观的策略, 它假设对资源的访问是没有冲突的, 所有的线程都可以不停顿地持续执行, 它采用一种叫做比较交换的技术 (CAS Compare And Swap) 来鉴别线程冲突, 如果出现冲突, 重试操作, 直到没有冲突为止. C">
 
 
 
@@ -125,7 +125,7 @@
   };
 </script>
 
-  <title>Java并发 - 篇6 | Nakiha's Blog</title>
+  <title>Java并发 - (无锁)篇6 | Nakiha's Blog</title>
   
 
 
@@ -307,7 +307,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Java并发 - 篇6
+          <h1 class="post-title" itemprop="name headline">Java并发 - (无锁)篇6
 
               
             
@@ -350,7 +350,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-05-23 15:24:25" itemprop="dateModified" datetime="2019-05-23T15:24:25+08:00">2019-05-23</time>
+                <time title="Modified: 2019-05-23 18:56:43" itemprop="dateModified" datetime="2019-05-23T18:56:43+08:00">2019-05-23</time>
               
             
           </span>
@@ -386,7 +386,7 @@
       
         <p>, 摘录自葛一鸣与郭超的 [Java高并发程序设计]. </p>
 <p>本文主要介绍了死锁的概念与一些相关的基础类, 摘录自葛一鸣与郭超的 [Java高并发程序设计]. </p>
-<h1 id="无锁"><a href="#无锁" class="headerlink" title="无锁"></a>无锁</h1><p>无锁是一种乐观的策略, 它假设对资源的访问是没有冲突的, 所有的线程都可以不停顿地持续执行, 它采用一种叫做<strong>比较交换</strong>的技术 (CAS Computer And Swap) 来鉴别线程冲突, 如果出现冲突, 重试操作, 直到没有冲突为止.</p>
+<h1 id="无锁"><a href="#无锁" class="headerlink" title="无锁"></a>无锁</h1><p>无锁是一种乐观的策略, 它假设对资源的访问是没有冲突的, 所有的线程都可以不停顿地持续执行, 它采用一种叫做<strong>比较交换</strong>的技术 (CAS Compare And Swap) 来鉴别线程冲突, 如果出现冲突, 重试操作, 直到没有冲突为止.</p>
 <h2 id="CAS"><a href="#CAS" class="headerlink" title="CAS"></a>CAS</h2><p>CAS算法包含三个参数 CAS(V, E, N). V表示要更新的变量, E表示预期值, N表示新值.</p>
 <p>如果 V==E 成立, 就将 V 设置为 N, 如果 V 于 E 值不同, 说明有别的线程对 V 进行了更新, 则当前线程什么都不做. CAS 的操作总是抱着乐观的态度进行的, 它总认为自己可以成功完成操作. 多个线程使用 CAS 操作一个变量时, 只有一个会胜出, 其他的被告知失败, 并允许再次尝试或者放弃.</p>
 <p>典型的 CAS 算法包括</p>
@@ -482,8 +482,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/16/Java并发-篇5/" rel="next" title="Java并发 - 篇5">
-                <i class="fa fa-chevron-left"></i> Java并发 - 篇5
+              <a href="/2019/05/16/Java并发-篇5/" rel="next" title="Java并发 - (锁)篇5">
+                <i class="fa fa-chevron-left"></i> Java并发 - (锁)篇5
               </a>
             
           </div>
@@ -491,6 +491,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/23/Java并发-篇7/" rel="prev" title="Java并发 - (并发容器)篇7">
+                Java并发 - (并发容器)篇7 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -559,7 +563,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -582,7 +586,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">4</span>
+                      
+                    
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
