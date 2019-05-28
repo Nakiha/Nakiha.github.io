@@ -96,22 +96,18 @@
 
 
 
-  <meta name="description" content="这篇文章主要用来记录一点计算机组成原理和学习 Java高并发程序设计 这本书的历程, 这里为第一篇 冯 - 诺伊曼机体系 冯 - 诺伊曼机结构功耗 ~= 1/2 ×负载电容×电压的平方×开关频率×晶体管数量  冯 - 诺伊曼机的五个阶段 指令重排冯 - 诺依曼机的五个阶段催生了流水线技术, 对应的优化技术也就造成了指令重排 流水线技术流水线技术使得两条指令可以被同时执行    占位行 - - -">
+  <meta name="description" content="摘录自葛一鸣与郭超的 [Java高并发程序设计].  无锁算法: amino并发包中的无锁 VectorVector是一个一维的根具需求自动扩展空间的动态数组, 为了保证原子性, 我们使用AtomicReferenceArray来实现它. 由于AtomicReferenceArray内部包装的实际上是一个Object[]数组, 很难直接对它进行扩展, 所以我们使用一个二维数组来实现一个自动扩展的一">
 <meta name="keywords" content="Computer">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java并发 - (计算机基础)篇1">
-<meta property="og:url" content="http://yoursite.com/2019/05/05/Java并发 - 篇1/index.html">
+<meta property="og:title" content="Java并发 - 篇8">
+<meta property="og:url" content="http://yoursite.com/2019/05/26/Java并发-篇8/index.html">
 <meta property="og:site_name" content="Nakiha&#39;s Blog">
-<meta property="og:description" content="这篇文章主要用来记录一点计算机组成原理和学习 Java高并发程序设计 这本书的历程, 这里为第一篇 冯 - 诺伊曼机体系 冯 - 诺伊曼机结构功耗 ~= 1/2 ×负载电容×电压的平方×开关频率×晶体管数量  冯 - 诺伊曼机的五个阶段 指令重排冯 - 诺依曼机的五个阶段催生了流水线技术, 对应的优化技术也就造成了指令重排 流水线技术流水线技术使得两条指令可以被同时执行    占位行 - - -">
+<meta property="og:description" content="摘录自葛一鸣与郭超的 [Java高并发程序设计].  无锁算法: amino并发包中的无锁 VectorVector是一个一维的根具需求自动扩展空间的动态数组, 为了保证原子性, 我们使用AtomicReferenceArray来实现它. 由于AtomicReferenceArray内部包装的实际上是一个Object[]数组, 很难直接对它进行扩展, 所以我们使用一个二维数组来实现一个自动扩展的一">
 <meta property="og:locale" content="Simple Chinese">
-<meta property="og:image" content="http://yoursite.com/2019/05/05/Java并发%20-%20篇1/体系.png">
-<meta property="og:image" content="http://yoursite.com/2019/05/05/Java并发%20-%20篇1/结构.png">
-<meta property="og:image" content="http://yoursite.com/2019/05/05/Java并发%20-%20篇1/步骤.png">
-<meta property="og:updated_time" content="2019-05-23T07:44:36.349Z">
+<meta property="og:updated_time" content="2019-05-26T08:50:52.913Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java并发 - (计算机基础)篇1">
-<meta name="twitter:description" content="这篇文章主要用来记录一点计算机组成原理和学习 Java高并发程序设计 这本书的历程, 这里为第一篇 冯 - 诺伊曼机体系 冯 - 诺伊曼机结构功耗 ~= 1/2 ×负载电容×电压的平方×开关频率×晶体管数量  冯 - 诺伊曼机的五个阶段 指令重排冯 - 诺依曼机的五个阶段催生了流水线技术, 对应的优化技术也就造成了指令重排 流水线技术流水线技术使得两条指令可以被同时执行    占位行 - - -">
-<meta name="twitter:image" content="http://yoursite.com/2019/05/05/Java并发%20-%20篇1/体系.png">
+<meta name="twitter:title" content="Java并发 - 篇8">
+<meta name="twitter:description" content="摘录自葛一鸣与郭超的 [Java高并发程序设计].  无锁算法: amino并发包中的无锁 VectorVector是一个一维的根具需求自动扩展空间的动态数组, 为了保证原子性, 我们使用AtomicReferenceArray来实现它. 由于AtomicReferenceArray内部包装的实际上是一个Object[]数组, 很难直接对它进行扩展, 所以我们使用一个二维数组来实现一个自动扩展的一">
 
 
 
@@ -119,7 +115,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/05/05/Java并发 - 篇1/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/26/Java并发-篇8/">
 
 
 
@@ -129,7 +125,7 @@
   };
 </script>
 
-  <title>Java并发 - (计算机基础)篇1 | Nakiha's Blog</title>
+  <title>Java并发 - 篇8 | Nakiha's Blog</title>
   
 
 
@@ -294,7 +290,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/05/Java并发 - 篇1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/26/Java并发-篇8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nakiha">
@@ -311,7 +307,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Java并发 - (计算机基础)篇1
+          <h1 class="post-title" itemprop="name headline">Java并发 - 篇8
 
               
             
@@ -337,24 +333,12 @@
                 
               
 
-              <time title="Created: 2019-05-05 22:30:22" itemprop="dateCreated datePublished" datetime="2019-05-05T22:30:22+08:00">2019-05-05</time>
+              <time title="Created: 2019-05-26 14:39:07 / Modified: 16:50:52" itemprop="dateCreated datePublished" datetime="2019-05-26T14:39:07+08:00">2019-05-26</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-05-23 15:44:36" itemprop="dateModified" datetime="2019-05-23T15:44:36+08:00">2019-05-23</time>
               
             
           </span>
@@ -388,148 +372,26 @@
       
 
       
-        <p>这篇文章主要用来记录一点计算机组成原理和学习 Java高并发程序设计 这本书的历程, 这里为第一篇</p>
-<h1 id="冯-诺伊曼机体系"><a href="#冯-诺伊曼机体系" class="headerlink" title="冯 - 诺伊曼机体系"></a>冯 - 诺伊曼机体系</h1><p><img src="/2019/05/05/Java并发 - 篇1/体系.png" alt="体系"></p>
-<h1 id="冯-诺伊曼机结构"><a href="#冯-诺伊曼机结构" class="headerlink" title="冯 - 诺伊曼机结构"></a>冯 - 诺伊曼机结构</h1><p>功耗 ~= 1/2 ×负载电容×电压的平方×开关频率×晶体管数量</p>
-<p><img src="/2019/05/05/Java并发 - 篇1/结构.png" alt="结构"></p>
-<h1 id="冯-诺伊曼机的五个阶段"><a href="#冯-诺伊曼机的五个阶段" class="headerlink" title="冯 - 诺伊曼机的五个阶段"></a>冯 - 诺伊曼机的五个阶段</h1><p><img src="/2019/05/05/Java并发 - 篇1/步骤.png" alt="步骤"></p>
-<h2 id="指令重排"><a href="#指令重排" class="headerlink" title="指令重排"></a>指令重排</h2><p>冯 - 诺依曼机的五个阶段催生了流水线技术, 对应的优化技术也就造成了指令重排</p>
-<h3 id="流水线技术"><a href="#流水线技术" class="headerlink" title="流水线技术"></a>流水线技术</h3><p>流水线技术使得两条指令可以被同时执行</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">占位行</th>
-<th style="text-align:center">-</th>
-<th style="text-align:center">-</th>
-<th style="text-align:center">-</th>
-<th style="text-align:center">-</th>
-<th style="text-align:center">-</th>
-<th style="text-align:center">-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">指令1</td>
-<td style="text-align:center">IF</td>
-<td style="text-align:center">ID</td>
-<td style="text-align:center">EX</td>
-<td style="text-align:center">MEM</td>
-<td style="text-align:center">WB</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">指令2</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">IF</td>
-<td style="text-align:center">ID</td>
-<td style="text-align:center">EX</td>
-<td style="text-align:center">MEM</td>
-<td style="text-align:center">WB</td>
-</tr>
-</tbody>
-</table>
-<p>在执行第二条指令时, 第一条指令并没有执行完, 这样充分地利用了硬件资源</p>
-<h3 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h3><p>这里先给出三个简单的汇编操作符</p>
+        <p>摘录自葛一鸣与郭超的 [Java高并发程序设计]. </p>
+<h1 id="无锁算法-amino并发包中的无锁-Vector"><a href="#无锁算法-amino并发包中的无锁-Vector" class="headerlink" title="无锁算法: amino并发包中的无锁 Vector"></a>无锁算法: amino并发包中的无锁 Vector</h1><p>Vector是一个一维的根具需求自动扩展空间的动态数组, 为了保证原子性, 我们使用<code>AtomicReferenceArray</code>来实现它. 由于<code>AtomicReferenceArray</code>内部包装的实际上是一个<code>Object[]</code>数组, 很难直接对它进行扩展, 所以我们使用一个二维数组来实现一个自动扩展的一维数组</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> AtomicReferenceArray&lt;AtomicReferenceArray&lt;E&gt;&gt; buckets;</span><br></pre></td></tr></table></figure>
+<h2 id="得到确切可插入位置"><a href="#得到确切可插入位置" class="headerlink" title="得到确切可插入位置"></a>得到确切可插入位置</h2><p>JDK 的原版 Vector 在空间增长时, 每次的总容量都会翻倍. 这里, 我们每次拓展空间都会让数组变成上一个的一倍.</p>
+<p>其中<strong>第一个数组的长度是 8</strong> , 即<code>0b1000</code>, 由于每次扩展翻一倍, 所以可用数组的总长度可用等比数列求和公式($S_{n}=a_{1}<em>{\frac{1-q^n}{1-q}}$)得出, 为: (</em>其中n为数组的数目<code>bucketInd</code>*)<br>$$<br>S_n=2^{n+3}-8<br>$$<br>这个类应该维护一个<code>position</code>, 每次插值后自增一次, 用于记录目前的总长度, 即 <code>position</code> = $S_n$</p>
+<p>为了向二维数组中插值, 我们需要知道当前的位置, 我们用两个数表示</p>
 <ul>
-<li><p><strong>LW</strong> (load)<br>示例: <em>LW R1, B;</em> 将 B 的值加载到 R1 寄存器中</p>
-</li>
-<li><p><strong>ADD</strong> (add)</p>
-<p>示例: <em>ADD R3, R1, R2;</em> 将 R1, R2 的值相加, 放到 R3 中</p>
-</li>
-<li><p><strong>SW</strong> (store)</p>
-<p>示例: <em>SW A, R3;</em> 将 R3 的值存储到 A 中</p>
+<li>在哪个数组中 (<code>bucketInd</code>),</li>
+<li>在这个数组的哪个位置中 (<code>Index</code>)</li>
+</ul>
+<p>而获得 <code>bucketInd</code>和<code>Index</code>的值, 就是对<code>position</code>进行解析的过程, </p>
+<h3 id="获得-bucketInd"><a href="#获得-bucketInd" class="headerlink" title="获得 bucketInd"></a>获得 bucketInd</h3><p>我们知道, 二进制下很容易对 $2^n$ 和 指数 $n$ 的值进行分析. 观察 (1) 式中<code>position</code>( $ S_n $ ) 与<code>bucketInd</code>( $n$ ) 的对应关系 , 如果我们给<code>position</code>加上 8 (<code>0b1000</code>) 后能获得简明的对应关系 , 即:<br>$$<br>S^{‘}_{n}=2^{n+3}<br>$$<br>假设我们使用<code>int</code>(32位) 来记录<code>bucketInd</code>( $n$ ) , 通过对 <code>position</code>( $ S_n $ ) + 8 得到的值可以被用来定位目前是在第几个<code>bucket</code>中 (第一个数列时, 前导零数目为28个). 例如: </p>
+<ul>
+<li><p>00000000 00000000 00000000 00111000 + 0x8 = 00000000 00000000 00000000 01000000 </p>
+<p>一共25个前导0, 即目前<code>position</code>位于 第 四(<em>29-25</em>) 个数列中.</p>
 </li>
 </ul>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">A=B+C</th>
-<th style="text-align:center">-</th>
-<th style="text-align:center">-</th>
-<th style="text-align:center">-</th>
-<th style="text-align:center">-</th>
-<th style="text-align:center">-</th>
-<th style="text-align:center">-</th>
-<th style="text-align:center">-</th>
-<th style="text-align:center">-</th>
-<th style="text-align:center">-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">LW R1, <strong>B</strong></td>
-<td style="text-align:center">IF</td>
-<td style="text-align:center">ID</td>
-<td style="text-align:center">EX</td>
-<td style="text-align:center">MEM</td>
-<td style="text-align:center">WB</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">LW R2, <strong>C</strong></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">IF</td>
-<td style="text-align:center">ID</td>
-<td style="text-align:center">EX</td>
-<td style="text-align:center">MEM</td>
-<td style="text-align:center">WB</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">ADD R3, R1,R2</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">IF</td>
-<td style="text-align:center">ID</td>
-<td style="text-align:center"><strong>×</strong></td>
-<td style="text-align:center">EX</td>
-<td style="text-align:center">MEM</td>
-<td style="text-align:center">WB</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">SW <strong>A</strong>, R3</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">IF</td>
-<td style="text-align:center"><strong>×</strong></td>
-<td style="text-align:center">ID</td>
-<td style="text-align:center">EX</td>
-<td style="text-align:center">MEM</td>
-<td style="text-align:center">WB</td>
-</tr>
-</tbody>
-</table>
-<p>这里有两次中断, 第一次是因为 R2 还未准备好, 第二次是因为 R3 还未准备好.</p>
-<p>而在一些更长的流水线中, 重排指令有时可以解决中断</p>
-<h3 id="指令重排的规则"><a href="#指令重排的规则" class="headerlink" title="指令重排的规则"></a>指令重排的规则</h3><ul>
-<li><p>程序顺序性原则</p>
-<p>一个线程内保证语义的串行性</p>
-</li>
-<li><p>volatile 规则</p>
-<p>volatile 变量的写, 先发生在读之后, 保证了 volatile变量 的可见性</p>
-</li>
-<li><p>锁规则</p>
-<p>解锁 (unlock) 必发生在加锁 (lock) 前</p>
-</li>
-<li><p>传递性</p>
-<p>A 先于 B, B 先于 C, 则 A 必然先于 C</p>
-</li>
-<li><p>一个线程的 <code>start()</code> 绝对优先</p>
-</li>
-<li><p>线程的所有操作先于线程的终结 (<code>Thread.join()</code>)</p>
-</li>
-<li><p>线程的中断 (<code>interrupt()</code>)先于呗中断的线程代码</p>
-</li>
-<li><p>线程的构造函数执行和结束 先于 <code>finalize()</code> 方法</p>
-</li>
-</ul>
+<h3 id="获得-Index"><a href="#获得-Index" class="headerlink" title="获得 Index"></a>获得 Index</h3><p>这样就完成了对<code>bucketInd</code>( $n$ )的定位, 剩下的就是<code>Index</code>解析</p>
+<p>事实上真正的<code>position</code> = $S_{n-1}+a_n$, 我们可以记录下<code>zeroNumPos</code>(前导零的数目), 将 0x80000000 (1000 0000 0000 0000 0000 0000 0000 0000‬)向右偏移(&gt;&gt;&gt;)<code>zeroNumPos</code>的数目就得到了$S_{n-1}$的掩码, 将这个掩码再作用于 ( $ S_n $ ) + 8 上, 就可以得到 <code>Index</code></p>
+<h3 id="主要代码实现"><a href="#主要代码实现" class="headerlink" title="主要代码实现"></a>主要代码实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> pos = desc.size + FIRST_BUCKET_SIZE;</span><br><span class="line"><span class="keyword">int</span> zeroNumPos = Integer.numberOfLeadingZeros(pos);</span><br><span class="line"><span class="keyword">int</span> bucketInd = zeroNumFirst - zeroNumPos;</span><br><span class="line">...</span><br><span class="line"><span class="keyword">int</span> idx = (<span class="number">0x80000000</span>&gt;&gt;&gt;zeroNumPos) ^ Pos;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -566,8 +428,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/04/自定义Vjew/" rel="next" title="自定义View">
-                <i class="fa fa-chevron-left"></i> 自定义View
+              <a href="/2019/05/26/摸鱼/" rel="next" title="摸鱼">
+                <i class="fa fa-chevron-left"></i> 摸鱼
               </a>
             
           </div>
@@ -576,8 +438,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/05/08/Java并发-篇2/" rel="prev" title="Java并发 - (进程与线程)篇2">
-                Java并发 - (进程与线程)篇2 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/05/26/GPU流水线/" rel="prev" title="GPU流水线">
+                GPU流水线 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -740,7 +602,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#冯-诺伊曼机体系"><span class="nav-number">1.</span> <span class="nav-text">冯 - 诺伊曼机体系</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#冯-诺伊曼机结构"><span class="nav-number">2.</span> <span class="nav-text">冯 - 诺伊曼机结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#冯-诺伊曼机的五个阶段"><span class="nav-number">3.</span> <span class="nav-text">冯 - 诺伊曼机的五个阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#指令重排"><span class="nav-number">3.1.</span> <span class="nav-text">指令重排</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#流水线技术"><span class="nav-number">3.1.1.</span> <span class="nav-text">流水线技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中断"><span class="nav-number">3.1.2.</span> <span class="nav-text">中断</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指令重排的规则"><span class="nav-number">3.1.3.</span> <span class="nav-text">指令重排的规则</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#无锁算法-amino并发包中的无锁-Vector"><span class="nav-number">1.</span> <span class="nav-text">无锁算法: amino并发包中的无锁 Vector</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#得到确切可插入位置"><span class="nav-number">1.1.</span> <span class="nav-text">得到确切可插入位置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#获得-bucketInd"><span class="nav-number">1.1.1.</span> <span class="nav-text">获得 bucketInd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获得-Index"><span class="nav-number">1.1.2.</span> <span class="nav-text">获得 Index</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主要代码实现"><span class="nav-number">1.1.3.</span> <span class="nav-text">主要代码实现</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

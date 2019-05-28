@@ -96,14 +96,21 @@
 
 
 
-  <meta name="keywords" content="Android">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Nakiha&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/archives/2019/05/page/2/index.html">
+  <meta name="description" content="本文摘录自 [Unity Shader 入门精要] 概念渲染流水线渲染流程可以分为 3 个阶段  应用阶段 应用阶段就是制作场景, 优化场景性能的一个阶段, 包括但不限于添加模型, 设置摄像机位置, 设置材质, 设置着色器. 这一阶段最重要的输出是渲染所需的几何信息, 即渲染图元  几何阶段">
+<meta name="keywords" content="Computer Graphics">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GPU流水线">
+<meta property="og:url" content="http://yoursite.com/2019/05/26/GPU流水线/index.html">
 <meta property="og:site_name" content="Nakiha&#39;s Blog">
+<meta property="og:description" content="本文摘录自 [Unity Shader 入门精要] 概念渲染流水线渲染流程可以分为 3 个阶段  应用阶段 应用阶段就是制作场景, 优化场景性能的一个阶段, 包括但不限于添加模型, 设置摄像机位置, 设置材质, 设置着色器. 这一阶段最重要的输出是渲染所需的几何信息, 即渲染图元  几何阶段">
 <meta property="og:locale" content="Simple Chinese">
+<meta property="og:image" content="http://yoursite.com/2019/05/26/GPU流水线/资源%2014@4x.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/26/GPU流水线/顶点数据.png">
+<meta property="og:updated_time" content="2019-05-26T14:45:35.332Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Nakiha&#39;s Blog">
+<meta name="twitter:title" content="GPU流水线">
+<meta name="twitter:description" content="本文摘录自 [Unity Shader 入门精要] 概念渲染流水线渲染流程可以分为 3 个阶段  应用阶段 应用阶段就是制作场景, 优化场景性能的一个阶段, 包括但不限于添加模型, 设置摄像机位置, 设置材质, 设置着色器. 这一阶段最重要的输出是渲染所需的几何信息, 即渲染图元  几何阶段">
+<meta name="twitter:image" content="http://yoursite.com/2019/05/26/GPU流水线/资源%2014@4x.png">
 
 
 
@@ -111,7 +118,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/archives/2019/05/page/2/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/26/GPU流水线/">
 
 
 
@@ -121,7 +128,7 @@
   };
 </script>
 
-  <title>Archive | Nakiha's Blog</title>
+  <title>GPU流水线 | Nakiha's Blog</title>
   
 
 
@@ -169,7 +176,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -224,7 +231,7 @@
         
         
           
-          <li class="menu-item menu-item-archives menu-item-active">
+          <li class="menu-item menu-item-archives">
 
     
     
@@ -245,19 +252,6 @@
 
   
     
-
-    
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
 
   
 
@@ -283,222 +277,187 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/26/GPU流水线/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nakiha">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nakiha's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">GPU流水线
+
+              
+            
+          </h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-26 22:21:12 / Modified: 22:45:35" itemprop="dateCreated datePublished" datetime="2019-05-26T22:21:12+08:00">2019-05-26</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
           
-        
-        Um..! 17 posts in total. Keep on posting.
-      </span>
-      
 
-      
-
-        
-        
-        
-
-        
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
-          </div>
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/05/05/Java并发 - 篇1/" itemprop="url">
             
-              <span itemprop="name">Java并发 - (计算机基础)篇1</span>
             
-          </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-05-05T22:30:22+08:00" content="2019-05-05">
-          05-05
-        </time>
-      </div>
+          
+          
 
-    </header>
-  </article>
+          
 
+          
 
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/05/04/自定义Vjew/" itemprop="url">
-            
-              <span itemprop="name">自定义View</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-05-04T19:07:26+08:00" content="2019-05-04">
-          05-04
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/05/03/layout/" itemprop="url">
-            
-              <span itemprop="name">layout</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-05-03T20:54:14+08:00" content="2019-05-03">
-          05-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <p>本文摘录自 [Unity Shader 入门精要]</p>
+<h1 id="概念渲染流水线"><a href="#概念渲染流水线" class="headerlink" title="概念渲染流水线"></a>概念渲染流水线</h1><p>渲染流程可以分为 3 个阶段<img src="/2019/05/26/GPU流水线/资源 14@4x.png" alt="资源 14@4x"></p>
+<ul>
+<li><p>应用阶段</p>
+<p>应用阶段就是制作场景, 优化场景性能的一个阶段, 包括但不限于添加模型, 设置摄像机位置, 设置材质, 设置着色器. 这一阶段最重要的输出是渲染所需的几何信息, 即<strong>渲染图元</strong></p>
+</li>
+<li><p>几何阶段</p>
+</li>
+</ul>
+<p><img src="/2019/05/26/GPU流水线/顶点数据.png" alt="顶点数据"></p>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/05/03/Activity四大启动模式/" itemprop="url">
-            
-              <span itemprop="name">Activity四大启动模式</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-05-03T11:13:26+08:00" content="2019-05-03">
-          05-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/05/02/又遇持久性储存/" itemprop="url">
-            
-              <span itemprop="name">浅淡永久性储存</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-05-02T21:59:19+08:00" content="2019-05-02">
-          05-02
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Computer-Graphics/" rel="tag"># Computer Graphics</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/26/Java并发-篇8/" rel="next" title="Java并发 - 篇8">
+                <i class="fa fa-chevron-left"></i> Java并发 - 篇8
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/29/初探Dart/" rel="prev" title="初探Dart">
+                初探Dart <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/2019/05/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/archives/2019/05/">1</a><span class="page-number current">2</span>
-  </nav>
+  </article>
 
 
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -518,8 +477,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -616,6 +584,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概念渲染流水线"><span class="nav-number">1.</span> <span class="nav-text">概念渲染流水线</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -744,6 +729,10 @@
 
 
   
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
 
   
 
@@ -759,6 +748,8 @@
 
   
 
+
+  
 
 
   

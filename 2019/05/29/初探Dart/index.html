@@ -96,22 +96,18 @@
 
 
 
-  <meta name="description" content="这篇文章主要用来记录一点计算机组成原理和学习 Java高并发程序设计 这本书的历程, 这里为第一篇 冯 - 诺伊曼机体系 冯 - 诺伊曼机结构功耗 ~= 1/2 ×负载电容×电压的平方×开关频率×晶体管数量  冯 - 诺伊曼机的五个阶段 指令重排冯 - 诺依曼机的五个阶段催生了流水线技术, 对应的优化技术也就造成了指令重排 流水线技术流水线技术使得两条指令可以被同时执行    占位行 - - -">
-<meta name="keywords" content="Computer">
+  <meta name="description" content="前言大概半年前听说的 Flutter , 最近 I/O19 Google 仍然在力推 Flutter 甚至搬上了Web, 也许 Flutter 真的能完成前辈们没能做到的全平台统一的开发. 由于 Flutter 需要用 Dart 编写, 所以就开了这个坑, 至于什么时候填完. 得看看隔壁多线程的坑, Android 的坑什么时候能填完了. 大概就是永远也填不完了吧…… 参考 为 Java 开发人员">
+<meta name="keywords" content="Dart">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java并发 - (计算机基础)篇1">
-<meta property="og:url" content="http://yoursite.com/2019/05/05/Java并发 - 篇1/index.html">
+<meta property="og:title" content="初探Dart">
+<meta property="og:url" content="http://yoursite.com/2019/05/29/初探Dart/index.html">
 <meta property="og:site_name" content="Nakiha&#39;s Blog">
-<meta property="og:description" content="这篇文章主要用来记录一点计算机组成原理和学习 Java高并发程序设计 这本书的历程, 这里为第一篇 冯 - 诺伊曼机体系 冯 - 诺伊曼机结构功耗 ~= 1/2 ×负载电容×电压的平方×开关频率×晶体管数量  冯 - 诺伊曼机的五个阶段 指令重排冯 - 诺依曼机的五个阶段催生了流水线技术, 对应的优化技术也就造成了指令重排 流水线技术流水线技术使得两条指令可以被同时执行    占位行 - - -">
+<meta property="og:description" content="前言大概半年前听说的 Flutter , 最近 I/O19 Google 仍然在力推 Flutter 甚至搬上了Web, 也许 Flutter 真的能完成前辈们没能做到的全平台统一的开发. 由于 Flutter 需要用 Dart 编写, 所以就开了这个坑, 至于什么时候填完. 得看看隔壁多线程的坑, Android 的坑什么时候能填完了. 大概就是永远也填不完了吧…… 参考 为 Java 开发人员">
 <meta property="og:locale" content="Simple Chinese">
-<meta property="og:image" content="http://yoursite.com/2019/05/05/Java并发%20-%20篇1/体系.png">
-<meta property="og:image" content="http://yoursite.com/2019/05/05/Java并发%20-%20篇1/结构.png">
-<meta property="og:image" content="http://yoursite.com/2019/05/05/Java并发%20-%20篇1/步骤.png">
-<meta property="og:updated_time" content="2019-05-23T07:44:36.349Z">
+<meta property="og:updated_time" content="2019-05-28T17:26:43.831Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java并发 - (计算机基础)篇1">
-<meta name="twitter:description" content="这篇文章主要用来记录一点计算机组成原理和学习 Java高并发程序设计 这本书的历程, 这里为第一篇 冯 - 诺伊曼机体系 冯 - 诺伊曼机结构功耗 ~= 1/2 ×负载电容×电压的平方×开关频率×晶体管数量  冯 - 诺伊曼机的五个阶段 指令重排冯 - 诺依曼机的五个阶段催生了流水线技术, 对应的优化技术也就造成了指令重排 流水线技术流水线技术使得两条指令可以被同时执行    占位行 - - -">
-<meta name="twitter:image" content="http://yoursite.com/2019/05/05/Java并发%20-%20篇1/体系.png">
+<meta name="twitter:title" content="初探Dart">
+<meta name="twitter:description" content="前言大概半年前听说的 Flutter , 最近 I/O19 Google 仍然在力推 Flutter 甚至搬上了Web, 也许 Flutter 真的能完成前辈们没能做到的全平台统一的开发. 由于 Flutter 需要用 Dart 编写, 所以就开了这个坑, 至于什么时候填完. 得看看隔壁多线程的坑, Android 的坑什么时候能填完了. 大概就是永远也填不完了吧…… 参考 为 Java 开发人员">
 
 
 
@@ -119,7 +115,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/05/05/Java并发 - 篇1/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/29/初探Dart/">
 
 
 
@@ -129,7 +125,7 @@
   };
 </script>
 
-  <title>Java并发 - (计算机基础)篇1 | Nakiha's Blog</title>
+  <title>初探Dart | Nakiha's Blog</title>
   
 
 
@@ -294,7 +290,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/05/Java并发 - 篇1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/29/初探Dart/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nakiha">
@@ -311,7 +307,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Java并发 - (计算机基础)篇1
+          <h1 class="post-title" itemprop="name headline">初探Dart
 
               
             
@@ -337,24 +333,12 @@
                 
               
 
-              <time title="Created: 2019-05-05 22:30:22" itemprop="dateCreated datePublished" datetime="2019-05-05T22:30:22+08:00">2019-05-05</time>
+              <time title="Created: 2019-05-29 00:47:58 / Modified: 01:26:43" itemprop="dateCreated datePublished" datetime="2019-05-29T00:47:58+08:00">2019-05-29</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-05-23 15:44:36" itemprop="dateModified" datetime="2019-05-23T15:44:36+08:00">2019-05-23</time>
               
             
           </span>
@@ -388,146 +372,35 @@
       
 
       
-        <p>这篇文章主要用来记录一点计算机组成原理和学习 Java高并发程序设计 这本书的历程, 这里为第一篇</p>
-<h1 id="冯-诺伊曼机体系"><a href="#冯-诺伊曼机体系" class="headerlink" title="冯 - 诺伊曼机体系"></a>冯 - 诺伊曼机体系</h1><p><img src="/2019/05/05/Java并发 - 篇1/体系.png" alt="体系"></p>
-<h1 id="冯-诺伊曼机结构"><a href="#冯-诺伊曼机结构" class="headerlink" title="冯 - 诺伊曼机结构"></a>冯 - 诺伊曼机结构</h1><p>功耗 ~= 1/2 ×负载电容×电压的平方×开关频率×晶体管数量</p>
-<p><img src="/2019/05/05/Java并发 - 篇1/结构.png" alt="结构"></p>
-<h1 id="冯-诺伊曼机的五个阶段"><a href="#冯-诺伊曼机的五个阶段" class="headerlink" title="冯 - 诺伊曼机的五个阶段"></a>冯 - 诺伊曼机的五个阶段</h1><p><img src="/2019/05/05/Java并发 - 篇1/步骤.png" alt="步骤"></p>
-<h2 id="指令重排"><a href="#指令重排" class="headerlink" title="指令重排"></a>指令重排</h2><p>冯 - 诺依曼机的五个阶段催生了流水线技术, 对应的优化技术也就造成了指令重排</p>
-<h3 id="流水线技术"><a href="#流水线技术" class="headerlink" title="流水线技术"></a>流水线技术</h3><p>流水线技术使得两条指令可以被同时执行</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">占位行</th>
-<th style="text-align:center">-</th>
-<th style="text-align:center">-</th>
-<th style="text-align:center">-</th>
-<th style="text-align:center">-</th>
-<th style="text-align:center">-</th>
-<th style="text-align:center">-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">指令1</td>
-<td style="text-align:center">IF</td>
-<td style="text-align:center">ID</td>
-<td style="text-align:center">EX</td>
-<td style="text-align:center">MEM</td>
-<td style="text-align:center">WB</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">指令2</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">IF</td>
-<td style="text-align:center">ID</td>
-<td style="text-align:center">EX</td>
-<td style="text-align:center">MEM</td>
-<td style="text-align:center">WB</td>
-</tr>
-</tbody>
-</table>
-<p>在执行第二条指令时, 第一条指令并没有执行完, 这样充分地利用了硬件资源</p>
-<h3 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h3><p>这里先给出三个简单的汇编操作符</p>
-<ul>
-<li><p><strong>LW</strong> (load)<br>示例: <em>LW R1, B;</em> 将 B 的值加载到 R1 寄存器中</p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>大概半年前听说的 Flutter , 最近 I/O19 Google 仍然在力推 Flutter 甚至搬上了Web, 也许 Flutter 真的能完成前辈们没能做到的全平台统一的开发. 由于 Flutter 需要用 Dart 编写, 所以就开了这个坑, 至于什么时候填完. 得看看隔壁多线程的坑, Android 的坑什么时候能填完了. 大概就是永远也填不完了吧……</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://codelabs.flutter-io.cn/codelabs/from-java-to-dart-cn/" target="_blank" rel="noopener">为 Java 开发人员准备的 Dart 教程</a></li>
+</ul>
+<h1 id="Dart-与-Java-在写法上的区别"><a href="#Dart-与-Java-在写法上的区别" class="headerlink" title="Dart 与 Java 在写法上的区别"></a>Dart 与 Java 在写法上的区别</h1><p>Dart不是像Java那样必须是由一个一个类构成的语言, 结构写法上反而像 C++, Dart的缩进也不是四个空格或者/t, 而是两个空格, 在安装Dart SDK 后 <a href="https://github.com/dart-lang/dart_style#readme" target="_blank" rel="noopener">dartfmt</a> 可以帮助我们完成这种特殊的缩进.</p>
+<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><ul>
+<li><p><strong>没有重载 !</strong></p>
+<p>Dart 和 C# 一样提供了可选参数, 用于放弃重载, 其语法基本和 C#(<em>疯狂语法糖的屑语言</em>) 的指定参数基本相同</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">  Rectangle(&#123;<span class="keyword">this</span>.origin = <span class="keyword">const</span> Point(<span class="number">0</span>, <span class="number">0</span>), <span class="keyword">this</span>.width = <span class="number">0</span>, <span class="keyword">this</span>.height = <span class="number">0</span>&#125;);</span><br><span class="line">...</span><br><span class="line">main() &#123;</span><br><span class="line">  <span class="built_in">print</span>(Rectangle(origin: <span class="keyword">const</span> Point(<span class="number">10</span>, <span class="number">20</span>), width: <span class="number">100</span>, height: <span class="number">200</span>));</span><br><span class="line">  <span class="comment">// 如果不需要传递部分参数, 可以少给, 但必须指定, 这里和 C# 略有区别</span></span><br><span class="line">  <span class="built_in">print</span>(Rectangle(origin: <span class="keyword">const</span> Point(<span class="number">10</span>, <span class="number">10</span>)));</span><br><span class="line">  <span class="comment">// 同样的条件时, 可以略过不需要的参数, 这时候需要手动指定</span></span><br><span class="line">  <span class="built_in">print</span>(Rectangle(width: <span class="number">200</span>));</span><br><span class="line">  <span class="built_in">print</span>(Rectangle());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p><strong>ADD</strong> (add)</p>
-<p>示例: <em>ADD R3, R1, R2;</em> 将 R1, R2 的值相加, 放到 R3 中</p>
-</li>
-<li><p><strong>SW</strong> (store)</p>
-<p>示例: <em>SW A, R3;</em> 将 R3 的值存储到 A 中</p>
+<li><p><strong>每个类都定义了一个接口 !</strong></p>
+<p>Dart 语言并没有提供 <code>interface</code> 关键字，但是<strong>每一个类都隐式地定义了一个接口</strong>。</p>
 </li>
 </ul>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">A=B+C</th>
-<th style="text-align:center">-</th>
-<th style="text-align:center">-</th>
-<th style="text-align:center">-</th>
-<th style="text-align:center">-</th>
-<th style="text-align:center">-</th>
-<th style="text-align:center">-</th>
-<th style="text-align:center">-</th>
-<th style="text-align:center">-</th>
-<th style="text-align:center">-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">LW R1, <strong>B</strong></td>
-<td style="text-align:center">IF</td>
-<td style="text-align:center">ID</td>
-<td style="text-align:center">EX</td>
-<td style="text-align:center">MEM</td>
-<td style="text-align:center">WB</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">LW R2, <strong>C</strong></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">IF</td>
-<td style="text-align:center">ID</td>
-<td style="text-align:center">EX</td>
-<td style="text-align:center">MEM</td>
-<td style="text-align:center">WB</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">ADD R3, R1,R2</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">IF</td>
-<td style="text-align:center">ID</td>
-<td style="text-align:center"><strong>×</strong></td>
-<td style="text-align:center">EX</td>
-<td style="text-align:center">MEM</td>
-<td style="text-align:center">WB</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">SW <strong>A</strong>, R3</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">IF</td>
-<td style="text-align:center"><strong>×</strong></td>
-<td style="text-align:center">ID</td>
-<td style="text-align:center">EX</td>
-<td style="text-align:center">MEM</td>
-<td style="text-align:center">WB</td>
-</tr>
-</tbody>
-</table>
-<p>这里有两次中断, 第一次是因为 R2 还未准备好, 第二次是因为 R3 还未准备好.</p>
-<p>而在一些更长的流水线中, 重排指令有时可以解决中断</p>
-<h3 id="指令重排的规则"><a href="#指令重排的规则" class="headerlink" title="指令重排的规则"></a>指令重排的规则</h3><ul>
-<li><p>程序顺序性原则</p>
-<p>一个线程内保证语义的串行性</p>
+<ul>
+<li>提供了 var 关键字, 来容纳可以被推导出的类型 ( JS再世? )</li>
+</ul>
+<h2 id="语法糖"><a href="#语法糖" class="headerlink" title="语法糖"></a>语法糖</h2><ul>
+<li><p>Dart 2 之后实例化对象的new变成了可选的.</p>
 </li>
-<li><p>volatile 规则</p>
-<p>volatile 变量的写, 先发生在读之后, 保证了 volatile变量 的可见性</p>
+<li><p>简化 return 语句</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@override</span></span><br><span class="line"><span class="built_in">String</span> toString() =&gt; <span class="string">'Bicycle: <span class="subst">$speed</span> mph'</span>;</span><br><span class="line"><span class="comment">//下面的语句和上面的等效 </span></span><br><span class="line"><span class="meta">@override</span></span><br><span class="line"><span class="built_in">String</span> toString() &#123;</span><br><span class="line">  <span class="comment">// $&#123;speed&#125; 和 $speed 在于花括号版本可以塞表达式进去</span></span><br><span class="line">  <span class="keyword">return</span> <span class="string">'Bicycle: <span class="subst">$&#123;speed&#125;</span> mph'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>锁规则</p>
-<p>解锁 (unlock) 必发生在加锁 (lock) 前</p>
+<li><p>简化私有声明</p>
+<p>所有名字以下划线开头的变量，Dart 的编译器都会将其强制标记为私有的</p>
 </li>
-<li><p>传递性</p>
-<p>A 先于 B, B 先于 C, 则 A 必然先于 C</p>
-</li>
-<li><p>一个线程的 <code>start()</code> 绝对优先</p>
-</li>
-<li><p>线程的所有操作先于线程的终结 (<code>Thread.join()</code>)</p>
-</li>
-<li><p>线程的中断 (<code>interrupt()</code>)先于呗中断的线程代码</p>
-</li>
-<li><p>线程的构造函数执行和结束 先于 <code>finalize()</code> 方法</p>
+<li><p>简化构造器</p>
+<p>Dart中, 如果构造器可以没有构造体, 如果不需要对传入的值进行处理的话.</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SomeSimpleClass</span></span>&#123;</span><br><span class="line">  <span class="built_in">int</span> field_1;</span><br><span class="line">  <span class="built_in">int</span> field_2;</span><br><span class="line">    </span><br><span class="line">  SomeSimpleClass(<span class="keyword">this</span>.field_1, <span class="keyword">this</span>.field_2);</span><br><span class="line">&#125;</span><br><span class="line">main(<span class="built_in">List</span>&lt;<span class="built_in">String</span>&gt; arguments)&#123;</span><br><span class="line">  <span class="keyword">var</span> classDemo = SomeSimpleClass(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 
@@ -553,7 +426,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Computer/" rel="tag"># Computer</a>
+            <a href="/tags/Dart/" rel="tag"># Dart</a>
           
         </div>
       
@@ -566,8 +439,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/04/自定义Vjew/" rel="next" title="自定义View">
-                <i class="fa fa-chevron-left"></i> 自定义View
+              <a href="/2019/05/26/GPU流水线/" rel="next" title="GPU流水线">
+                <i class="fa fa-chevron-left"></i> GPU流水线
               </a>
             
           </div>
@@ -575,10 +448,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/05/08/Java并发-篇2/" rel="prev" title="Java并发 - (进程与线程)篇2">
-                Java并发 - (进程与线程)篇2 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -740,7 +609,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#冯-诺伊曼机体系"><span class="nav-number">1.</span> <span class="nav-text">冯 - 诺伊曼机体系</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#冯-诺伊曼机结构"><span class="nav-number">2.</span> <span class="nav-text">冯 - 诺伊曼机结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#冯-诺伊曼机的五个阶段"><span class="nav-number">3.</span> <span class="nav-text">冯 - 诺伊曼机的五个阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#指令重排"><span class="nav-number">3.1.</span> <span class="nav-text">指令重排</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#流水线技术"><span class="nav-number">3.1.1.</span> <span class="nav-text">流水线技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中断"><span class="nav-number">3.1.2.</span> <span class="nav-text">中断</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指令重排的规则"><span class="nav-number">3.1.3.</span> <span class="nav-text">指令重排的规则</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">2.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dart-与-Java-在写法上的区别"><span class="nav-number">3.</span> <span class="nav-text">Dart 与 Java 在写法上的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#特性"><span class="nav-number">3.1.</span> <span class="nav-text">特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语法糖"><span class="nav-number">3.2.</span> <span class="nav-text">语法糖</span></a></li></ol></li></ol></div>
             
 
           </div>
