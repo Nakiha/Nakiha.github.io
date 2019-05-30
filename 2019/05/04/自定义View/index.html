@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="Simple Chinese">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="自定义View提供了根据业务要求定制自己的View的方法 参考 Google官方文档 - 自定义视图组件 Attributes（特性）与 Properties（特性）的区别 - 作者: josephus 自定义View, 有这一篇就够了 - 作者: huachao1001 词汇积累 encapsulate 包装 A well-designed class encapsulates a specif">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自定义View">
+<meta property="og:url" content="http://yoursite.com/2019/05/04/自定义View/index.html">
+<meta property="og:site_name" content="Nakiha&#39;s Blog">
+<meta property="og:description" content="自定义View提供了根据业务要求定制自己的View的方法 参考 Google官方文档 - 自定义视图组件 Attributes（特性）与 Properties（特性）的区别 - 作者: josephus 自定义View, 有这一篇就够了 - 作者: huachao1001 词汇积累 encapsulate 包装 A well-designed class encapsulates a specif">
+<meta property="og:locale" content="Simple Chinese">
+<meta property="og:image" content="http://yoursite.com/2019/05/04/自定义View/资源%2014@4x.png">
+<meta property="og:updated_time" content="2019-05-29T18:15:00.768Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自定义View">
+<meta name="twitter:description" content="自定义View提供了根据业务要求定制自己的View的方法 参考 Google官方文档 - 自定义视图组件 Attributes（特性）与 Properties（特性）的区别 - 作者: josephus 自定义View, 有这一篇就够了 - 作者: huachao1001 词汇积累 encapsulate 包装 A well-designed class encapsulates a specif">
+<meta name="twitter:image" content="http://yoursite.com/2019/05/04/自定义View/资源%2014@4x.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/05/04/自定义View/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>自定义View | Nakiha's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="Simple Chinese">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Nakiha's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/04/自定义View/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nakiha">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nakiha's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">自定义View
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-04 19:07:26" itemprop="dateCreated datePublished" datetime="2019-05-04T19:07:26+08:00">2019-05-04</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-05-30 02:15:00" itemprop="dateModified" datetime="2019-05-30T02:15:00+08:00">2019-05-30</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>自定义<code>View</code>提供了根据业务要求定制自己的<code>View</code>的方法</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://developer.android.google.cn/training/custom-views/create-view" target="_blank" rel="noopener">Google官方文档 - 自定义视图组件</a></li>
+<li><a href="https://www.cnblogs.com/jose/archive/2011/09/01/2161976.html" target="_blank" rel="noopener">Attributes（特性）与 Properties（特性）的区别 - 作者: josephus</a></li>
+<li><p><a href="https://www.jianshu.com/p/c84693096e41" target="_blank" rel="noopener">自定义View, 有这一篇就够了 - 作者: huachao1001</a></p>
+<h1 id="词汇积累"><a href="#词汇积累" class="headerlink" title="词汇积累"></a>词汇积累</h1></li>
+<li><p><strong>encapsulate</strong> 包装</p>
+<p>A well-designed class <strong>encapsulates</strong> a specific set of functionality with an easy to use interface.</p>
+</li>
+<li><p><strong>built-in</strong> 内置的</p>
+<p>To add a built-in <code>View</code> to your user interface…</p>
+</li>
+<li><p><strong>ascend</strong> 上升</p>
+<p>These attribute IDs must be sorted in <strong>ascending</strong> order.</p>
+</li>
+<li><p><strong>Property</strong> (属性) 讨论的是主题的所有物中的财产、内容，状态或者所有权。</p>
+<p>人有翅膀。这里的翅膀就是 <strong>Properties</strong> (属性)</p>
+</li>
+<li><p><strong>Attributes</strong>（特性）讨论的是主题的天性</p>
+<p>人是人类。这里的人类就是一个 <strong>Attribute</strong> (特性)</p>
+</li>
+<li><p><strong>invalidata</strong> 使作废</p>
+<p><strong>Invalidate</strong> the whole view.</p>
+</li>
+<li><p><strong>canvas</strong> (帆布)油画</p>
+<p>The <strong>Canvas</strong> class holds the “draw” calls.</p>
+</li>
+<li><p><strong>primitive</strong> 原始派画家(或作品)</p>
+<p> The Canvas class defines methods for drawing many graphics <strong>primitives</strong>. </p>
+</li>
+<li><p><strong>and so forth</strong> 诸如此类</p>
+<p>Paint defines the color, style, font, <strong>and so forth</strong> of each shape you draw.</p>
+</li>
+<li><p><strong>sluggish</strong> 呆滞</p>
+<p>Creating drawing objects within your <code>onDraw()</code> method significantly reduces performance and can make your UI appear <strong>sluggish</strong>.</p>
+</li>
+<li><p><strong>aspect ratio</strong> 宽高比</p>
+<p>app needs to handle different screen sizes, multiple screen densities, and <strong>various aspect ratios</strong> in both portrait and landscape mode.</p>
+</li>
+</ul>
+<h1 id="创建-View-的子类"><a href="#创建-View-的子类" class="headerlink" title="创建 View 的子类"></a>创建 View 的子类</h1><h2 id="继承结构"><a href="#继承结构" class="headerlink" title="继承结构"></a>继承结构</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java.lang.Object</span><br><span class="line">   ↳	android.view.View</span><br></pre></td></tr></table></figure>
+<p>所有的 UI控件和布局 都可以通过建立<code>View</code>的子类来完成, 当然也可以继承已有的子类来减少工作量.</p>
+<p>为了使 Android Studio 能够与自定义的<code>View</code>交互, 至少应该提供如下的一个构造器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PieChart</span> <span class="keyword">extends</span> <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PieChart</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context, attrs);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中<code>AttributeSet</code>接口中提供了高效获取 XML 资源的方法, 预编译时对信息会进行优化, 而非调用运行时解析 XML 的解析器来解析 XML 中的字符串</p>
+<h1 id="定义自定义特性"><a href="#定义自定义特性" class="headerlink" title="定义自定义特性"></a>定义自定义特性</h1><p>良好的自定义<code>View</code>应该允许在 XML 文档里对其特性进行修改,<br>为了实现这个功能, 应该实现以下四点</p>
+<ul>
+<li>在资源文件中添加<code>&lt;declare-styeable&gt;</code>标签, 并为其添加内容</li>
+<li>为所需要的特性设定特殊的值</li>
+<li>在代码运行时取回所需的值</li>
+<li>将取回的值应用到代码中</li>
+</ul>
+<p>一般会将<code>&lt;declare-styeable&gt;</code>标签添加在  res/values/attrs.xml 文件中. 这里提供谷歌官方 attrs.xml 示例<br>注: <em>attr 为 attribute 的缩写</em></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">declare-styleable</span> <span class="attr">name</span>=<span class="string">"PieChart"</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"showText"</span> <span class="attr">format</span>=<span class="string">"boolean"</span> /&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"labelPosition"</span> <span class="attr">format</span>=<span class="string">"enum"</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">enum</span> <span class="attr">name</span>=<span class="string">"left"</span> <span class="attr">value</span>=<span class="string">"0"</span>/&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">enum</span> <span class="attr">name</span>=<span class="string">"right"</span> <span class="attr">value</span>=<span class="string">"1"</span>/&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">attr</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">declare-styleable</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>自定义的特性和官方控件与布局的特性属于不同的命名空间</p>
+<p>官方特性存在于<code>http://schemas.android.com/apk/res/android</code>命名空间<br>自定义特性存在于<code>http://schemas.android.com/apk/res/[your package name]</code>命名空间</p>
+<h1 id="使用自定义特性"><a href="#使用自定义特性" class="headerlink" title="使用自定义特性"></a>使用自定义特性</h1><h2 id="于-XML-文件中定义特性的值"><a href="#于-XML-文件中定义特性的值" class="headerlink" title="于 XML 文件中定义特性的值"></a>于 XML 文件中定义特性的值</h2><p>提供谷歌官方示例</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">   <span class="attr">xmlns:custom</span>=<span class="string">"http://schemas.android.com/apk/res/com.example.customviews"</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">com.example.customviews.charting.PieChart</span></span></span><br><span class="line"><span class="tag">     <span class="attr">custom:showText</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">     <span class="attr">custom:labelPosition</span>=<span class="string">"left"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这里为布局添加了<code>xmlns:custom</code>标签用于避免过长的包名重复</p>
+<h2 id="于自定义-View-中取回特性对应的值"><a href="#于自定义-View-中取回特性对应的值" class="headerlink" title="于自定义 View 中取回特性对应的值"></a>于自定义 View 中取回特性对应的值</h2><p>在<code>&lt;declare-styeable&gt;</code>标签中声明了特性之后, Android 资源编译器会<strong>自动赋予其名称</strong>并加载到<code>R.java</code>中. 为了获取到这些变量的值, 需要调用 <a href="https://developer.android.google.cn/reference/android/content/res/Resources.Theme.html#obtainStyledAttributes(android.util.AttributeSet, int[], int, int" target="_blank" rel="noopener">obtainStyledAttributes()</a>) 返回一个 <a href="https://developer.android.google.cn/reference/android/content/res/TypedArray.html" target="_blank" rel="noopener">TypedArray</a> 对象, 这些初始化工作应该在构造器中完成</p>
+<p>注意!: <code>TypedArray</code>包含了对资源的引用, 使用完成后<strong>需要被主动回收</strong>, 提供谷歌官方示例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">PieChart</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">super</span>(context, attrs);</span><br><span class="line">   TypedArray a = context.getTheme().obtainStyledAttributes(</span><br><span class="line">        attrs,</span><br><span class="line">        R.styleable.PieChart,</span><br><span class="line">        <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">       mShowText = a.getBoolean(R.styleable.PieChart_showText, <span class="keyword">false</span>);</span><br><span class="line">       textPos = a.getInteger(R.styleable.PieChart_labelPosition, <span class="number">0</span>);</span><br><span class="line">   &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">       a.recycle();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="提供代码调整属性的方法"><a href="#提供代码调整属性的方法" class="headerlink" title="提供代码调整属性的方法"></a>提供代码调整属性的方法</h2><p>使用特性已经为我们提供了一种强大的控制我们自定义<code>View</code>的行为和外观的方法, 但是他们只能在视图创建时被读取一次, 为了实现动态的参数调整, 我们需要为我们的属性添加<code>getter</code>于<code>setter</code>方法, 用于在代码中主动地动态调整他们的状态. 提供谷歌官方示例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isShowText</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   <span class="keyword">return</span> mShowText;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setShowText</span><span class="params">(<span class="keyword">boolean</span> showText)</span> </span>&#123;</span><br><span class="line">   mShowText = showText;</span><br><span class="line">   invalidate();</span><br><span class="line">   requestLayout();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>每当调整了<code>view</code>的外观之后都该依次调用这两个方法</p>
+<ul>
+<li><p><strong>invalidata()</strong></p>
+<p>使整个<code>view</code>作废</p>
+</li>
+<li><p><strong>requestLayout()</strong></p>
+<p>在作废掉<code>view</code>后调用它, 它将安排视图树的布局传递, 并重绘</p>
+</li>
+</ul>
+<h2 id="提供事件检测"><a href="#提供事件检测" class="headerlink" title="提供事件检测"></a>提供事件检测</h2><p>自定义view应该为它的一些重要事件提供事件监听器</p>
+<p>例如上述例子中的<code>PieChat</code>可以提供一个<code>OnCurrentItemChanged</code>方法, 来通知用户改变了目前<code>PieChat</code>的状态, 以便代码中做出回应</p>
+<h1 id="自定义绘制概览"><a href="#自定义绘制概览" class="headerlink" title="自定义绘制概览"></a>自定义绘制概览</h1><p>自定义 view 最重要的部分就是它的外观, <code>onDraw</code>和<code>onMeasure</code>可以完成各种<code>view</code>外观上的需求</p>
+<h2 id="重写测量回调方法"><a href="#重写测量回调方法" class="headerlink" title="重写测量回调方法"></a>重写测量回调方法</h2><p>为了在各种分辨率, 宽高比, 横竖屏的模式下正确绘制自定义<code>view</code>, 需要知道<code>view</code>的大小. 一些复杂的自定义<code>view</code>需要根据目前屏幕上它所占的区域执行多个布局计算. </p>
+<h3 id="重写-onSizeChanged"><a href="#重写-onSizeChanged" class="headerlink" title="重写 onSizeChanged()"></a>重写 onSizeChanged()</h3><p><code>View</code>有多个用于处理测量的方法, 如果不需要对布局的大小进行特殊控制, 只需要重写 <a href="https://developer.android.google.cn/reference/android/view/View.html#onSizeChanged(int, int, int, int" target="_blank" rel="noopener">onSizeChanged()</a>) 这一个方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onSizeChanged</span><span class="params">(<span class="keyword">int</span> w, <span class="keyword">int</span> h, <span class="keyword">int</span> oldw, <span class="keyword">int</span> oldh)</span></span></span><br></pre></td></tr></table></figure>
+<p><code>onSizeChanged</code>方法在所属<code>View</code>首次被指定视图大小被调用, 然后只有在视图大小因为一些原因需要改变时, 才会再次回调, 对于谷歌示例的<code>PieChart</code>(<em>饼状图</em> ) 来说, 应该在这里完成 饼状图与边界矩形, 与文本标签及其他可见元素的相对位置的计算</p>
+<p>因为布局管理器假定了每个布局都有<code>padding</code>, 所以当计算布局大小时, 必须处理<code>padding</code>, 下面是谷歌 <code>PieChart.onSizeChanged()</code> 示例中的片段</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Account for padding</span></span><br><span class="line"><span class="keyword">float</span> xpad = (<span class="keyword">float</span>)(getPaddingLeft() + getPaddingRight());</span><br><span class="line"><span class="keyword">float</span> ypad = (<span class="keyword">float</span>)(getPaddingTop() + getPaddingBottom());</span><br><span class="line"></span><br><span class="line"><span class="comment">// Account for the label</span></span><br><span class="line"><span class="keyword">if</span> (showText) xpad += textWidth;</span><br><span class="line"></span><br><span class="line"><span class="keyword">float</span> ww = (<span class="keyword">float</span>)w - xpad;</span><br><span class="line"><span class="keyword">float</span> hh = (<span class="keyword">float</span>)h - ypad;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Figure out how big we can make the pie.</span></span><br><span class="line"><span class="keyword">float</span> diameter = Math.min(ww, hh);</span><br></pre></td></tr></table></figure>
+<h3 id="重写-onMeasure"><a href="#重写-onMeasure" class="headerlink" title="重写 onMeasure()"></a>重写 onMeasure()</h3><p>如果需要更好地控制一些距离上的细枝末节, 我们需要重写<code>onMeasure()</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onMeasure</span><span class="params">(<span class="keyword">int</span> widthMeasureSpec, <span class="keyword">int</span> heightMeasureSpec)</span></span></span><br></pre></td></tr></table></figure>
+<p><code>onMeasure()</code>的两个传参<code>widthMeasureSpec</code>和<code>heightMeasureSpec</code>, 这两个<code>int</code>的后 30 个位包含了长宽大小, 前 2 个位用来记录测量模式.</p>
+<p><img src="/2019/05/04/自定义View/资源 14@4x.png" alt="资源 14@4x"></p>
+<p>测量模式一共有3种</p>
+<table>
+<thead>
+<tr>
+<th>测量模式</th>
+<th style="text-align:left">表示意思</th>
+<th>对应的xml中 hight/width</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UNSPECIFIED</td>
+<td style="text-align:left">父容器没有对当前View有任何限制，当前View可以任意取尺寸</td>
+<td><code>match_parent</code></td>
+</tr>
+<tr>
+<td>AT_MOST</td>
+<td style="text-align:left">当前尺寸是当前View能取的最大尺寸</td>
+<td><code>wrap_content</code></td>
+</tr>
+<tr>
+<td>EXACTLY</td>
+<td style="text-align:left">当前的尺寸就是当前View应该取的尺寸</td>
+<td><code>固定尺寸（如100dp）</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a><span id="onMeasure()示例">示例</span></h4><p>虽然<code>onMeasure()</code>不会返回值, 不过每个<code>onMeasure()</code>在它最后都需要调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">setMeasuredDimension</span><span class="params">(<span class="keyword">int</span> measuredWidth, <span class="keyword">int</span> measuredHeight)</span></span></span><br></pre></td></tr></table></figure>
+<p>来完成宽高的设定, 下面是一个简单封装过的<code>onMeasure()</code>示例, 它用来使自定义View呈正方形</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例来自于 https://www.jianshu.com/p/c84693096e41</span></span><br><span class="line"> <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getMySize</span><span class="params">(<span class="keyword">int</span> defaultSize, <span class="keyword">int</span> measureSpec)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> mySize = defaultSize;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> mode = MeasureSpec.getMode(measureSpec);</span><br><span class="line">        <span class="keyword">int</span> size = MeasureSpec.getSize(measureSpec);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">switch</span> (mode) &#123;</span><br><span class="line">            <span class="keyword">case</span> MeasureSpec.UNSPECIFIED: &#123;<span class="comment">//如果没有指定大小，就设置为默认大小</span></span><br><span class="line">                mySize = defaultSize;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">case</span> MeasureSpec.AT_MOST: &#123;<span class="comment">//如果测量模式是最大取值为size</span></span><br><span class="line">                <span class="comment">//我们将大小取最大值,你也可以取其他值</span></span><br><span class="line">                mySize = size;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">case</span> MeasureSpec.EXACTLY: &#123;<span class="comment">//如果是固定的大小，那就不要去改变它</span></span><br><span class="line">                mySize = size;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> mySize;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onMeasure</span><span class="params">(<span class="keyword">int</span> widthMeasureSpec, <span class="keyword">int</span> heightMeasureSpec)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onMeasure(widthMeasureSpec, heightMeasureSpec);</span><br><span class="line">        <span class="keyword">int</span> width = getMySize(<span class="number">100</span>, widthMeasureSpec);</span><br><span class="line">        <span class="keyword">int</span> height = getMySize(<span class="number">100</span>, heightMeasureSpec);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (width &lt; height) &#123;</span><br><span class="line">            height = width;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            width = height;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        setMeasuredDimension(width, height);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="重写-onDraw-Canvas-canvas"><a href="#重写-onDraw-Canvas-canvas" class="headerlink" title="重写 onDraw(Canvas canvas)"></a>重写 onDraw(Canvas canvas)</h2><p>自定义<code>view</code>的 UI 绘制步骤被限制在<code>onDraw</code>方法中, 它传入一个<code>Canvas</code>对象, <code>Canvas</code>对象中提供了很多绘制基本图形的方法, </p>
+<p>Android 图形框架将绘制分为两个类<br>  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">java.lang.Object</span><br><span class="line">   ↳	android.graphics.Canvas</span><br><span class="line">   </span><br><span class="line">java.lang.Object</span><br><span class="line">   ↳	android.graphics.Paint</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p><a href="https://developer.android.google.cn/reference/android/graphics/Canvas.html" target="_blank" rel="noopener">Canvas</a> 创建绘制路径, 即定义要在屏幕上绘制什么图形</p>
+</li>
+<li><p><a href="https://developer.android.google.cn/reference/android/graphics/Paint.html" target="_blank" rel="noopener">Paint</a> 创建绘制 “画笔”, 如定义颜色, 风格, 字体, 填充等等</p>
+</li>
+</ul>
+<p><strong>注意!:</strong> 对于<code>Paint</code>对象, 应该在构造器中就完成初始化, 因为<code>onDraw</code>在每次重绘时都会调用, 谷歌提供的解决方案是在构造器中插入相应<code>init()</code>方法, 如下示例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   textPaint = <span class="keyword">new</span> Paint(Paint.ANTI_ALIAS_FLAG);</span><br><span class="line">   textPaint.setColor(textColor);</span><br><span class="line">   <span class="keyword">if</span> (textHeight == <span class="number">0</span>) &#123;</span><br><span class="line">       textHeight = textPaint.getTextSize();</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">       textPaint.setTextSize(textHeight);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   piePaint = <span class="keyword">new</span> Paint(Paint.ANTI_ALIAS_FLAG);</span><br><span class="line">   piePaint.setStyle(Paint.Style.FILL);</span><br><span class="line">   piePaint.setTextSize(textHeight);</span><br><span class="line"></span><br><span class="line">   shadowPaint = <span class="keyword">new</span> Paint(<span class="number">0</span>);</span><br><span class="line">   shadowPaint.setColor(<span class="number">0xff101010</span>);</span><br><span class="line">   shadowPaint.setMaskFilter(<span class="keyword">new</span> BlurMaskFilter(<span class="number">8</span>, BlurMaskFilter.Blur.NORMAL));</span><br><span class="line"></span><br><span class="line">   ...</span><br></pre></td></tr></table></figure>
+<p>如果你使用 Kotlin 就可以避免在一个初始化方法的代码块中初始化, 而是对元素进行初始化.</p>
+<h4 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h4><p>这个示例的<code>onMeasure()</code>方法是<a href="#onMeasure(">之前</a>示例)定义过的.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas canvas)</span> </span>&#123;</span><br><span class="line">      <span class="comment">// 调用父View的onDraw函数，因为View这个类帮我们实现了一些</span></span><br><span class="line">      <span class="comment">// 基本的而绘制功能，比如绘制背景颜色、背景图片等</span></span><br><span class="line">      <span class="keyword">super</span>.onDraw(canvas);</span><br><span class="line">      <span class="keyword">int</span> r = getMeasuredWidth() / <span class="number">2</span>;<span class="comment">//也可以是getMeasuredHeight()/2,本例中我们已经将宽高设置相等了</span></span><br><span class="line">      <span class="comment">// 圆心的横坐标为当前的View的左边起始位置+半径</span></span><br><span class="line">      <span class="keyword">int</span> centerX = getLeft() + r;</span><br><span class="line">      <span class="comment">// 圆心的纵坐标为当前的View的顶部起始位置+半径</span></span><br><span class="line">      <span class="keyword">int</span> centerY = getTop() + r;</span><br><span class="line">      <span class="comment">// 这里为了演示, 简单地在onDraw中实例化画笔</span></span><br><span class="line">      Paint paint = <span class="keyword">new</span> Paint();</span><br><span class="line">      paint.setColor(Color.GREEN);</span><br><span class="line">      <span class="comment">// 开始绘制</span></span><br><span class="line">      canvas.drawCircle(centerX, centerY, r, paint);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="使View能被互动"><a href="#使View能被互动" class="headerlink" title="使View能被互动"></a>使View能被互动</h1><p>Android 为我们提供了很多输入事件. 在 <a href="https://developer.android.google.cn/reference/android/view/View.html#onTouchEvent(android.view.MotionEvent" target="_blank" rel="noopener">onTouchEvent(android.view.MotionEvent)</a>) 中, 我们可以使用 <a href="https://developer.android.google.cn/reference/android/view/GestureDetector.html" target="_blank" rel="noopener">GestureDetector</a> 类来<strong>辅助</strong>自定义对用户的触摸事件的判定, 就像是过滤出需要被处理的用户操作. </p>
+<p>自定义触控监听器时, 需要拓展<code>GestureDetector</code>的子接口或者子类</p>
+<ul>
+<li><p><a href="https://developer.android.google.cn/reference/android/view/GestureDetector.OnGestureListener.html" target="_blank" rel="noopener">GestureDetector.OnGestureListener</a> 接口</p>
+<p>如果想监听所有的手势时实现这个接口</p>
+</li>
+<li><p><a href="https://developer.android.google.cn/reference/android/view/GestureDetector.SimpleOnGestureListener.html" target="_blank" rel="noopener">GestureDetector.SimpleOnGestureListener</a> 类</p>
+<p>这个类更适合监听少量的手势, 它提供了手势监听的默认实现</p>
+</li>
+</ul>
+<h2 id="创建和使用探测器"><a href="#创建和使用探测器" class="headerlink" title="创建和使用探测器"></a>创建和使用探测器</h2><p>这里以<code>GestureDetector.SimpleOnGestureListener</code>为例, 建立一个简单的<code>GestureDetector</code>类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyListener</span> <span class="keyword">extends</span> <span class="title">GestureDetector</span>.<span class="title">SimpleOnGestureListener</span> </span>&#123;</span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onDown</span><span class="params">(MotionEvent e)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">   &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onDoubleTap</span><span class="params">(MotionEvent e)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">true</span>; </span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>注意 !</strong> : 想要监听手势, 那么就必须重写<code>onDown()</code>方法, 因为它的默认实现返回的是<code>false</code>, 如果<code>onDown()</code>返回<code>false</code>, 系统就会认为不需要监听手势, 监听器中的其他回调方法也就永远也得不到调用.</p>
+<p>写完类后, 我们需要实例化探测器, 需要将监听器与<code>View</code>的上下文对象绑定来生成对应的探测器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GestureDetector mGestureDetector = <span class="keyword">new</span> GestureDetector(PieChart.<span class="keyword">this</span>.getContext(), <span class="keyword">new</span> MyListener());</span><br></pre></td></tr></table></figure>
+<p>之后, 我们就可以在 <code>View.onTouchEvent()</code> 中调用它, 来进行截断判定手势需不需要被进一步处理,<br>也可以直接在<code>View.onTouch()</code>时进行截断</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTouch</span><span class="params">(View v, MotionEvent event)</span> </span>&#123; <span class="keyword">return</span> mGestureDetector.onTouchEvent(event);&#125;</span><br></pre></td></tr></table></figure>
+<p>on</p>
+<p><code>View.onTouchEvent()</code>的默认实现非常复杂, 主要是为了在开发者不手动接管触摸事件的情况下能识别不同的手势, 便于调用更高层的监听器, 例如<code>OnClick()</code>. <code>View.onTouchEvent()</code>的返回值被用来标明触控事件是否被处理. </p>
+<h2 id="MyListener-中写的回调方法哪去了"><a href="#MyListener-中写的回调方法哪去了" class="headerlink" title="MyListener 中写的回调方法哪去了?"></a>MyListener 中写的回调方法哪去了?</h2><p>在代码的第三行我们使用了之前实例化的手势探测器, 但是调用的方法却是<code>GestureDetector.onTouchEvent()</code>, 事实上, 如<code>View.onTouchEvent()</code>一样, <code>GestureDetector.onTouchEvent()</code>的默认实现也非常复杂, 它为我们提供了默认的检测模板, 在满足条件时, 调用预制的</p>
+<p>为什么需要</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/03/layout/" rel="next" title="layout">
+                <i class="fa fa-chevron-left"></i> layout
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/05/Java并发 - 篇1/" rel="prev" title="Java并发 - (计算机基础)篇1">
+                Java并发 - (计算机基础)篇1 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Nakiha</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/Nakiha" title="GitHub &rarr; https://github.com/Nakiha" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:NakihaCN@outlook.com" title="E-Mail &rarr; mailto:NakihaCN@outlook.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#词汇积累"><span class="nav-number">2.</span> <span class="nav-text">词汇积累</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建-View-的子类"><span class="nav-number">3.</span> <span class="nav-text">创建 View 的子类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#继承结构"><span class="nav-number">3.1.</span> <span class="nav-text">继承结构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#定义自定义特性"><span class="nav-number">4.</span> <span class="nav-text">定义自定义特性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用自定义特性"><span class="nav-number">5.</span> <span class="nav-text">使用自定义特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#于-XML-文件中定义特性的值"><span class="nav-number">5.1.</span> <span class="nav-text">于 XML 文件中定义特性的值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#于自定义-View-中取回特性对应的值"><span class="nav-number">5.2.</span> <span class="nav-text">于自定义 View 中取回特性对应的值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提供代码调整属性的方法"><span class="nav-number">5.3.</span> <span class="nav-text">提供代码调整属性的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提供事件检测"><span class="nav-number">5.4.</span> <span class="nav-text">提供事件检测</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自定义绘制概览"><span class="nav-number">6.</span> <span class="nav-text">自定义绘制概览</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#重写测量回调方法"><span class="nav-number">6.1.</span> <span class="nav-text">重写测量回调方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重写-onSizeChanged"><span class="nav-number">6.1.1.</span> <span class="nav-text">重写 onSizeChanged()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重写-onMeasure"><span class="nav-number">6.1.2.</span> <span class="nav-text">重写 onMeasure()</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#示例"><span class="nav-number">6.1.2.1.</span> <span class="nav-text">示例</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重写-onDraw-Canvas-canvas"><span class="nav-number">6.2.</span> <span class="nav-text">重写 onDraw(Canvas canvas)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#示例-1"><span class="nav-number">6.2.0.1.</span> <span class="nav-text">示例</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#使View能被互动"><span class="nav-number">7.</span> <span class="nav-text">使View能被互动</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建和使用探测器"><span class="nav-number">7.1.</span> <span class="nav-text">创建和使用探测器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MyListener-中写的回调方法哪去了"><span class="nav-number">7.2.</span> <span class="nav-text">MyListener 中写的回调方法哪去了?</span></a></li></ol></li></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nakiha</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

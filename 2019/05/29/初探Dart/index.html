@@ -99,14 +99,14 @@
   <meta name="description" content="前言大概半年前听说的 Flutter , 最近 I/O19 Google 仍然在力推 Flutter 甚至搬上了Web, 也许 Flutter 真的能完成前辈们没能做到的全平台统一的开发. 由于 Flutter 需要用 Dart 编写, 所以就开了这个坑, 至于什么时候填完. 得看看隔壁多线程的坑, Android 的坑什么时候能填完了. 大概就是永远也填不完了吧…… 参考 为 Java 开发人员">
 <meta name="keywords" content="Dart">
 <meta property="og:type" content="article">
-<meta property="og:title" content="初探Dart">
+<meta property="og:title" content="Dart-篇0-初步概括">
 <meta property="og:url" content="http://yoursite.com/2019/05/29/初探Dart/index.html">
 <meta property="og:site_name" content="Nakiha&#39;s Blog">
 <meta property="og:description" content="前言大概半年前听说的 Flutter , 最近 I/O19 Google 仍然在力推 Flutter 甚至搬上了Web, 也许 Flutter 真的能完成前辈们没能做到的全平台统一的开发. 由于 Flutter 需要用 Dart 编写, 所以就开了这个坑, 至于什么时候填完. 得看看隔壁多线程的坑, Android 的坑什么时候能填完了. 大概就是永远也填不完了吧…… 参考 为 Java 开发人员">
 <meta property="og:locale" content="Simple Chinese">
-<meta property="og:updated_time" content="2019-05-28T17:26:43.831Z">
+<meta property="og:updated_time" content="2019-05-29T13:47:24.453Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="初探Dart">
+<meta name="twitter:title" content="Dart-篇0-初步概括">
 <meta name="twitter:description" content="前言大概半年前听说的 Flutter , 最近 I/O19 Google 仍然在力推 Flutter 甚至搬上了Web, 也许 Flutter 真的能完成前辈们没能做到的全平台统一的开发. 由于 Flutter 需要用 Dart 编写, 所以就开了这个坑, 至于什么时候填完. 得看看隔壁多线程的坑, Android 的坑什么时候能填完了. 大概就是永远也填不完了吧…… 参考 为 Java 开发人员">
 
 
@@ -125,7 +125,7 @@
   };
 </script>
 
-  <title>初探Dart | Nakiha's Blog</title>
+  <title>Dart-篇0-初步概括 | Nakiha's Blog</title>
   
 
 
@@ -307,7 +307,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">初探Dart
+          <h1 class="post-title" itemprop="name headline">Dart-篇0-初步概括
 
               
             
@@ -333,7 +333,7 @@
                 
               
 
-              <time title="Created: 2019-05-29 00:47:58 / Modified: 01:26:43" itemprop="dateCreated datePublished" datetime="2019-05-29T00:47:58+08:00">2019-05-29</time>
+              <time title="Created: 2019-05-29 00:47:58 / Modified: 21:47:24" itemprop="dateCreated datePublished" datetime="2019-05-29T00:47:58+08:00">2019-05-29</time>
             
 
             
@@ -375,21 +375,33 @@
         <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>大概半年前听说的 Flutter , 最近 I/O19 Google 仍然在力推 Flutter 甚至搬上了Web, 也许 Flutter 真的能完成前辈们没能做到的全平台统一的开发. 由于 Flutter 需要用 Dart 编写, 所以就开了这个坑, 至于什么时候填完. 得看看隔壁多线程的坑, Android 的坑什么时候能填完了. 大概就是永远也填不完了吧……</p>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
 <li><a href="https://codelabs.flutter-io.cn/codelabs/from-java-to-dart-cn/" target="_blank" rel="noopener">为 Java 开发人员准备的 Dart 教程</a></li>
+<li><a href="https://dart.dev/guides/language/language-tour#assert" target="_blank" rel="noopener">dart-language-tour</a></li>
 </ul>
-<h1 id="Dart-与-Java-在写法上的区别"><a href="#Dart-与-Java-在写法上的区别" class="headerlink" title="Dart 与 Java 在写法上的区别"></a>Dart 与 Java 在写法上的区别</h1><p>Dart不是像Java那样必须是由一个一个类构成的语言, 结构写法上反而像 C++, Dart的缩进也不是四个空格或者/t, 而是两个空格, 在安装Dart SDK 后 <a href="https://github.com/dart-lang/dart_style#readme" target="_blank" rel="noopener">dartfmt</a> 可以帮助我们完成这种特殊的缩进.</p>
+<h1 id="Dart-与-Java-在写法上的区别"><a href="#Dart-与-Java-在写法上的区别" class="headerlink" title="Dart 与 Java 在写法上的区别"></a>Dart 与 Java 在写法上的区别</h1><p>Dart不是像Java那样必须是由一个一个类构成的语言, 结构写法上更像 JS 和 C++, Dart的缩进也不是四个空格或者/t, 而是两个空格, 在安装Dart SDK 后 <a href="https://github.com/dart-lang/dart_style#readme" target="_blank" rel="noopener">dartfmt</a> 可以帮助我们完成这种特殊的缩进.</p>
 <h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><ul>
 <li><p><strong>没有重载 !</strong></p>
 <p>Dart 和 C# 一样提供了可选参数, 用于放弃重载, 其语法基本和 C#(<em>疯狂语法糖的屑语言</em>) 的指定参数基本相同</p>
 <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">  Rectangle(&#123;<span class="keyword">this</span>.origin = <span class="keyword">const</span> Point(<span class="number">0</span>, <span class="number">0</span>), <span class="keyword">this</span>.width = <span class="number">0</span>, <span class="keyword">this</span>.height = <span class="number">0</span>&#125;);</span><br><span class="line">...</span><br><span class="line">main() &#123;</span><br><span class="line">  <span class="built_in">print</span>(Rectangle(origin: <span class="keyword">const</span> Point(<span class="number">10</span>, <span class="number">20</span>), width: <span class="number">100</span>, height: <span class="number">200</span>));</span><br><span class="line">  <span class="comment">// 如果不需要传递部分参数, 可以少给, 但必须指定, 这里和 C# 略有区别</span></span><br><span class="line">  <span class="built_in">print</span>(Rectangle(origin: <span class="keyword">const</span> Point(<span class="number">10</span>, <span class="number">10</span>)));</span><br><span class="line">  <span class="comment">// 同样的条件时, 可以略过不需要的参数, 这时候需要手动指定</span></span><br><span class="line">  <span class="built_in">print</span>(Rectangle(width: <span class="number">200</span>));</span><br><span class="line">  <span class="built_in">print</span>(Rectangle());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p><strong>每个类都定义了一个接口 !</strong></p>
-<p>Dart 语言并没有提供 <code>interface</code> 关键字，但是<strong>每一个类都隐式地定义了一个接口</strong>。</p>
+<li><p><strong>所有类未初始化时都是<code>null</code> !</strong></p>
 </li>
-</ul>
-<ul>
-<li>提供了 var 关键字, 来容纳可以被推导出的类型 ( JS再世? )</li>
-</ul>
-<h2 id="语法糖"><a href="#语法糖" class="headerlink" title="语法糖"></a>语法糖</h2><ul>
+<li><p><strong>每个类都定义了一个接口 !</strong></p>
+<p>Dart 语言并没有提供 <code>interface</code> 关键字，但是每一个类都隐式地定义了一个接口。所以没有<code>extends</code>只有<code>implement</code>.</p>
+</li>
+<li><p><strong>Dart没有数组只有泛型集合 !</strong></p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方括号 自动推断为 List&lt;int&gt;</span></span><br><span class="line"><span class="keyword">var</span> list = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="comment">// 花括号 自动推断为 Set&lt;String&gt;</span></span><br><span class="line"><span class="keyword">var</span> halogens = &#123;<span class="string">'fluorine'</span>, <span class="string">'chlorine'</span>, <span class="string">'bromine'</span>, <span class="string">'iodine'</span>, <span class="string">'astatine'</span>&#125;;</span><br><span class="line"><span class="comment">// 花括号+键值对 自动推断为 Map&lt;String, String&gt;</span></span><br><span class="line"><span class="keyword">var</span> gifts = &#123;</span><br><span class="line">  <span class="comment">// Key:    Value</span></span><br><span class="line">  <span class="string">'first'</span>: <span class="string">'partridge'</span>,</span><br><span class="line">  <span class="string">'second'</span>: <span class="string">'turtledoves'</span>,</span><br><span class="line">  <span class="string">'fifth'</span>: <span class="string">'golden rings'</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 像 JS 一样添加键值对</span></span><br><span class="line">gifts[<span class="string">'fourth'</span>] = <span class="string">'calling birds'</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>可以在集合里塞判断和循环</strong></p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> listOfInts = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="keyword">var</span> nav = [</span><br><span class="line">  <span class="string">'Home'</span>,</span><br><span class="line">  <span class="string">'Furniture'</span>,</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i <span class="keyword">in</span> listOfInts) <span class="string">'#<span class="subst">$i</span>'</span></span><br><span class="line">  <span class="string">'Plants'</span>,</span><br><span class="line">  <span class="keyword">if</span> (promoActive) <span class="string">'Outlet'</span></span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Dart 如同 C++ 一样, 提供了函数指针</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> printElement(<span class="built_in">int</span> element) &#123;</span><br><span class="line">  <span class="built_in">print</span>(element);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> list = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="keyword">var</span> method = printElement;</span><br><span class="line">list.forEach(method);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>提供了<code>var</code>关键字, 来容纳可以被推导出的类型 ( JS再世? )</p>
+</li>
+<li><p><code>final</code>和<code>const</code></p>
+<p><code>const</code>表示这个变量编译时可确定</p>
+</li>
 <li><p>Dart 2 之后实例化对象的new变成了可选的.</p>
 </li>
 <li><p>简化 return 语句</p>
@@ -401,6 +413,17 @@
 <li><p>简化构造器</p>
 <p>Dart中, 如果构造器可以没有构造体, 如果不需要对传入的值进行处理的话.</p>
 <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SomeSimpleClass</span></span>&#123;</span><br><span class="line">  <span class="built_in">int</span> field_1;</span><br><span class="line">  <span class="built_in">int</span> field_2;</span><br><span class="line">    </span><br><span class="line">  SomeSimpleClass(<span class="keyword">this</span>.field_1, <span class="keyword">this</span>.field_2);</span><br><span class="line">&#125;</span><br><span class="line">main(<span class="built_in">List</span>&lt;<span class="built_in">String</span>&gt; arguments)&#123;</span><br><span class="line">  <span class="keyword">var</span> classDemo = SomeSimpleClass(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>简化工厂方法</p>
+<p>Dart 提供了<code>factory</code>关键字专门用来修饰工厂方法</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">  <span class="keyword">factory</span> Shape(<span class="built_in">String</span> type) &#123;</span><br><span class="line">    <span class="keyword">if</span> (type == <span class="string">'circle'</span>) <span class="keyword">return</span> Circle(<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">if</span> (type == <span class="string">'square'</span>) <span class="keyword">return</span> Square(<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">throw</span> <span class="string">'Can\'t create <span class="subst">$type</span>.'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">num</span> <span class="keyword">get</span> area;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>提供了像C#一样的 async/await 关键字, 来简化一些异步代码</p>
+</li>
+<li><p><code>String</code>是 UTF-16 , 但是提供了<code>Runes</code>类来表示 UTF-32 (Emoji或成最大赢家 \u{1f60e} )</p>
+</li>
+<li><p>Dart 的匿名甚至可以让你在foreach时不用声明子项的类型</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> list = [<span class="string">'apples'</span>, <span class="string">'bananas'</span>, <span class="string">'oranges'</span>];</span><br><span class="line">list.forEach((item) &#123;</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">'<span class="subst">$&#123;list.indexOf(item)&#125;</span>: <span class="subst">$item</span>'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 
@@ -609,7 +632,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">2.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dart-与-Java-在写法上的区别"><span class="nav-number">3.</span> <span class="nav-text">Dart 与 Java 在写法上的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#特性"><span class="nav-number">3.1.</span> <span class="nav-text">特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语法糖"><span class="nav-number">3.2.</span> <span class="nav-text">语法糖</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">2.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dart-与-Java-在写法上的区别"><span class="nav-number">3.</span> <span class="nav-text">Dart 与 Java 在写法上的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#特性"><span class="nav-number">3.1.</span> <span class="nav-text">特性</span></a></li></ol></li></ol></div>
             
 
           </div>
