@@ -96,20 +96,22 @@
 
 
 
-  <meta name="description" content="java的monitor机制在使用synchronized时总是需要让它与一个对象相关, 要关联的是指定的对象, 要不关联的是this或者this.class,  这里的Object和class就是一个个monitor object Java 对象在内存中分为三个部分, 对象头, 实例数据, 和对其填充, 对象头里保留了锁标识,  同时, 同时，java.lang.Object 类定义了 wait">
+  <meta name="description" content="引言Android中有很多种View过渡动画的实现方式, 从一开始的View动画( Animation类 ), 到后来的属性动画( Animator类 ), 还有更加少用的逐帧动画类.   无论是属性动画还是比较少用的View动画, 都离不开时间插值器, Android提供了基础的10种插值器, 他们的父类BaseInterpolator都实现了Interpolator接口. 它们的函数图像可以参">
 <meta name="keywords" content="Android">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Nakiha&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/2019/05/10/摘记/摘记/index.html">
+<meta property="og:title" content="View的属性动画">
+<meta property="og:url" content="http://yoursite.com/2019/06/29/View的属性动画/index.html">
 <meta property="og:site_name" content="Nakiha&#39;s Blog">
-<meta property="og:description" content="java的monitor机制在使用synchronized时总是需要让它与一个对象相关, 要关联的是指定的对象, 要不关联的是this或者this.class,  这里的Object和class就是一个个monitor object Java 对象在内存中分为三个部分, 对象头, 实例数据, 和对其填充, 对象头里保留了锁标识,  同时, 同时，java.lang.Object 类定义了 wait">
+<meta property="og:description" content="引言Android中有很多种View过渡动画的实现方式, 从一开始的View动画( Animation类 ), 到后来的属性动画( Animator类 ), 还有更加少用的逐帧动画类.   无论是属性动画还是比较少用的View动画, 都离不开时间插值器, Android提供了基础的10种插值器, 他们的父类BaseInterpolator都实现了Interpolator接口. 它们的函数图像可以参">
 <meta property="og:locale" content="Simple Chinese">
-<meta property="og:image" content="http://yoursite.com/2019/05/10/摘记/摘记/165290-aec815b4adf84922.webp">
-<meta property="og:updated_time" content="2019-05-10T11:09:50.624Z">
+<meta property="og:image" content="http://yoursite.com/2019/06/29/View的属性动画/1561815307340.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/29/View的属性动画/1561815112128.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/29/View的属性动画/1561815595185.png">
+<meta property="og:updated_time" content="2019-06-29T13:51:57.208Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Nakiha&#39;s Blog">
-<meta name="twitter:description" content="java的monitor机制在使用synchronized时总是需要让它与一个对象相关, 要关联的是指定的对象, 要不关联的是this或者this.class,  这里的Object和class就是一个个monitor object Java 对象在内存中分为三个部分, 对象头, 实例数据, 和对其填充, 对象头里保留了锁标识,  同时, 同时，java.lang.Object 类定义了 wait">
-<meta name="twitter:image" content="http://yoursite.com/2019/05/10/摘记/摘记/165290-aec815b4adf84922.webp">
+<meta name="twitter:title" content="View的属性动画">
+<meta name="twitter:description" content="引言Android中有很多种View过渡动画的实现方式, 从一开始的View动画( Animation类 ), 到后来的属性动画( Animator类 ), 还有更加少用的逐帧动画类.   无论是属性动画还是比较少用的View动画, 都离不开时间插值器, Android提供了基础的10种插值器, 他们的父类BaseInterpolator都实现了Interpolator接口. 它们的函数图像可以参">
+<meta name="twitter:image" content="http://yoursite.com/2019/06/29/View的属性动画/1561815307340.png">
 
 
 
@@ -117,7 +119,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/05/10/摘记/摘记/">
+  <link rel="canonical" href="http://yoursite.com/2019/06/29/View的属性动画/">
 
 
 
@@ -127,7 +129,7 @@
   };
 </script>
 
-  <title> | Nakiha's Blog</title>
+  <title>View的属性动画 | Nakiha's Blog</title>
   
 
 
@@ -292,7 +294,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/10/摘记/摘记/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/29/View的属性动画/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nakiha">
@@ -309,7 +311,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h1 class="post-title" itemprop="name headline">View的属性动画
 
               
             
@@ -335,7 +337,7 @@
                 
               
 
-              <time title="Created: 2019-05-10 18:58:38 / Modified: 19:09:50" itemprop="dateCreated datePublished" datetime="2019-05-10T18:58:38+08:00">2019-05-10</time>
+              <time title="Created: 2019-06-29 21:25:10 / Modified: 21:51:57" itemprop="dateCreated datePublished" datetime="2019-06-29T21:25:10+08:00">2019-06-29</time>
             
 
             
@@ -374,11 +376,25 @@
       
 
       
-        <h1 id="java的monitor机制"><a href="#java的monitor机制" class="headerlink" title="java的monitor机制"></a>java的monitor机制</h1><p>在使用<code>synchronized</code>时总是需要让它与一个对象相关, 要关联的是指定的对象, 要不关联的是<code>this</code>或者<code>this.class</code>,  这里的<code>Object</code>和<code>class</code>就是一个个<code>monitor object</code></p>
-<p>Java 对象在内存中分为三个部分, 对象头, 实例数据, 和对其填充, 对象头里保留了锁标识, </p>
-<p>同时, 同时，<code>java.lang.Object</code> 类定义了 wait()，notify()，notifyAll() 方法，这些方法的具体实现，依赖于一个叫 ObjectMonitor 模式的实现，这是 JVM 内部基于 C++ 实现的一套机制，基本原理如下所示：</p>
-<p><img src="/2019/05/10/摘记/摘记/165290-aec815b4adf84922.webp" alt="165290-aec815b4adf84922"></p>
-<p>当一个线程需要获取 Object 的锁时，会被放入 EntrySet 中进行等待，如果该线程获取到了锁，成为当前锁的 owner。如果根据程序逻辑，一个已经获得了锁的线程缺少某些外部条件，而无法继续进行下去（例如生产者发现队列已满或者消费者发现队列为空），那么该线程可以通过调用 wait 方法将锁释放，进入 wait set 中阻塞进行等待，其它线程在这个时候有机会获得锁，去干其它的事情，从而使得之前不成立的外部条件成立，这样先前被阻塞的线程就可以重新进入 EntrySet 去竞争锁。这个外部条件在 monitor 机制中称为条件变量。</p>
+        <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>Android中有很多种View过渡动画的实现方式, 从一开始的View动画( Animation类 ), 到后来的属性动画( Animator类 ), 还有更加少用的逐帧动画类.</p>
+<p><img src="/2019/06/29/View的属性动画/1561815307340.png" alt="1561815307340"></p>
+<p><img src="/2019/06/29/View的属性动画/1561815112128.png" alt="1561815112128"></p>
+<p>无论是属性动画还是比较少用的View动画, 都离不开时间插值器, Android提供了基础的10种插值器, 他们的父类BaseInterpolator都实现了Interpolator接口. 它们的函数图像可以参考ForeverCy写的Android中的<a href="https://www.jianshu.com/p/b117c974deaf" target="_blank" rel="noopener">View动画和属性动画</a>, 图像与名称非常吻合.</p>
+<p><img src="/2019/06/29/View的属性动画/1561815595185.png" alt="1561815595185"></p>
+<h1 id="带过一下View动画"><a href="#带过一下View动画" class="headerlink" title="带过一下View动画"></a>带过一下View动画</h1><p>View动画不会更改View的响应范围, 而是简单地提供了动画, 非常便于xml中直接实现, 在自定义滑动列表的插入动画时还是比较方便的.</p>
+<p>如果要使用View动画为列表添加动画</p>
+<ol>
+<li><p>在res文件夹下新建anim文件夹</p>
+</li>
+<li><p>建立以set为根的xml文件, 定义动画和插值器</p>
+</li>
+<li><p>建立以layoutAnimation为根的xml文件, 与动画文件绑定</p>
+<p>(android:animation=”@anim/load”)</p>
+</li>
+<li><p>为列表流view绑定layoutAnimation</p>
+<p>(android:layoutAnimation=”@anim/anim_layout”)</p>
+</li>
+</ol>
 
       
     </div>
@@ -400,6 +416,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+        </div>
+      
 
       
       
@@ -409,8 +431,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/10/Java并发-篇3/" rel="next" title="Java并发 - 篇3 ">
-                <i class="fa fa-chevron-left"></i> Java并发 - 篇3 
+              <a href="/2019/05/29/初探Dart/" rel="next" title="Dart-篇0-初步概括">
+                <i class="fa fa-chevron-left"></i> Dart-篇0-初步概括
               </a>
             
           </div>
@@ -418,6 +440,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/06/转圈圈视图的实现/" rel="prev" title="转圈圈视图的实现">
+                转圈圈视图的实现 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -486,7 +512,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-count">18</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -507,7 +533,15 @@
                     
                       
                     
-                    <span class="site-state-item-count">3</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
@@ -571,7 +605,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#java的monitor机制"><span class="nav-number">1.</span> <span class="nav-text">java的monitor机制</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#带过一下View动画"><span class="nav-number">2.</span> <span class="nav-text">带过一下View动画</span></a></li></ol></div>
             
 
           </div>

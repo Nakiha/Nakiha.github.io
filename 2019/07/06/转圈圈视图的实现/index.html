@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="Simple Chinese">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="最近在学自定义View, GscSloop前辈的一系列文章起到了很大的帮助. 在Path的最后一篇中看到了经常见到的那种旋转加载视图, 一直好奇怎么实现的, 拿到了测试的源码, 正好自己实现一次. 这里直接借用下前辈的 gif 图, 这里实现下加载时主要的部分, 也就是变长的path   平时都太习惯这个加载了, 动画本体看了好一会都没想到如何实现, 拿了demo的源码后, 不是太懂计算的部分,">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="转圈圈视图的实现">
+<meta property="og:url" content="http://yoursite.com/2019/07/06/转圈圈视图的实现/index.html">
+<meta property="og:site_name" content="Nakiha&#39;s Blog">
+<meta property="og:description" content="最近在学自定义View, GscSloop前辈的一系列文章起到了很大的帮助. 在Path的最后一篇中看到了经常见到的那种旋转加载视图, 一直好奇怎么实现的, 拿到了测试的源码, 正好自己实现一次. 这里直接借用下前辈的 gif 图, 这里实现下加载时主要的部分, 也就是变长的path   平时都太习惯这个加载了, 动画本体看了好一会都没想到如何实现, 拿了demo的源码后, 不是太懂计算的部分,">
+<meta property="og:locale" content="Simple Chinese">
+<meta property="og:image" content="http://yoursite.com/2019/07/06/转圈圈视图的实现/前辈的演示动画.gif">
+<meta property="og:image" content="http://yoursite.com/2019/07/06/转圈圈视图的实现/1562515267083.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/06/转圈圈视图的实现/1562515291780.png">
+<meta property="og:updated_time" content="2019-07-07T16:18:52.981Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="转圈圈视图的实现">
+<meta name="twitter:description" content="最近在学自定义View, GscSloop前辈的一系列文章起到了很大的帮助. 在Path的最后一篇中看到了经常见到的那种旋转加载视图, 一直好奇怎么实现的, 拿到了测试的源码, 正好自己实现一次. 这里直接借用下前辈的 gif 图, 这里实现下加载时主要的部分, 也就是变长的path   平时都太习惯这个加载了, 动画本体看了好一会都没想到如何实现, 拿了demo的源码后, 不是太懂计算的部分,">
+<meta name="twitter:image" content="http://yoursite.com/2019/07/06/转圈圈视图的实现/前辈的演示动画.gif">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/07/06/转圈圈视图的实现/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>转圈圈视图的实现 | Nakiha's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="Simple Chinese">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Nakiha's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/06/转圈圈视图的实现/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nakiha">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nakiha's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">转圈圈视图的实现
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-07-06 23:03:05" itemprop="dateCreated datePublished" datetime="2019-07-06T23:03:05+08:00">2019-07-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-07-08 00:18:52" itemprop="dateModified" datetime="2019-07-08T00:18:52+08:00">2019-07-08</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近在学自定义View, GscSloop前辈的<a href="http://www.gcssloop.com/customview/CustomViewIndex" target="_blank" rel="noopener">一系列文章</a>起到了很大的帮助. 在Path的最后一篇中看到了经常见到的那种旋转加载视图, 一直好奇怎么实现的, 拿到了<a href="https://github.com/GcsSloop/AndroidNote/blob/master/CustomView/Advance/Code/SearchView.md" target="_blank" rel="noopener">测试的源码</a>, 正好自己实现一次.</p>
+<p>这里直接借用下前辈的 gif 图, 这里实现下加载时主要的部分, 也就是变长的path</p>
+<p> <img src="/2019/07/06/转圈圈视图的实现/前辈的演示动画.gif" alt="前辈的演示动画"></p>
+<p>平时都太习惯这个加载了, 动画本体看了好一会都没想到如何实现, 拿了demo的源码后, 不是太懂计算的部分, 自己想了个别的实现方法, 做了一张变长条在某一刻时的大概演示图</p>
+<p><img src="/2019/07/06/转圈圈视图的实现/1562515267083.png" alt="1562515267083"> </p>
+<p>这里简单分析一下绘制的核心</p>
+<ol>
+<li><p>需要创建一个圆形的<code>Path</code></p>
+</li>
+<li><p>确定变长条最长时的长度</p>
+</li>
+<li><p>确定需要绘制的<code>Path</code>的 Segm ent , 即确认一个<code>start</code>(起点) 和一个<code>end</code>(终点)</p>
+<p><code>start</code>和<code>end</code>都由当前动画进度(<code>animatedValue</code>)确定, 操作数<code>op</code>用来对对起点偏移</p>
+<ul>
+<li><p><code>start</code> = (<code>animatedValue</code>) <em> <code>totalLength</code> - <code>op</code> </em> <code>maxLength</code> * 2</p>
+</li>
+<li><p><code>end</code> = (<code>animatedValue</code>) * <code>totalLength</code></p>
+</li>
+</ul>
+<p>下面是<code>op</code>的函数图像 (用 y=1-x 的图像变换下就来了).</p>
+<p><img src="/2019/07/06/转圈圈视图的实现/1562515291780.png" alt="1562515291780"></p>
+</li>
+</ol>
+<p>这里直接贴代码了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoadingView</span> <span class="keyword">extends</span> <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"DEMO"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">float</span> centerX, centerY;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> NONE = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> LOADING = <span class="number">1</span>;</span><br><span class="line">	<span class="comment">// 当前状态</span></span><br><span class="line">    <span class="keyword">int</span> mCurrentState = NONE;</span><br><span class="line"></span><br><span class="line">    PathMeasure mMeasure;</span><br><span class="line">    Path circlePath = <span class="keyword">null</span>;</span><br><span class="line">    Path segmentPath = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">float</span> radius;</span><br><span class="line">    <span class="keyword">float</span> start;</span><br><span class="line">    <span class="keyword">float</span> end;</span><br><span class="line">    <span class="keyword">float</span> maxLength = <span class="number">40</span>;</span><br><span class="line">    <span class="keyword">float</span> totalLength;</span><br><span class="line"></span><br><span class="line">    Paint mPaint;</span><br><span class="line">    </span><br><span class="line">	<span class="comment">// 属性动画控制类 </span></span><br><span class="line">    ValueAnimator mValueAnimator;</span><br><span class="line">    MyHandler mMyHandler;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 为了解决 AS 的提示 ,使用了静态类, 并用弱引用保存了view</span></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MyHandler</span> <span class="keyword">extends</span> <span class="title">Handler</span> </span>&#123;</span><br><span class="line">        WeakReference&lt;LoadingView&gt; view ;</span><br><span class="line">        </span><br><span class="line">        MyHandler(LoadingView view) &#123;</span><br><span class="line">            <span class="keyword">this</span>.view = <span class="keyword">new</span> WeakReference&lt;&gt;(view);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">super</span>.handleMessage(msg);</span><br><span class="line">            <span class="keyword">switch</span> (msg.what)&#123;</span><br><span class="line">                <span class="keyword">case</span> LOADING:</span><br><span class="line">                    view.get().mValueAnimator.setDuration(<span class="number">2000</span>).setRepeatCount(<span class="number">30</span>);</span><br><span class="line">                    view.get().mValueAnimator.start();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> NONE:</span><br><span class="line">                    view.get().mValueAnimator.cancel();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LoadingView</span><span class="params">(Context context, @Nullable AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context, attrs);</span><br><span class="line">        <span class="comment">// TEST_CODE</span></span><br><span class="line">        <span class="comment">// 为了方便测试, 设置了点击事件来改变状态</span></span><br><span class="line">        <span class="comment">// 动画的播放消息从这里被发出</span></span><br><span class="line">        <span class="keyword">this</span>.setOnClickListener(((v) -&gt; &#123;</span><br><span class="line">            <span class="keyword">if</span> (mCurrentState != LOADING)&#123;</span><br><span class="line">                mCurrentState = LOADING;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                mCurrentState = NONE;</span><br><span class="line">            &#125;</span><br><span class="line">            mMyHandler.sendEmptyMessage(mCurrentState);</span><br><span class="line">            Log.d(TAG, <span class="string">"LoadingView: "</span> + mCurrentState);</span><br><span class="line">        &#125;));</span><br><span class="line">		<span class="comment">// 取出xml中定义的 radius</span></span><br><span class="line">        TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.LoadingView, <span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            radius = a.getFloat(R.styleable.LoadingView_radius, <span class="number">10</span>);</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            a.recycle();</span><br><span class="line">        &#125;</span><br><span class="line">		</span><br><span class="line">        mMyHandler = <span class="keyword">new</span> MyHandler(<span class="keyword">this</span>);</span><br><span class="line">        </span><br><span class="line">        initPaint();</span><br><span class="line">        initAnimator();</span><br><span class="line">        initPath();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initPaint</span><span class="params">()</span></span>&#123;</span><br><span class="line">        mPaint = <span class="keyword">new</span> Paint();</span><br><span class="line">        mPaint.setStyle(Paint.Style.STROKE);</span><br><span class="line">        mPaint.setColor(<span class="number">0xff000000</span>);</span><br><span class="line">        mPaint.setStrokeWidth(<span class="number">14</span>);</span><br><span class="line">        mPaint.setStrokeCap(Paint.Cap.ROUND);</span><br><span class="line">        mPaint.setAntiAlias(<span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initAnimator</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">// 这里用 ofInt 和直接调用对应的估值器可以把代码量减少, 并提升效能</span></span><br><span class="line">        <span class="comment">// 测试用就直接调 ofFloat</span></span><br><span class="line">        mValueAnimator = ValueAnimator.ofFloat(<span class="number">0f</span>,<span class="number">1f</span>);</span><br><span class="line">        <span class="comment">// 定义每帧该如何更新</span></span><br><span class="line">        mValueAnimator.addUpdateListener(animation -&gt; &#123;</span><br><span class="line">            <span class="keyword">if</span> (mCurrentState!=NONE) &#123;</span><br><span class="line">                <span class="keyword">float</span> progress = (<span class="keyword">float</span>) animation.getAnimatedValue();</span><br><span class="line">                <span class="keyword">float</span> op = <span class="number">1</span> - Math.abs(<span class="number">1</span> - <span class="number">2</span>*progress);</span><br><span class="line">                start = (progress)*totalLength - op*maxLength;</span><br><span class="line">                end = (progress)*totalLength;</span><br><span class="line">                segmentPath.reset();</span><br><span class="line">                Log.d(TAG, <span class="string">"start"</span>+progress+<span class="string">"\nend"</span>+ end + <span class="string">"\nop"</span> +op);</span><br><span class="line">                mMeasure.getSegment(start, end, segmentPath, <span class="keyword">true</span>);</span><br><span class="line">                invalidate();</span><br><span class="line">            &#125; <span class="keyword">else</span></span><br><span class="line">                mValueAnimator.cancel();</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">/* </span></span><br><span class="line"><span class="comment">        ** 测试代码, 发现直接在动画结束时发送信息到handler进行重播会导致闪烁, 就直接使用了repeat方法了</span></span><br><span class="line"><span class="comment">        mValueAnimator.addListener(new Animator.AnimatorListener() &#123;</span></span><br><span class="line"><span class="comment">            @Override</span></span><br><span class="line"><span class="comment">            public void onAnimationStart(Animator animation) &#123;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">            &#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">            @Override</span></span><br><span class="line"><span class="comment">            public void onAnimationEnd(Animator animation) &#123;</span></span><br><span class="line"><span class="comment">                //mMyHandler.sendEmptyMessage(LOADING);</span></span><br><span class="line"><span class="comment">            &#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">            @Override</span></span><br><span class="line"><span class="comment">            public void onAnimationCancel(Animator animation) &#123;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">            &#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">            @Override</span></span><br><span class="line"><span class="comment">            public void onAnimationRepeat(Animator animation) &#123;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">            &#125;</span></span><br><span class="line"><span class="comment">        &#125;);</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initPath</span><span class="params">()</span></span>&#123;</span><br><span class="line">        circlePath = <span class="keyword">new</span> Path();</span><br><span class="line">        segmentPath = <span class="keyword">new</span> Path();</span><br><span class="line">        circlePath.addCircle(<span class="number">0</span>, <span class="number">0</span>, radius, Path.Direction.CW);</span><br><span class="line">        mMeasure = <span class="keyword">new</span> PathMeasure(circlePath, <span class="keyword">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onSizeChanged</span><span class="params">(<span class="keyword">int</span> w, <span class="keyword">int</span> h, <span class="keyword">int</span> oldw, <span class="keyword">int</span> oldh)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onSizeChanged(w, h, oldw, oldh);</span><br><span class="line">        totalLength = mMeasure.getLength();</span><br><span class="line">        centerX = w/<span class="number">2f</span>;</span><br><span class="line">        centerY = h/<span class="number">2f</span>;</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">    <span class="comment">// 这个值用来控制视图旋转</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">float</span> arg = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas canvas)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onDraw(canvas);</span><br><span class="line">        canvas.drawColor(<span class="number">0xffaaaaaa</span>);</span><br><span class="line">        canvas.translate(centerX,centerY);</span><br><span class="line">        canvas.scale(<span class="number">1</span>,-<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">switch</span> (mCurrentState)&#123;</span><br><span class="line">            <span class="keyword">case</span> NONE:</span><br><span class="line">                arg = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> LOADING:</span><br><span class="line">                canvas.rotate(arg+=<span class="number">0.5</span>);</span><br><span class="line">                Log.d(TAG, <span class="string">"onDraw: "</span>+segmentPath);</span><br><span class="line">                mPaint.setColor(<span class="number">0xffdddddd</span>);</span><br><span class="line">                canvas.drawPath(circlePath, mPaint);</span><br><span class="line">                mPaint.setColor(<span class="number">0xff000000</span>);</span><br><span class="line">                canvas.drawPath(segmentPath, mPaint);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/29/View的属性动画/" rel="next" title="View的属性动画">
+                <i class="fa fa-chevron-left"></i> View的属性动画
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Nakiha</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/Nakiha" title="GitHub &rarr; https://github.com/Nakiha" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:NakihaCN@outlook.com" title="E-Mail &rarr; mailto:NakihaCN@outlook.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nakiha</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

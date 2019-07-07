@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="Nakiha&#39;s Blog">
 <meta property="og:description" content="契机这篇博客写在 “又遇四大组件” 的写作途中遇到内容提供器, 完全没办法, 只能反过头来学 data &amp;amp; file可是到头来还是感觉内容提供器现在还完全用不上, 写四大组件也就停更了内容提供器部分了 本文依旧大幅参照谷歌官方档案, 仅仅用于记录自己的学习和回顾历程 注意!: 本文只简单带过两种存储方法 新词汇积累 mechanism 机制 Frequently changing prop">
 <meta property="og:locale" content="Simple Chinese">
-<meta property="og:updated_time" content="2019-05-03T12:57:16.922Z">
+<meta property="og:updated_time" content="2019-07-07T16:15:22.455Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅淡永久性储存">
 <meta name="twitter:description" content="契机这篇博客写在 “又遇四大组件” 的写作途中遇到内容提供器, 完全没办法, 只能反过头来学 data &amp;amp; file可是到头来还是感觉内容提供器现在还完全用不上, 写四大组件也就停更了内容提供器部分了 本文依旧大幅参照谷歌官方档案, 仅仅用于记录自己的学习和回顾历程 注意!: 本文只简单带过两种存储方法 新词汇积累 mechanism 机制 Frequently changing prop">
@@ -350,7 +350,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-05-03 20:57:16" itemprop="dateModified" datetime="2019-05-03T20:57:16+08:00">2019-05-03</time>
+                <time title="Modified: 2019-07-08 00:15:22" itemprop="dateModified" datetime="2019-07-08T00:15:22+08:00">2019-07-08</time>
               
             
           </span>
@@ -425,10 +425,10 @@
 <li><p>获取对象</p>
 <p>有两个方法获取<code>SharedPreference</code>对象</p>
 <ul>
-<li><p><code>getSharedPreferences()</code></p>
+<li><p><code>getSharedPreferences(key, mode)</code></p>
 <p>获取使用键值对来储存的普通<code>SharedPreference</code> 对象</p>
 </li>
-<li><p><code>getPreferences()</code></p>
+<li><p><code>getPreferences(key, mode)</code></p>
 <p>获取仅用于当前<code>Activity</code>的唯一首选项文件</p>
 <p>这个方法调用了<code>ContextWrapper.getSharedPreferences(java.lang.String, int)</code> , 并且将当前<code>Activitiy</code>的类名作为第一个传参</p>
 </li>
@@ -439,7 +439,7 @@
 <ol>
 <li>调用<code>edit()</code>获取<code>SharedPreferences.Editor</code></li>
 <li>使用对应的<code>put</code>方法来添加键值对</li>
-<li>使用<code>commit()</code>来提交新值</li>
+<li>使用<code>commit()</code>来提交新值, <code>apply()</code>方法会保证异步的可见性</li>
 </ol>
 </li>
 </ol>
@@ -483,6 +483,47 @@
 </li>
 </ul>
 <h2 id="若需使用缓存"><a href="#若需使用缓存" class="headerlink" title="若需使用缓存"></a>若需使用缓存</h2><p> <code>getCacheDir()</code>方法将会返回指向缓存区文件路径的一个<code>File</code>类, 然后就是使用Java IO库进行操作了</p>
+<h1 id="简单地使用SQLite数据库"><a href="#简单地使用SQLite数据库" class="headerlink" title="简单地使用SQLite数据库"></a>简单地使用SQLite数据库</h1><p>Android 提供了数据库帮助类来给简便对数据库进行操作, 下面是创建和使用步骤</p>
+<ol>
+<li><p>首先, 我们需要创建一个继承于<code>SQLiteOpenHelper</code>的类</p>
+<p>这个类必须有继承构造器, 一般选择较短的那个即可</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">MyDatabaseHelper</span><span class="params">(@Nullable Context context, @Nullable String name,</span></span></span><br><span class="line"><span class="function"><span class="params">                        @Nullable SQLiteDatabase.CursorFactory factory, <span class="keyword">int</span> version&#123;</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="keyword">super</span>(context, name, factory, version)</span></span>;</span><br><span class="line">    <span class="comment">// 保存了上下文对象用于可能的操作</span></span><br><span class="line">    mContext = context;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一般我们会在其中置入制表语句, 在<code>onCreate</code>中执行制表语句.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String CREATE_BOOK = <span class="string">"create table Book ("</span></span><br><span class="line">        + <span class="string">"my_key text primary key autoincrement,"</span></span><br><span class="line">        + <span class="string">"event text)"</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(SQLiteDatabase db)</span> </span>&#123;</span><br><span class="line">    db.execSQL(CREATE_BOOK);</span><br><span class="line">    Toast.makeText(mContext, <span class="string">"Create succeeded"</span>, Toast.LENGTH_SHORT).show();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为了保证版本更新的正常执行<code>onUpgrade</code>中需要将要更新的表给丢掉</p>
+<p>( 如果需要更新直接换版号就会回调到<code>onUpgrade</code> )</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onUpgrade</span><span class="params">(SQLiteDatabase db, <span class="keyword">int</span> oldVersion, <span class="keyword">int</span> newVersion)</span> </span>&#123;</span><br><span class="line">    db.execSQL(<span class="string">"drop table if exists Book"</span>);</span><br><span class="line">    onCreate(db);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用帮助类</p>
+<p>首先实例化帮助类对象, 我们之前重写的构造器有三个参数, 第一个绑定的上下文, 第二个是数据库名字, 第三个是Cursor工厂(这里我们不需要自己建立), 第四个是版本号.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MyDatabaseHelper dbHelper = <span class="keyword">new</span> MyDatabaseHelper(<span class="keyword">this</span>, <span class="string">"yajyuu.db"</span>,<span class="keyword">null</span>,<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+<p>实例化帮助类对象之后还需要获得数据库实例不同</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果只需要读取数据库</span></span><br><span class="line">SQLiteDatabase db = dbHelper.getReadableDatabase();</span><br><span class="line"><span class="comment">// 如果需要对数据库写入</span></span><br><span class="line">SQLiteDatabase db = dbHelper.getWritableDatabase();</span><br></pre></td></tr></table></figure>
+<p>得到了数据库实例后就可以开始对他进行操作了</p>
+<ul>
+<li><p>插入与 更新</p>
+<p>对数据库的增添和插入都需要使用<code>ContentValues</code>类, 下面简单地往其中塞了两个键值对</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ContentValues values = <span class="keyword">new</span> ContentValues();</span><br><span class="line">values.put(<span class="string">"my_key"</span>, <span class="string">"new Life"</span>);</span><br><span class="line">values.put(<span class="string">"event"</span>, <span class="string">"new Text"</span>);</span><br><span class="line"><span class="comment">// 如果还需要复用这个对象, 在插值后需要 values.clear()</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>插入</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 参数分别为 表名, values为null时的策略, 一个 ContentValues 对象</span></span><br><span class="line">db.insert(<span class="string">"Book"</span>, <span class="keyword">null</span>, values);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>更新</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 表名, 一个 ContentValues 对象, 筛选策略, 一个填充占位符的 String 数组</span></span><br><span class="line">db.update(<span class="string">"Book"</span>, values, <span class="string">"my_key = ?"</span>, <span class="keyword">new</span> String[]&#123;<span class="string">"fuck database"</span>&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>删除</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 表名, 筛选策略, 一个填充占位符的 String 数组</span></span><br><span class="line">db.delete(<span class="string">"Book"</span>, <span class="string">"my_key = ?"</span>, <span class="keyword">new</span> String[]&#123;<span class="string">"new Life"</span>&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查找</p>
+<p>查找语句是很复杂的, 简单地使用时, 我们不需要为其指定过多的参数, 不考虑性能的情况下, 我们只需要指定查找的表</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 经过筛选后, 返回会指向查询到的行的指针, 这里我们不指定查询策略</span></span><br><span class="line">Cursor cursor = db.query(<span class="string">"Book"</span>, <span class="keyword">null</span>, <span class="keyword">null</span>,<span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>);</span><br><span class="line"><span class="comment">// 如果指针不为空, 那么就遍历完整个查询到的行</span></span><br><span class="line"><span class="keyword">if</span> (cursor.moveToFirst())&#123;</span><br><span class="line">	<span class="keyword">do</span> &#123;</span><br><span class="line">        <span class="comment">// 对得到的行执行需要的业务, 这里简单地打印对象</span></span><br><span class="line">		String event = cursor.getString(cursor.getColumnIndex(<span class="string">"event"</span>));</span><br><span class="line">		Toast.makeText(<span class="keyword">this</span>, event, Toast.LENGTH_SHORT).show();</span><br><span class="line">	&#125; <span class="keyword">while</span> (cursor.moveToNext());</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 不要忘记关闭行指针</span></span><br><span class="line">cursor.close();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
 
       
     </div>
@@ -600,7 +641,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-count">18</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -693,7 +734,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#契机"><span class="nav-number">1.</span> <span class="nav-text">契机</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#新词汇积累"><span class="nav-number">2.</span> <span class="nav-text">新词汇积累</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#储存总览"><span class="nav-number">4.</span> <span class="nav-text">储存总览</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SharedPreference-共享首选项"><span class="nav-number">5.</span> <span class="nav-text">SharedPreference - 共享首选项</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#接口描述与从属"><span class="nav-number">5.1.</span> <span class="nav-text">接口描述与从属</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可保存的数据类型"><span class="nav-number">5.2.</span> <span class="nav-text">可保存的数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何使用"><span class="nav-number">5.3.</span> <span class="nav-text">如何使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于写入"><span class="nav-number">5.3.1.</span> <span class="nav-text">关于写入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于读取"><span class="nav-number">5.3.2.</span> <span class="nav-text">关于读取</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内部存储"><span class="nav-number">6.</span> <span class="nav-text">内部存储</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#继承结构"><span class="nav-number">6.1.</span> <span class="nav-text">继承结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何使用-1"><span class="nav-number">6.2.</span> <span class="nav-text">如何使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于写入-1"><span class="nav-number">6.2.1.</span> <span class="nav-text">关于写入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于读取-1"><span class="nav-number">6.2.2.</span> <span class="nav-text">关于读取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他实用方法"><span class="nav-number">6.2.3.</span> <span class="nav-text">其他实用方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#若需使用缓存"><span class="nav-number">6.3.</span> <span class="nav-text">若需使用缓存</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#契机"><span class="nav-number">1.</span> <span class="nav-text">契机</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#新词汇积累"><span class="nav-number">2.</span> <span class="nav-text">新词汇积累</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#储存总览"><span class="nav-number">4.</span> <span class="nav-text">储存总览</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SharedPreference-共享首选项"><span class="nav-number">5.</span> <span class="nav-text">SharedPreference - 共享首选项</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#接口描述与从属"><span class="nav-number">5.1.</span> <span class="nav-text">接口描述与从属</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可保存的数据类型"><span class="nav-number">5.2.</span> <span class="nav-text">可保存的数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何使用"><span class="nav-number">5.3.</span> <span class="nav-text">如何使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于写入"><span class="nav-number">5.3.1.</span> <span class="nav-text">关于写入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于读取"><span class="nav-number">5.3.2.</span> <span class="nav-text">关于读取</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内部存储"><span class="nav-number">6.</span> <span class="nav-text">内部存储</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#继承结构"><span class="nav-number">6.1.</span> <span class="nav-text">继承结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何使用-1"><span class="nav-number">6.2.</span> <span class="nav-text">如何使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于写入-1"><span class="nav-number">6.2.1.</span> <span class="nav-text">关于写入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于读取-1"><span class="nav-number">6.2.2.</span> <span class="nav-text">关于读取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他实用方法"><span class="nav-number">6.2.3.</span> <span class="nav-text">其他实用方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#若需使用缓存"><span class="nav-number">6.3.</span> <span class="nav-text">若需使用缓存</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#简单地使用SQLite数据库"><span class="nav-number">7.</span> <span class="nav-text">简单地使用SQLite数据库</span></a></li></ol></div>
             
 
           </div>
