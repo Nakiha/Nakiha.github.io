@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="Simple Chinese">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="优秀的算法因为能解决实际问题而变得重要 高效的算法的代码也可以很简单 需要理解不同实现间的性能特点 在选择同一个问题的不同算法间选择时, 需要使用科学的工具 迭代式改进能让算法效率越来越高  union-find算法union-find算法用来解决动态连通性问题, 输入是一列整数对, 用来表示它们之间存在连接. 现在需要高效率的插入和查询连接的算法 (既能高效插入, 又能高效删除的算法是不存在的">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nakiha&#39;s Blog">
+<meta property="og:url" content="http://yoursite.com/2019/07/23/算法学习-篇1/index.html">
+<meta property="og:site_name" content="Nakiha&#39;s Blog">
+<meta property="og:description" content="优秀的算法因为能解决实际问题而变得重要 高效的算法的代码也可以很简单 需要理解不同实现间的性能特点 在选择同一个问题的不同算法间选择时, 需要使用科学的工具 迭代式改进能让算法效率越来越高  union-find算法union-find算法用来解决动态连通性问题, 输入是一列整数对, 用来表示它们之间存在连接. 现在需要高效率的插入和查询连接的算法 (既能高效插入, 又能高效删除的算法是不存在的">
+<meta property="og:locale" content="Simple Chinese">
+<meta property="og:image" content="http://yoursite.com/2019/07/23/算法学习-篇1/tree.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/23/算法学习-篇1/BadTree.png">
+<meta property="og:updated_time" content="2019-07-22T20:16:35.165Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nakiha&#39;s Blog">
+<meta name="twitter:description" content="优秀的算法因为能解决实际问题而变得重要 高效的算法的代码也可以很简单 需要理解不同实现间的性能特点 在选择同一个问题的不同算法间选择时, 需要使用科学的工具 迭代式改进能让算法效率越来越高  union-find算法union-find算法用来解决动态连通性问题, 输入是一列整数对, 用来表示它们之间存在连接. 现在需要高效率的插入和查询连接的算法 (既能高效插入, 又能高效删除的算法是不存在的">
+<meta name="twitter:image" content="http://yoursite.com/2019/07/23/算法学习-篇1/tree.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/07/23/算法学习-篇1/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title> | Nakiha's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="Simple Chinese">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Nakiha's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/23/算法学习-篇1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nakiha">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nakiha's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-07-23 02:22:11 / Modified: 04:16:35" itemprop="dateCreated datePublished" datetime="2019-07-23T02:22:11+08:00">2019-07-23</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li>优秀的算法因为能解决实际问题而变得重要</li>
+<li>高效的算法的代码也可以很简单</li>
+<li>需要理解不同实现间的性能特点</li>
+<li>在选择同一个问题的不同算法间选择时, 需要使用科学的工具</li>
+<li>迭代式改进能让算法效率越来越高</li>
+</ul>
+<h1 id="union-find算法"><a href="#union-find算法" class="headerlink" title="union-find算法"></a>union-find算法</h1><p>union-find算法用来解决动态连通性问题, 输入是一列整数对, 用来表示它们之间存在连接. 现在需要高效率的<strong>插入</strong>和<strong>查询</strong>连接的算法 (<em>既能高效插入, 又能高效删除的算法是不存在的</em>).</p>
+<ul>
+<li><p>名词定义</p>
+<p>对象: 触点</p>
+<p>整数对: 连接</p>
+<p>等价类: 连通分量 / 分量</p>
+<p>树的大小: 节点数目</p>
+<p>树的深度: 一个节点到根节点的链接数</p>
+<p>树的高度: 最大的深度</p>
+</li>
+<li><p>API 设置</p>
+<ul>
+<li><p>主要 API</p>
+<p>| return  | method                    | description                                |<br>| ——- | ————————- | —————————————— |<br>|         | UnionFind(int num)        | 建立具有num个节点的数据模型                |<br>| void    | union(int p, int q)       | <strong>插入</strong>: 用于在p, q间建立连接             |<br>| boolean | isConnected(int p, int q) | <strong>查询</strong>: 如果p, q在同一个分量中, 返回true |<br>| int     | count()                   | <strong>查询</strong>: 返回连通分量的数目               |</p>
+</li>
+</ul>
+</li>
+<li><p>算法辅助 API</p>
+<ul>
+<li><p><code>int rootOf(int position);</code></p>
+<p>UF算法主要是通过键值对于树的形式来实现, 每个点需要保存一个别的点的引用, 此引用将作为该分量的根节点, 所以需要<code>rootOf()</code>来查询该节点的引用</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="quick-find-算法"><a href="#quick-find-算法" class="headerlink" title="quick-find 算法"></a>quick-find 算法</h2><p>QF算法是最容易想到的算法. 每次向一个分量中添加连接时, 选择该连接中的一个触点作为该分量中所有触点的根. 这样, 在<strong>查询</strong>时仅仅需要判断保存的引用是否相同. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UnionFind</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] points;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> count;</span><br><span class="line"></span><br><span class="line">    UnionFind(<span class="keyword">int</span> num) &#123;</span><br><span class="line">        points = <span class="keyword">new</span> <span class="keyword">int</span>[num];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; num ; i++) &#123;</span><br><span class="line">            points[i] = i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">union</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> q)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rootP = rootOf(p);</span><br><span class="line">        <span class="keyword">int</span> rootQ = rootOf(q);</span><br><span class="line">        <span class="keyword">if</span> (rootP == rootQ) <span class="keyword">return</span>;</span><br><span class="line">        <span class="comment">// 出现了全局遍历I/O, 一定会拖慢性能</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; points.length ; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (points[i]==rootP) points[i] = rootQ;</span><br><span class="line">        &#125;</span><br><span class="line">        count--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">rootOf</span><span class="params">(<span class="keyword">int</span> position)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> points[position];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">isConnected</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> q)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> rootOf(p) == rootOf(q);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">count</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="算法分析"><a href="#算法分析" class="headerlink" title="算法分析"></a>算法分析</h3><p>union中含有遍历I/O, 它是最影响性能的一部分 (<em>下列描述中N为数组长度</em>)</p>
+<p>调用一次union, 最少需要访问数组 N+3 次 (<em>for循环内N+1次, 循环外2次</em>); 最多访问数组 2N+1 次(<em>for循环内2N-1, 循环外2次</em>).</p>
+<p>假设我们需要将所有点连接, 得到一整个联通分量, union需要被调用 N-1 次, 即至少需要 (N-1)(N+3) 次数组访问. 所以QF算法是平方级别的. 注定它不能处理大规模数据</p>
+<h2 id="quick-union-算法"><a href="#quick-union-算法" class="headerlink" title="quick-union 算法"></a>quick-union 算法</h2><p>QU算法通过构建树状模型减少 I/O 次数来加快union的速度.</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UnionFind</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] points;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> count;</span><br><span class="line"></span><br><span class="line">    UnionFind(<span class="keyword">int</span> num) &#123;</span><br><span class="line">        points = <span class="keyword">new</span> <span class="keyword">int</span>[num];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; num ; i++) &#123;</span><br><span class="line">            points[i] = i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">union</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> q)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rootP = rootOf(p);</span><br><span class="line">        <span class="keyword">int</span> rootQ = rootOf(q);</span><br><span class="line">        <span class="keyword">if</span> (rootP == rootQ) <span class="keyword">return</span>;</span><br><span class="line">        <span class="comment">// 将根触点的root定义为新加入的触点</span></span><br><span class="line">        points[rootP] = rootQ;</span><br><span class="line">        count--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">rootOf</span><span class="params">(<span class="keyword">int</span> position)</span></span>&#123;</span><br><span class="line">        <span class="comment">// 出现部分遍历, 性能痛点get√</span></span><br><span class="line">        <span class="keyword">while</span> (points[position]!=position) position = points[position];</span><br><span class="line">        <span class="keyword">return</span> position;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">isConnected</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> q)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> rootOf(p) == rootOf(q);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">count</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/07/23/算法学习-篇1/tree.png" alt="tree"></p>
+<h3 id="算法分析-1"><a href="#算法分析-1" class="headerlink" title="算法分析"></a>算法分析</h3><p>它解决了QF算法中<code>union()</code>总是<em>线性级别</em>的问题, 但是也使得时间复杂度与数据输入挂钩, 变得更难估计. 有时QU算法并不会比QF更快.</p>
+<p>虽然QU算法的<code>union()</code>大部分情况下不需要每次都遍历整个数组, 但是如果整个树结构变成了链状, 它也是平方级别的数组访问 (<em>假设虚拟机不对while中两次相同的数组访问进行优化时, 需要访问 2×(1+2+3…+N) 次</em>) </p>
+<p><img src="/2019/07/23/算法学习-篇1/BadTree.png" alt="BadTree"></p>
+<h2 id="加权quick-union算法"><a href="#加权quick-union算法" class="headerlink" title="加权quick-union算法"></a>加权quick-union算法</h2><p>QU算法的性能缺陷在于, 它可能会制造出过高的树, 而不是合理地添加使用分叉. 即QU算法可能会将大树连接到小树的根节点上, 不必要地增加树的高度. 树的高度越高, <code>find()</code>需要遍历的部分就越大, 加权QU算法将优化树的高度.</p>
+<p>我们需要更改数据结构, 增添一个数组, 用于记录每个根节点对应的树的大小 (大小实现起来比高度更简单)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UnionFind</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] points;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] size;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> count;</span><br><span class="line"></span><br><span class="line">    UnionFind(<span class="keyword">int</span> num) &#123;</span><br><span class="line">        points = <span class="keyword">new</span> <span class="keyword">int</span>[num];</span><br><span class="line">        size = <span class="keyword">new</span> <span class="keyword">int</span>[num];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; num ; i++) &#123;</span><br><span class="line">            points[i] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; num; i++) &#123;</span><br><span class="line">            size[i] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">union</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> q)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rootP = rootOf(p);</span><br><span class="line">        <span class="keyword">int</span> rootQ = rootOf(q);</span><br><span class="line">        <span class="keyword">if</span> (rootP == rootQ) <span class="keyword">return</span>;</span><br><span class="line">        <span class="comment">// 将根触点的root定义为新加入的触点</span></span><br><span class="line">        <span class="keyword">if</span> (size[rootP] &lt; size[rootQ]) &#123;</span><br><span class="line">            points[rootP] = rootQ;</span><br><span class="line">            size[rootQ] += size[rootP];</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            points[rootQ] = rootP;</span><br><span class="line">            size[rootP] += size[rootQ];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        points[rootP] = rootQ;</span><br><span class="line">        count--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">rootOf</span><span class="params">(<span class="keyword">int</span> position)</span></span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (points[position]!=position) position = points[position];</span><br><span class="line">        <span class="keyword">return</span> position;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">isConnected</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> q)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> rootOf(p) == rootOf(q);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">count</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="算法分析-2"><a href="#算法分析-2" class="headerlink" title="算法分析"></a>算法分析</h3><p>加权QU算法产生的二叉树在数据规模很大时近似看作是完美二叉树, 已知数据规模时, 完美二叉树的查询是 $log_2^N$ 级别的, 所以<code>rootOf()</code>时间复杂度是 $lgN$ . 处理N个触点, M条链接时, 需要访问数组 $cMlgN$ 次.</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/21/Class类/" rel="next" title>
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Nakiha</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/Nakiha" title="GitHub &rarr; https://github.com/Nakiha" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:NakihaCN@outlook.com" title="E-Mail &rarr; mailto:NakihaCN@outlook.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#union-find算法"><span class="nav-number">1.</span> <span class="nav-text">union-find算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#quick-find-算法"><span class="nav-number">1.1.</span> <span class="nav-text">quick-find 算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法分析"><span class="nav-number">1.1.1.</span> <span class="nav-text">算法分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#quick-union-算法"><span class="nav-number">1.2.</span> <span class="nav-text">quick-union 算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法分析-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">算法分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加权quick-union算法"><span class="nav-number">1.3.</span> <span class="nav-text">加权quick-union算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法分析-2"><span class="nav-number">1.3.1.</span> <span class="nav-text">算法分析</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nakiha</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
