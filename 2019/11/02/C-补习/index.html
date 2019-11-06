@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="Simple Chinese">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="C++使用cout实现格式输出, 类似于C++通过 printf(), cout.setf() 通过设置格式标志来控制输出形式.  标志    功能boolalpha    可以使用单词”true”和”false”进行输入/输出的布尔值.oct    用八进制格式显示数值.dec    用十进制格式显示数值.hex    用十六进制格式显示数值.left    输出调整为左对齐.right">
+<meta name="keywords" content="C++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++补习">
+<meta property="og:url" content="http://yoursite.com/2019/11/02/C-补习/index.html">
+<meta property="og:site_name" content="Nakiha&#39;s Blog">
+<meta property="og:description" content="C++使用cout实现格式输出, 类似于C++通过 printf(), cout.setf() 通过设置格式标志来控制输出形式.  标志    功能boolalpha    可以使用单词”true”和”false”进行输入/输出的布尔值.oct    用八进制格式显示数值.dec    用十进制格式显示数值.hex    用十六进制格式显示数值.left    输出调整为左对齐.right">
+<meta property="og:locale" content="Simple Chinese">
+<meta property="og:updated_time" content="2019-11-04T15:48:22.722Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++补习">
+<meta name="twitter:description" content="C++使用cout实现格式输出, 类似于C++通过 printf(), cout.setf() 通过设置格式标志来控制输出形式.  标志    功能boolalpha    可以使用单词”true”和”false”进行输入/输出的布尔值.oct    用八进制格式显示数值.dec    用十进制格式显示数值.hex    用十六进制格式显示数值.left    输出调整为左对齐.right">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/11/02/C-补习/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>C++补习 | Nakiha's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="Simple Chinese">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Nakiha's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/02/C-补习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nakiha">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nakiha's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C++补习
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-11-02 15:10:45" itemprop="dateCreated datePublished" datetime="2019-11-02T15:10:45+08:00">2019-11-02</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-11-04 23:48:22" itemprop="dateModified" datetime="2019-11-04T23:48:22+08:00">2019-11-04</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>C++使用cout实现格式输出, 类似于C++通过 printf(), cout.setf() 通过设置格式标志来控制输出形式. </p>
+<p>标志    功能<br>boolalpha    可以使用单词”true”和”false”进行输入/输出的布尔值.<br>oct    用八进制格式显示数值.<br>dec    用十进制格式显示数值.<br>hex    用十六进制格式显示数值.<br>left    输出调整为左对齐.<br>right    输出调整为右对齐.<br>scientific    用科学记数法显示浮点数.<br>fixed    用正常的记数方法显示浮点数(与科学计数法相对应).<br>showbase    输出时显示所有数值的基数.<br>showpoint    显示小数点和额外的零，即使不需要.<br>showpos    在非负数值前面显示”＋（正号）”.<br>skipws    当从一个流进行读取时，跳过空白字符(spaces, tabs, newlines).<br>unitbuf    在每次插入以后，清空缓冲区.<br>internal    将填充字符回到符号和数值之间.<br>uppercase    以大写的形式显示科学记数法中的”e”和十六进制格式的”x”.<br>举例演示：<br>————————————————<br>来自CSDN博主「白水你一定要努力啊」的原创文章<br>原文链接：<a href="https://blog.csdn.net/baishuiniyaonulia/article/details/79144033" target="_blank" rel="noopener">https://blog.csdn.net/baishuiniyaonulia/article/details/79144033</a></p>
+<p>operator 有全局和类成员函数两种用法</p>
+<ul>
+<li><p>全局</p>
+<p>全局定义时, 括号中需要填入所有需要捕获的参数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ostream&amp; XM_CALLCONV <span class="keyword">operator</span> &lt;&lt; (ostream&amp; os, FXMVECTOR v) &#123;</span><br><span class="line">	XMFLOAT3 dest;</span><br><span class="line">	XMStoreFloat3(&amp;dest, v);</span><br><span class="line">	</span><br><span class="line">	os &lt;&lt; <span class="string">"("</span> &lt;&lt; dest.x &lt;&lt; <span class="string">", "</span> &lt;&lt; dest.y &lt;&lt; <span class="string">", "</span> &lt;&lt; dest.z &lt;&lt; <span class="string">")"</span>;</span><br><span class="line">	<span class="keyword">return</span> os;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>类成员</p>
+<p>类成员时, 已经捕获了一个该类的实例, 用 this 可获得该实例</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bool</span> <span class="keyword">operator</span>==(<span class="keyword">const</span> person&amp; ps)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>-&gt;age == ps.age)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>友元函数的使用</p>
+<p>在 XMMATRIX 类中出现了友元函数, 因为如果作为类的成员函数, float * XMMATRIX 得不到相关定义</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">friend</span> XMMATRIX XM_CALLCONV <span class="keyword">operator</span>* (<span class="keyword">float</span> S, FXMMATRIX M);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>构造函数前面的 <code>explicit</code></p>
+<p>C++ 的构造函数实际上可以作为一个隐式类型转化操作符, 如果违背了我们的本意, 我们需要给构造函数前面加上 explicit, 下面的示例是 XMMATRIX 的一个构造函数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">explicit</span> <span class="title">XMMATRIX</span><span class="params">(_In_reads_(<span class="number">16</span>) <span class="keyword">const</span> <span class="keyword">float</span> *pArray)</span></span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>union</p>
+<p>一个联合中可以有多个数据成员, 但是使用同一块空间, 同一时间, 联合中只能有一个数据成员可以有值. </p>
+<p>在很多标准库中, 联合被用来作为一个结构中元素的索引器</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 该联合来自 XMFLOAT4X4</span></span><br><span class="line"><span class="keyword">union</span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">        <span class="keyword">float</span> _11, _12, _13, _14;</span><br><span class="line">        <span class="keyword">float</span> _21, _22, _23, _24;</span><br><span class="line">        <span class="keyword">float</span> _31, _32, _33, _34;</span><br><span class="line">        <span class="keyword">float</span> _41, _42, _43, _44;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">float</span> m[<span class="number">4</span>][<span class="number">4</span>]; <span class="comment">// 这个数组提供了结构中 float 的快速索引</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>数组Tips</p>
+<p>如果已知数组大小的初始化, 必须指明大小</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">	<span class="keyword">float</span> Array[<span class="number">4</span>][<span class="number">4</span>] = &#123; </span><br><span class="line">		&#123;<span class="number">1.f</span>, <span class="number">2.f</span>, <span class="number">3.f</span>, <span class="number">0.f</span>&#125;,</span><br><span class="line">		&#123;<span class="number">0.f</span>, <span class="number">0.f</span>, <span class="number">0.f</span>, <span class="number">0.f</span>&#125;,</span><br><span class="line">		&#123;<span class="number">0.f</span>, <span class="number">0.f</span>, <span class="number">0.f</span>, <span class="number">0.f</span>&#125;,</span><br><span class="line">		&#123;<span class="number">0.f</span>, <span class="number">0.f</span>, <span class="number">0.f</span>, <span class="number">0.f</span>&#125; </span><br><span class="line">	&#125;;</span><br><span class="line">如果需要传递这个数组</span><br></pre></td></tr></table></figure>
+<p>如果使用指针, 需要之后使用for循环来赋值</p>
+<p>指针和预定义的数组是不一样的</p>
+</li>
+<li><p>C++有Foreach</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> lines[] = &#123;<span class="string">"Roses are #ff0000"</span>,</span><br><span class="line">                  <span class="string">"violets are #0000ff"</span>,</span><br><span class="line">                  <span class="string">"all of my base are belong to you"</span></span><br><span class="line">                 &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;line : lines) &#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; line &lt;&lt; <span class="string">": "</span> &lt;&lt; <span class="built_in">std</span>::boolalpha</span><br><span class="line">    &lt;&lt; <span class="built_in">std</span>::regex_search(line, color_regex) &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>C++ Lambda</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i1 = <span class="number">0</span>, i2 = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">auto</span> k = [&amp;i1, &amp;i2] () &#123; i1 = <span class="number">3</span>; i2 = <span class="number">5</span>; &#125;;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; i1 &lt;&lt; <span class="string">" "</span> &lt;&lt; i2 &lt;&lt; <span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
+<p>[]为捕获块, 用于捕获 lambda 表达式之外的变量</p>
+<ul>
+<li>=  将局部变量按值传递（包括this指针）</li>
+<li>&amp;  将局部变量按引用传递（包括this指针）</li>
+<li>this this指针</li>
+</ul>
+</li>
+<li><p>原生字符串</p>
+<p>C#中使用@取消转义, C++使用R”()”标识, 使用它可以很简单地书写正则表达式, </p>
+</li>
+<li><p><strong>初始化列表（initializer list）</strong></p>
+<p>在C++ 03中，可以用列表的形式来初始化数组，这种方式非常直观，但只能适用于数组，不能适用于我们自定义的容器：</p>
+<p>  int anArray[5] = { 3, 2, 7, 5, 8 }; // ok</p>
+<p>  std::vector<int> vArray = { 3, 2, 7, 5, 8 }; // not ok</int></p>
+<p>在C++ 11中，我们则可以使得我们自定义的容器对象支持这种列表的形式的初始化方式：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyArray</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  <span class="built_in">vector</span>&lt;T&gt; m_Array;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  MyArray() &#123; &#125;</span><br><span class="line">  </span><br><span class="line">  MyArray(<span class="keyword">const</span> <span class="built_in">initializer_list</span>&lt;T&gt;&amp; il)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> x : il)</span><br><span class="line">      m_Array.push_back(x);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  MyArray&lt;<span class="keyword">int</span>&gt; foo = &#123; <span class="number">3</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">9</span> &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>宽字符</p>
+<p>L””</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># C++</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/18/内容采集/" rel="next" title="内容采集">
+                <i class="fa fa-chevron-left"></i> 内容采集
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/05/Dx12-Learning/" rel="prev" title="Dx12_Learning">
+                Dx12_Learning <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Nakiha</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/Nakiha" title="GitHub &rarr; https://github.com/Nakiha" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:NakihaCN@outlook.com" title="E-Mail &rarr; mailto:NakihaCN@outlook.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nakiha</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
