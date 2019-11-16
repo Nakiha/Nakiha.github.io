@@ -96,21 +96,24 @@
 
 
 
-  <meta name="description" content="COM 组件对象模型 Component Object Model, 是一种让DX可以向后兼容, 不受编程语言束缚的技术.   DXGI DirectX 图形基础结构 DirectX Graphics Infrastructure, 设计DXGI的理念是, 使得多种图形API中所共有的底层任务都能借助一组通用 API 来处理  IID_PPV_ARGS 宏 这个宏通过获取COM接口的全局标识符">
+  <meta name="description" content="DX是左手坐标系, OpenGL是右手坐标系, 由此注意叉乘的方向  COM 组件对象模型 Component Object Model, 是一种让DX可以向后兼容, 不受编程语言束缚的技术.   DXGI DirectX 图形基础结构 DirectX Graphics Infrastructure, 设计DXGI的理念是, 使得多种图形API中所共有的底层任务都能借助一组通用 API 来处理">
 <meta name="keywords" content="DirectX">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Dx12_Learning">
 <meta property="og:url" content="http://yoursite.com/2019/11/05/Dx12-Learning/index.html">
 <meta property="og:site_name" content="Nakiha&#39;s Blog">
-<meta property="og:description" content="COM 组件对象模型 Component Object Model, 是一种让DX可以向后兼容, 不受编程语言束缚的技术.   DXGI DirectX 图形基础结构 DirectX Graphics Infrastructure, 设计DXGI的理念是, 使得多种图形API中所共有的底层任务都能借助一组通用 API 来处理  IID_PPV_ARGS 宏 这个宏通过获取COM接口的全局标识符">
+<meta property="og:description" content="DX是左手坐标系, OpenGL是右手坐标系, 由此注意叉乘的方向  COM 组件对象模型 Component Object Model, 是一种让DX可以向后兼容, 不受编程语言束缚的技术.   DXGI DirectX 图形基础结构 DirectX Graphics Infrastructure, 设计DXGI的理念是, 使得多种图形API中所共有的底层任务都能借助一组通用 API 来处理">
 <meta property="og:locale" content="Simple Chinese">
+<meta property="og:image" content="http://yoursite.com/2019/11/05/Dx12-Learning/投影变换.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/05/Dx12-Learning/g(z">
 <meta property="og:image" content="http://yoursite.com/2019/11/05/Dx12-Learning/GPU流水线/顶点数据.png">
 <meta property="og:image" content="http://yoursite.com/2019/11/05/Dx12-Learning/4x/资源%201@4x.png">
-<meta property="og:updated_time" content="2019-11-06T08:51:25.182Z">
+<meta property="og:image" content="https://images.cnblogs.com/cnblogs_com/mikewolf2002/201211/201211251321255139.png">
+<meta property="og:updated_time" content="2019-11-07T06:44:08.793Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Dx12_Learning">
-<meta name="twitter:description" content="COM 组件对象模型 Component Object Model, 是一种让DX可以向后兼容, 不受编程语言束缚的技术.   DXGI DirectX 图形基础结构 DirectX Graphics Infrastructure, 设计DXGI的理念是, 使得多种图形API中所共有的底层任务都能借助一组通用 API 来处理  IID_PPV_ARGS 宏 这个宏通过获取COM接口的全局标识符">
-<meta name="twitter:image" content="http://yoursite.com/2019/11/05/Dx12-Learning/GPU流水线/顶点数据.png">
+<meta name="twitter:description" content="DX是左手坐标系, OpenGL是右手坐标系, 由此注意叉乘的方向  COM 组件对象模型 Component Object Model, 是一种让DX可以向后兼容, 不受编程语言束缚的技术.   DXGI DirectX 图形基础结构 DirectX Graphics Infrastructure, 设计DXGI的理念是, 使得多种图形API中所共有的底层任务都能借助一组通用 API 来处理">
+<meta name="twitter:image" content="http://yoursite.com/2019/11/05/Dx12-Learning/投影变换.png">
 
 
 
@@ -353,7 +356,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-11-06 16:51:25" itemprop="dateModified" datetime="2019-11-06T16:51:25+08:00">2019-11-06</time>
+                <time title="Modified: 2019-11-07 14:44:08" itemprop="dateModified" datetime="2019-11-07T14:44:08+08:00">2019-11-07</time>
               
             
           </span>
@@ -388,6 +391,8 @@
 
       
         <ul>
+<li><p>DX是左手坐标系, OpenGL是右手坐标系, 由此注意叉乘的方向</p>
+</li>
 <li><p>COM</p>
 <p>组件对象模型 Component Object Model, 是一种让DX可以向后兼容, 不受编程语言束缚的技术. </p>
 </li>
@@ -405,6 +410,48 @@
 <p><code>QueryPerfomanceCounter()</code>, 接受一个<code>__int64</code>作为输出参数, 返回当前的 CPU 计数时刻值. 可以将它作为一个时间戳</p>
 <p><code>QueryPerfomanceFrequency()</code>, 接受一个<code>__int64</code>作为输出参数, 返回性能计时器的频率, 它的倒数就是一个计数单位的时间</p>
 <p>先后记录两个时间戳 A 和 B , (A-B) * 计时器频率的倒数就能获得运行花费的秒数</p>
+</li>
+<li><p>自生坐标系到世界坐标的转化</p>
+<p>每个3D物体都有自己的世界矩阵, 用来将自身坐标系的顶点转化到世界坐标系中. 为了得到这个世界矩阵 $W$, 我们需要通过定义这个3D物体在世界坐标中的 $S$ $R$ $T$ (缩放, 旋转, 位移矩阵)来进行相乘得到.<br>$$<br>M = SRT<br>$$</p>
+</li>
+<li><p>摄像机空间</p>
+<p>观察空间被用于管线中描述顶点相对于摄像机坐标系的坐标, 世界坐标到观察空间坐标的变化被称为 View Transform 取景变化, 这个变化使用的矩阵被称为 View Matrix 视图矩阵.</p>
+<p>我们可以先求取 观察空间坐标 到 世界坐标 的矩阵, 再取其逆矩阵就能得到 $V$ (View Matrix)</p>
+<p>通常观察空间坐标系和世界坐标系只有 旋转 和 位移 的关系, 即 $W = RT$, 旋转矩阵是正交矩阵, 所以求逆实际上非常简单<br>$$<br>V = W^{-1} = (RT)^-1 = T^{-1}R^{-1} = T^{-1}R^T<br>$$<br>在摄像机空间中, w 轴是摄像机指向的方向</p>
+</li>
+<li><p>投影和齐次裁切空间<img src="/2019/11/05/Dx12-Learning/投影变换.png" alt="投影变换"></p>
+<p>摄像机可观察到的空间体积的范围可以使用一个平截头体来表示 (frustum)</p>
+<p>将平截头体重的 3D 集合体投影到一个 2D 投影窗口中的变化被称为 Perspective Projection Transformation</p>
+<ul>
+<li><p>平截头体 (frustum) </p>
+<p>我们在观察空间中通过 </p>
+<ul>
+<li><p><strong>n</strong> (near plane), 近裁剪面</p>
+</li>
+<li><p><strong>f</strong> (far plane), 远裁剪面</p>
+</li>
+<li><p><strong>a</strong> (vertical field of view angle), 垂直视场角</p>
+</li>
+<li><p><strong>r</strong> (aspect ratio), 宽高比</p>
+</li>
+<li><p><strong>β</strong> (horizontal field of view angle), 水平视场角 </p>
+</li>
+</ul>
+</li>
+</ul>
+<p>其中 <strong>β</strong> 可以被 <strong>α</strong> 和 <strong>r</strong> 推出</p>
+<p>由于投影窗口的高度被定义为两个单位, 所以 2<strong>*r</strong> 就能得到宽度</p>
+<p>在摄像机空间中, 利用三角形相似的原理可以得到一个点在投影窗口上的位置.</p>
+<p>在进一步处理前, 需要判断这个点是不是被需要, 我们首先确定它的 z 坐标是不是在 <strong>n</strong> 和 <strong>f</strong> 之间<br>再通过判断这个点投射后 x 是不是在 [-r, r] 内, 和 y 是不是在 [-1, 1]内, 来确定是否需要留下这个点</p>
+<p>为了去除投影窗口对 <strong>r</strong> 的依赖, 方便硬件更快的运行, 我们需要将投影窗口上的 x 坐标从 [-r, r] 映射到 [-1, 1], 这一步之后, x 和 y 就成了规范化设备坐标( Normalized Device Coordinate, NDC ), </p>
+<ul>
+<li><p>深度值归一化</p>
+<p>深度值 z 也需要被映射到 [0, 1] 的空间内, 由于我们只需要 <strong>n</strong> 和 <strong>f</strong> 之间的z值, 定义深度值映射函数为 g(z) , g(z)应有 $g(n) = 0 $, $g(f) = 1$, 这明显不是一个线性变化</p>
+<p>设这个变化为<br>$$<br>g(z) = A+B/z<br>$$<br>带入 $g(n) = 0 $, $g(f) = 1$, 求出AB, 得到函数<br>$$<br>g(z) = \frac{f}{f-n} - \frac{nf}{(f-n)z}<br>$$<br><img src="/2019/11/05/Dx12-Learning/g(z" alt="g(z)n1f100">n1f100.png)</p>
+<p>可以看到这个变化将 <strong>n</strong> 到 <strong>f</strong> 的 z 值保序地映射到 (0,1) 中, 但是, 大多数深度值都被映射到了很小的区间内, 由于计算机能表示的数值精度问题, 可能出现 z 经过映射之后得到相同的归一值 z 的问题, f和n差得越大, 精度出现问题的可能性越大, 所以一般令 f 和 n 尽可能地靠近</p>
+</li>
+</ul>
+<p>顶点乘以透视矩阵后, 几何体就从 齐次裁剪空间 (homogeneous clip space) 转化到 NDC中</p>
 </li>
 </ul>
 <h1 id="Rending-Pipeline"><a href="#Rending-Pipeline" class="headerlink" title="Rending Pipeline"></a>Rending Pipeline</h1><p><img src="/2019/11/05/Dx12-Learning/GPU流水线/顶点数据.png" alt="顶点数据"></p>
@@ -433,6 +480,24 @@
 </ul>
 <h2 id="Vertex-Shader-Stage"><a href="#Vertex-Shader-Stage" class="headerlink" title="Vertex Shader Stage"></a>Vertex Shader Stage</h2><p>顶点着色器可以看作一个输入输出皆为顶点的函数, 下面是模拟硬件执行的代码</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(UINT i=<span class="number">0</span>; i &lt; numVertices; i++)&#123;</span><br><span class="line">    outputVertex[i] = VertexShader( inputVertex[i] );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>位置变换, 光照, 位移贴图的效果都可以在这个阶段被实现, 在顶点着色器中, 不但可以访问输入的顶点数据, 也可以访问纹理等, 其他存在于显存中的数据</p>
+<h2 id="Tessellation-Stage"><a href="#Tessellation-Stage" class="headerlink" title="Tessellation Stage"></a>Tessellation Stage</h2><p>Dx11中新增的处理阶段, 这是可选的</p>
+<h2 id="Geometry-Shader-Stage"><a href="#Geometry-Shader-Stage" class="headerlink" title="Geometry Shader Stage"></a>Geometry Shader Stage</h2><p>传给几何着色器的的已经是一个完整的图元, 这里我们可以销毁和创建几何体, 也可以创建或销毁几何体</p>
+<h2 id="Clip"><a href="#Clip" class="headerlink" title="Clip"></a>Clip</h2><p>丢弃掉平截头体之外的几何体, 对位于交界线上的几何体进行裁剪, 这里完全交由硬件实现</p>
+<h2 id="Rasterization-Stage"><a href="#Rasterization-Stage" class="headerlink" title="Rasterization Stage"></a>Rasterization Stage</h2><p>3D三角形在栅格化阶段将被计算出对应的像素颜色</p>
+<ul>
+<li><p>视口变换</p>
+<p>clip 之后硬件将物体从齐次裁剪空间转化为NDC, 之后, 每个2D顶点坐标 x, y 被变化到 后台缓冲区 中被称为视口 (viewport) 的矩形里, 这次变化完成后, x, y坐标将以像素为单位表示</p>
+</li>
+<li><p>背面剔除</p>
+<p>对于一个三角形, 其法线由它点的绘制顺序决定, 以 $v0\quad v1\quad    v2$ 顺序绘制的三角形, 其法线设为 $\textbf{n}$ , 有<br>$$<br>\textbf{e}_0 = \textbf{v}_1 - \textbf{v}_0 \<br>\textbf{e}_1 = \textbf{v}_2 - \textbf{v}_0 \<br>\textbf{n} = \frac{\textbf{e}_1 \times  \textbf{e}_1} {\vert \vert \textbf{e}_1 \times  \textbf{e}_1\vert \vert}<br>$$<br>由于DX采用左手坐标系, 如果已知绘制顺序, 使用左手螺旋法则就可以得到法线方向.<br>如果背面朝向 (back-facing) 的三角形对于用户来说不可见, 那我们将其剔除</p>
+</li>
+<li><p>顶点属性插值, 对于一个三角形, 我们需要通过透视矫正插值插出它的面, 本质上就是通过三角形的顶点属性值, 计算出内部像素的属性值, 这部分由硬件完成</p>
+<p> <img src="https://images.cnblogs.com/cnblogs_com/mikewolf2002/201211/201211251321255139.png" alt="image"> </p>
+</li>
+</ul>
+<h2 id="Pixel-Shader"><a href="#Pixel-Shader" class="headerlink" title="Pixel Shader"></a>Pixel Shader</h2><p>遍历每一个像素片段 (pixel fragment) 进行处理, 根据顶点的插值属性作为输入来计算对应的像素颜色, 这里可以实现逐像素光照, 反射, 阴影等更为复杂的效果</p>
+<h2 id="Output-Merger"><a href="#Output-Merger" class="headerlink" title="Output Merger"></a>Output Merger</h2><p>输出合并阶段, 此阶段未通过深度测试或者模板缓冲区测试的像素对象可以被丢弃. 剩下的像素片段被写入后台缓冲区中, </p>
 
       
     </div>
@@ -655,7 +720,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Rending-Pipeline"><span class="nav-number">1.</span> <span class="nav-text">Rending Pipeline</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Input-Assenbler"><span class="nav-number">1.1.</span> <span class="nav-text">Input Assenbler</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vertex-Shader-Stage"><span class="nav-number">1.2.</span> <span class="nav-text">Vertex Shader Stage</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Rending-Pipeline"><span class="nav-number">1.</span> <span class="nav-text">Rending Pipeline</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Input-Assenbler"><span class="nav-number">1.1.</span> <span class="nav-text">Input Assenbler</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vertex-Shader-Stage"><span class="nav-number">1.2.</span> <span class="nav-text">Vertex Shader Stage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tessellation-Stage"><span class="nav-number">1.3.</span> <span class="nav-text">Tessellation Stage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Geometry-Shader-Stage"><span class="nav-number">1.4.</span> <span class="nav-text">Geometry Shader Stage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Clip"><span class="nav-number">1.5.</span> <span class="nav-text">Clip</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rasterization-Stage"><span class="nav-number">1.6.</span> <span class="nav-text">Rasterization Stage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pixel-Shader"><span class="nav-number">1.7.</span> <span class="nav-text">Pixel Shader</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Output-Merger"><span class="nav-number">1.8.</span> <span class="nav-text">Output Merger</span></a></li></ol></li></ol></div>
             
 
           </div>

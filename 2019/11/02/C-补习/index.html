@@ -104,10 +104,14 @@
 <meta property="og:site_name" content="Nakiha&#39;s Blog">
 <meta property="og:description" content="C++使用cout实现格式输出, 类似于C++通过 printf(), cout.setf() 通过设置格式标志来控制输出形式.  标志    功能boolalpha    可以使用单词”true”和”false”进行输入/输出的布尔值.oct    用八进制格式显示数值.dec    用十进制格式显示数值.hex    用十六进制格式显示数值.left    输出调整为左对齐.right">
 <meta property="og:locale" content="Simple Chinese">
-<meta property="og:updated_time" content="2019-11-04T15:48:22.722Z">
+<meta property="og:image" content="http://yoursite.com/2019/11/02/C-补习/image-20191115171152633.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/02/C-补习/image-20191115175257308.png">
+<meta property="og:image" content="http://yoursite.com/AppData/Roaming/Typora/typora-user-images/image-20191115175332500.png">
+<meta property="og:updated_time" content="2019-11-15T14:23:16.504Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++补习">
 <meta name="twitter:description" content="C++使用cout实现格式输出, 类似于C++通过 printf(), cout.setf() 通过设置格式标志来控制输出形式.  标志    功能boolalpha    可以使用单词”true”和”false”进行输入/输出的布尔值.oct    用八进制格式显示数值.dec    用十进制格式显示数值.hex    用十六进制格式显示数值.left    输出调整为左对齐.right">
+<meta name="twitter:image" content="http://yoursite.com/2019/11/02/C-补习/image-20191115171152633.png">
 
 
 
@@ -350,7 +354,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-11-04 23:48:22" itemprop="dateModified" datetime="2019-11-04T23:48:22+08:00">2019-11-04</time>
+                <time title="Modified: 2019-11-15 22:23:16" itemprop="dateModified" datetime="2019-11-15T22:23:16+08:00">2019-11-15</time>
               
             
           </span>
@@ -409,12 +413,19 @@
 <p>在很多标准库中, 联合被用来作为一个结构中元素的索引器</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 该联合来自 XMFLOAT4X4</span></span><br><span class="line"><span class="keyword">union</span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">        <span class="keyword">float</span> _11, _12, _13, _14;</span><br><span class="line">        <span class="keyword">float</span> _21, _22, _23, _24;</span><br><span class="line">        <span class="keyword">float</span> _31, _32, _33, _34;</span><br><span class="line">        <span class="keyword">float</span> _41, _42, _43, _44;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">float</span> m[<span class="number">4</span>][<span class="number">4</span>]; <span class="comment">// 这个数组提供了结构中 float 的快速索引</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 </li>
+<li><p>自定义类型转化</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">operator</span> <span class="title">otherClass</span><span class="params">()</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
 <li><p>数组Tips</p>
 <p>如果已知数组大小的初始化, 必须指明大小</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">	<span class="keyword">float</span> Array[<span class="number">4</span>][<span class="number">4</span>] = &#123; </span><br><span class="line">		&#123;<span class="number">1.f</span>, <span class="number">2.f</span>, <span class="number">3.f</span>, <span class="number">0.f</span>&#125;,</span><br><span class="line">		&#123;<span class="number">0.f</span>, <span class="number">0.f</span>, <span class="number">0.f</span>, <span class="number">0.f</span>&#125;,</span><br><span class="line">		&#123;<span class="number">0.f</span>, <span class="number">0.f</span>, <span class="number">0.f</span>, <span class="number">0.f</span>&#125;,</span><br><span class="line">		&#123;<span class="number">0.f</span>, <span class="number">0.f</span>, <span class="number">0.f</span>, <span class="number">0.f</span>&#125; </span><br><span class="line">	&#125;;</span><br><span class="line">如果需要传递这个数组</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">float</span> Array[<span class="number">4</span>][<span class="number">4</span>] = &#123; </span><br><span class="line">	&#123;<span class="number">1.f</span>, <span class="number">2.f</span>, <span class="number">3.f</span>, <span class="number">0.f</span>&#125;,</span><br><span class="line">	&#123;<span class="number">0.f</span>, <span class="number">0.f</span>, <span class="number">0.f</span>, <span class="number">0.f</span>&#125;,</span><br><span class="line">	&#123;<span class="number">0.f</span>, <span class="number">0.f</span>, <span class="number">0.f</span>, <span class="number">0.f</span>&#125;,</span><br><span class="line">	&#123;<span class="number">0.f</span>, <span class="number">0.f</span>, <span class="number">0.f</span>, <span class="number">0.f</span>&#125; </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 <p>如果使用指针, 需要之后使用for循环来赋值</p>
 <p>指针和预定义的数组是不一样的</p>
-</li>
+<ul>
 <li><p>C++有Foreach</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> lines[] = &#123;<span class="string">"Roses are #ff0000"</span>,</span><br><span class="line">                  <span class="string">"violets are #0000ff"</span>,</span><br><span class="line">                  <span class="string">"all of my base are belong to you"</span></span><br><span class="line">                 &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;line : lines) &#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; line &lt;&lt; <span class="string">": "</span> &lt;&lt; <span class="built_in">std</span>::boolalpha</span><br><span class="line">    &lt;&lt; <span class="built_in">std</span>::regex_search(line, color_regex) &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
@@ -440,7 +451,217 @@
 <li><p>宽字符</p>
 <p>L””</p>
 </li>
+<li><p>C++ 销毁对象</p>
+<p>new 的对象必须手动销毁, 使用<code>delete</code>销毁基本类型和基本类型的数组, 使用<code>delete[]</code>销毁<code>new</code>出来的指针数组</p>
+<p>如果是局部变量, 过了作用域之后, 它们会自动析构</p>
+</li>
+<li><p>函数中 <code>const</code> 的位置</p>
+<p>函数前面为<code>const</code>意味着返回值是只能被读取的, 需要用<code>const</code>变量去承接</p>
+<p>函数后面的<code>const</code>意味着这个函数不可以修改除了<code>mutable</code>之外的类成员</p>
+</li>
+<li><p>C++虚函数</p>
+<p>一个类如果有虚函数, 它的虚函数会储存在这个类的最前方, 直接影响sizeof返回的结果, 如果使用override覆写虚函数, 那么这个函数必须重载同名函数, 否则过不了编译, 增强了健壮性</p>
+</li>
+<li><p>C++对齐</p>
+<p>以最长的变量为对齐长度, 空类的大小为1字节, 这是为了储存地址</p>
+</li>
+<li><p>new 和非 new 创建对象</p>
+<p>new的对象创建在 heap 上, 需要手动 delete 或者 free<br>非 new 的对象创建在 stack 上, 快, 但是资源有限, 如果创建过多会导致栈溢出</p>
+</li>
+<li><p>NULL 和 nullptr</p>
+<p>C++ 11 引入的 nullptr 用于区分 指针和整数 的空状态, nullptr是一个C++关键字</p>
+</li>
 </ul>
+<h1 id="IO"><a href="#IO" class="headerlink" title="IO"></a>IO</h1><p><img src="/2019/11/02/C-补习/image-20191115171152633.png" alt="image-20191115171152633"></p>
+<p>导入<code>iostream</code>类库时自动创建8个流对象 (4个窄字符, 4个宽字符)</p>
+<ul>
+<li><p><code>cin</code>, <code>wcin</code></p>
+<p>默认时关联到标准输入设备</p>
+</li>
+<li><p><code>cout</code>, <code>wcout</code></p>
+<p>默认时关联到标准输出设备</p>
+</li>
+<li><p><code>cerr</code>, <code>wcerr</code></p>
+<p>默认时关联到标准输出设备, 这个流没有缓冲</p>
+</li>
+<li><p><code>clog</code>, <code>wclog</code></p>
+<p>默认时关联到标准输出设备</p>
+</li>
+</ul>
+<p><code>flush()</code>函数可以用于刷新指定流的缓冲区, <code>endl</code>也可以做到</p>
+<h2 id="设置ios-base"><a href="#设置ios-base" class="headerlink" title="设置ios_base"></a>设置ios_base</h2><ul>
+<li><p>hex()</p>
+<p>传入的输出流将以十六进制打印整数值, 直到被指定为其他选项.</p>
+</li>
+<li><p>width()</p>
+<p>设置字段宽度, 默认右对齐, 输出中空位被空格填充, 只影响接下来要显示的第一个项目.</p>
+</li>
+<li><p>fill()</p>
+<p>指定填充字符</p>
+</li>
+<li><p>precision()</p>
+<p>设置浮点输出精度, 如果数据长度过长, 使用科学计数法, C++的默认精度是 6 位</p>
+<p><img src="/2019/11/02/C-补习/image-20191115175257308.png" alt="image-20191115175257308"><img src="/2019/11/02/C-补习/../../../../AppData/Roaming/Typora/typora-user-images/image-20191115175332500.png" alt="image-20191115175332500"></p>
+</li>
+</ul>
+<h3 id="setf-函数"><a href="#setf-函数" class="headerlink" title="setf()函数"></a>setf()函数</h3><p><code>fmtflags setf(fmtflags)</code> fmtflags属于bitmask类型, setf用于改变调用它的流的位标记, 进而定义流的输入输出格式</p>
+<ul>
+<li><p>ios_base::showpoint</p>
+<p>显示多余的零</p>
+</li>
+<li><p>ios_base::uppercase</p>
+<p>十六进制输出时使用大写字母</p>
+</li>
+<li><p>ios_base::boolapha</p>
+<p>bool值用 “true” 和 “false” 表示</p>
+</li>
+<li><p>ios_base::showbase</p>
+<p>显示基数前缀 二进制-&gt; 0, 十六进制-&gt; 0x</p>
+</li>
+<li><p>ios_base::showpos</p>
+<p>正数前加上 ‘+’</p>
+</li>
+</ul>
+<p><code>setf(long, long)</code></p>
+<table>
+<thead>
+<tr>
+<th>第二个参数</th>
+<th>第一个参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ios_base::basefield</td>
+<td>ios_base::dec</td>
+<td>使用基数 10</td>
+</tr>
+<tr>
+<td></td>
+<td>ios_base::oct</td>
+<td>使用基数 8</td>
+</tr>
+<tr>
+<td></td>
+<td>ios_base::hex</td>
+<td>使用基数 16</td>
+</tr>
+<tr>
+<td>ios_base::floatfield</td>
+<td>ios_base::fixed</td>
+<td>使用定点计数法</td>
+</tr>
+<tr>
+<td></td>
+<td>ios_base::scientific</td>
+<td>使用科学计数法</td>
+</tr>
+<tr>
+<td>ios_base::adjustfield</td>
+<td>ios_base::left</td>
+<td>左对齐</td>
+</tr>
+<tr>
+<td></td>
+<td>ios_base::right</td>
+<td>右对齐</td>
+</tr>
+<tr>
+<td></td>
+<td>iso_base::internal</td>
+<td>符号或者基数左对齐, 值右对齐</td>
+</tr>
+</tbody>
+</table>
+<p><code>unsetf()</code>用于reset</p>
+<h2 id="流状态-iostate"><a href="#流状态-iostate" class="headerlink" title="流状态 iostate"></a>流状态 iostate</h2><p>iostate 是一种 bitmask 类型, 它由三个 ios_base 元素组成, eofbit, badbit, failbit. 分别标识, 达到文件尾, 流是否被破坏, 输入操作未能获得预期字符, 或者输出操作没有写入预期字符</p>
+<ul>
+<li><p>good()</p>
+<p>如果流的所有位都被清除, 返回true</p>
+</li>
+<li><p>clear()</p>
+<p>默认清除所有位, 可以指定哪些位不被清除<br>如果只是为了跳过错误的字符, 还需要手动使用cin.get()等函数来清除输入队列</p>
+</li>
+<li><p>setstate()</p>
+<p>设置指定位</p>
+</li>
+</ul>
+<h3 id="指定流处于某个状态时为异常"><a href="#指定流处于某个状态时为异常" class="headerlink" title="指定流处于某个状态时为异常"></a>指定流处于某个状态时为异常</h3><p>为流调用 exceptions() 函数, 传入对应的流状态( 如: ios_base::failbit ), 当流处在这个状态时, 将抛出一个<code>ios_base::failure</code>异常</p>
+<h2 id="输入函数"><a href="#输入函数" class="headerlink" title="输入函数"></a>输入函数</h2><ul>
+<li><p>字符输入</p>
+<p>get(), get(char &amp;), 对应C中的 getchar(), 用于处理全部输入, 不进行任何空白跳过</p>
+</li>
+<li><p>字符串输入</p>
+<p>getline(char<em>, int), get(char </em>, int)</p>
+<p>getline和get的区别在于get会留下换行符在输入队列中, 他们都有三个参数的版本, 用来指定一个char为分割符</p>
+<p>如果输入的值超过指定的 int-1 (注意\0) 将终止输入, 并设置 failbit </p>
+</li>
+<li><p>丢弃输入</p>
+<p>ignore(int, char), 丢弃输入, 直到遇到指定的char</p>
+</li>
+<li><p>查看下一个字符, 但不取走</p>
+<p>peek() 函数经常与get一起用</p>
+</li>
+<li><p>回插字符</p>
+<p>putback()</p>
+</li>
+<li><p>文件输入相关</p>
+<p>read() 不为字符串加上 ‘\0’</p>
+</li>
+</ul>
+<h1 id="文件IO"><a href="#文件IO" class="headerlink" title="文件IO"></a>文件IO</h1><p>fstream 头文件包括了 iostream </p>
+<p>Tips: </p>
+<ul>
+<li>使用 is_open() 来检测文件是否打开成功</li>
+<li>使用 close() 来</li>
+</ul>
+<h2 id="写入"><a href="#写入" class="headerlink" title="写入"></a>写入</h2><p>让程序写入文件的步骤</p>
+<ol>
+<li>创建一个<code>ofstream</code>对象管理输出流</li>
+<li>将该对象与特定文件关联</li>
+<li>使用<code>cout</code>的方式使用该对象</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ofstream fout;</span><br><span class="line">fout.open(<span class="string">"jar.txt"</span>);</span><br><span class="line"><span class="comment">// 合并第一第二步</span></span><br><span class="line"><span class="function">ofstream <span class="title">fout</span><span class="params">(<span class="string">"jar.txt"</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+<h2 id="读取"><a href="#读取" class="headerlink" title="读取"></a>读取</h2><p>与写入类似</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ifstream fin;</span><br><span class="line">fin.open(<span class="string">"jellyjar.txt"</span>);</span><br><span class="line"><span class="comment">// one statement</span></span><br><span class="line"><span class="function">ifstream <span class="title">fis</span><span class="params">(<span class="string">"jamjar.txt"</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+<h2 id="open-的第二个参数"><a href="#open-的第二个参数" class="headerlink" title="open(,)的第二个参数"></a>open(,)的第二个参数</h2><p><code>ofstream</code>和<code>ifstream</code>都为<code></code>open()<code>的实现提供了默认参数, 分别是</code>ios_base::in<code>和</code>ios_base::out | ios_base::trunc`, </p>
+<table>
+<thead>
+<tr>
+<th>常量</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ios_base::in</td>
+<td>打开文件, 读取</td>
+</tr>
+<tr>
+<td>ios_base::out</td>
+<td>打开文件, 写入</td>
+</tr>
+<tr>
+<td>ios_base::ate</td>
+<td>打开文件, 移到文件尾</td>
+</tr>
+<tr>
+<td>ios_base::app</td>
+<td>追加到文件尾</td>
+</tr>
+<tr>
+<td>ios_base::trunc</td>
+<td>如果文件存在, 截短文件</td>
+</tr>
+<tr>
+<td>ios_base::binary</td>
+<td>二进制文件</td>
+</tr>
+</tbody>
+</table>
+<p>注意: 由于二进制文件不存在换行之类的字符, 必须使用 ios_base::binary 来open二进制文件, 对于二进制文件, 使用指定数据大小的 write 和 read 来输入输出, </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// binary write</span></span><br><span class="line"><span class="function">ofstream <span class="title">fout</span><span class="params">(<span class="string">"planets.dat"</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">             ios_base::out | ios_base::app | ios_base::binary)</span></span>;</span><br><span class="line">fout.write((<span class="keyword">char</span>*) &amp;pl, <span class="keyword">sizeof</span> pl);</span><br><span class="line"><span class="comment">// binary read</span></span><br><span class="line"><span class="function">ifstream <span class="title">fin</span><span class="params">(<span class="string">"planets.dat"</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">            ios_base::in | ios_base::binary)</span></span>;</span><br><span class="line">fin.read((<span class="keyword">char</span>*) &amp;pl, <span class="keyword">sizeof</span> pl);</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -533,8 +754,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -647,6 +877,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#IO"><span class="nav-number">1.</span> <span class="nav-text">IO</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#设置ios-base"><span class="nav-number">1.1.</span> <span class="nav-text">设置ios_base</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#setf-函数"><span class="nav-number">1.1.1.</span> <span class="nav-text">setf()函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流状态-iostate"><span class="nav-number">1.2.</span> <span class="nav-text">流状态 iostate</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#指定流处于某个状态时为异常"><span class="nav-number">1.2.1.</span> <span class="nav-text">指定流处于某个状态时为异常</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入函数"><span class="nav-number">1.3.</span> <span class="nav-text">输入函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件IO"><span class="nav-number">2.</span> <span class="nav-text">文件IO</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#写入"><span class="nav-number">2.1.</span> <span class="nav-text">写入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#读取"><span class="nav-number">2.2.</span> <span class="nav-text">读取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#open-的第二个参数"><span class="nav-number">2.3.</span> <span class="nav-text">open(,)的第二个参数</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
