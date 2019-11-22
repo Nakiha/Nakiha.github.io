@@ -108,7 +108,12 @@
 <meta property="og:image" content="http://yoursite.com/2019/09/05/大话数据结构摘记/2-1FZ5104202Y5.png">
 <meta property="og:image" content="http://yoursite.com/2019/09/05/大话数据结构摘记/1571923888214.png">
 <meta property="og:image" content="http://yoursite.com/2019/09/05/大话数据结构摘记/1571970856352.png">
-<meta property="og:updated_time" content="2019-11-15T01:25:26.893Z">
+<meta property="og:image" content="http://yoursite.com/2019/09/05/大话数据结构摘记/资源%202.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/05/大话数据结构摘记/image-20191122161904040.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/05/大话数据结构摘记/资源%204.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/05/大话数据结构摘记/资源%203.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/05/大话数据结构摘记/1x/资源%205.png">
+<meta property="og:updated_time" content="2019-11-22T10:18:49.405Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大话数据结构摘记">
 <meta name="twitter:description" content="随笔C#特性的坑还得继续填, 这边开个数据结构的新坑, 反正有简单数据结构的课得过了, 折腾本大话数据结构读读. 这个学期 (大二上) 目前的目标还是三个   填完C#特性的坑,   开坑数据结构, 最好能把大话数据结构读完.   又开始了每天凌晨的画垃圾, 爱好什么的还是不能丢的.    学业, 副业, 爱好, 这三个东西的平衡最近有点乱, 还是希望这一周后, 能够找到最佳平衡点. 由于我最擅(">
@@ -355,7 +360,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-11-15 09:25:26" itemprop="dateModified" datetime="2019-11-15T09:25:26+08:00">2019-11-15</time>
+                <time title="Modified: 2019-11-22 18:18:49" itemprop="dateModified" datetime="2019-11-22T18:18:49+08:00">2019-11-22</time>
               
             
           </span>
@@ -614,6 +619,92 @@
 <li>指向线索化二叉树的第一个结点引用.</li>
 <li>指向线索化二叉树的最后一个结点的引用.</li>
 </ol>
+<h1 id="图"><a href="#图" class="headerlink" title="图"></a>图</h1><p>Graph 是由顶点的有穷非空集合和顶点之间边的集合组成.<br>通常表示为 G(V, {E}). G 表示一个图, V 是图 G 中顶点的集合, E 是图 G 中边的集合.</p>
+<h2 id="图的相关定义"><a href="#图的相关定义" class="headerlink" title="图的相关定义"></a>图的相关定义</h2><ul>
+<li><p>图的数据元素称为<strong>顶点</strong> (Vertex)</p>
+</li>
+<li><p>(<em>该定义存在争议</em>)</p>
+<p>虽然线性表和树都允许为空, 但是 <strong>没有空图</strong>, 即顶点集合 V 有穷非空</p>
+</li>
+<li><p>图中, 任意两个顶点之间都可能有关系, 顶点之间的逻辑关系, 用边来表示</p>
+</li>
+<li><p><strong>无向边</strong></p>
+<p>顶点 $v_i$ 到 $v_j$ 之间的边没有方向, 这条边就是 无向边 (<strong>Edge</strong>), 用无序偶对 $(v_i, v_j)$, 来表示.<br>由于无向, 如果 Edge 存在于 A, D 之间, 它可以写成 (A, D), 也能写成 (D, A).</p>
+</li>
+<li><p><strong>无向图</strong></p>
+<p>若图中任意两个顶点之间的边都是无向边, 该图为无向图 (<strong>Undirected graphs</strong>)</p>
+</li>
+<li><p><strong>有向边</strong></p>
+<p>有向边也被称为 弧 (<strong>Arc</strong>), 用有序偶 $&lt;v_i, v_j&gt;$表示, $vi$ 称为弧尾 (<strong>Tail</strong>), $v_j$被称为弧头<br>(<strong>Head</strong>). 注意, 对于一个 <strong>Arc</strong> 其<em>终点为弧头, 起点为弧尾</em>.</p>
+</li>
+<li><p><strong>有向图</strong></p>
+<p>若图中任意两个顶点之间的边都是有向边. 该图为有向图 (<strong>Directed graphs</strong>)</p>
+</li>
+<li><p><strong>简单图</strong></p>
+<p>若图中, 不存在顶点到其自身的边, 且同一条边不重复出现, 则称这样的图为简单图.</p>
+</li>
+<li><p><strong>无向完全图</strong></p>
+<p>任意两个顶点之间都存在边, 则该图为无向完全图</p>
+<p>含 $n$ 个顶点的无向完全图有 $C^2_n$ 条边</p>
+</li>
+<li><p><strong>有向完全图</strong></p>
+<p>任意两个顶点之间都存在方向互为相反的两条弧, 则该图为有向完全图<br>含 $n$ 个顶点的有向完全图有 $A^2_n$ 条边</p>
+</li>
+<li><p><strong>稀疏图与稠密图</strong></p>
+<p>这是一个相对而言的概念, 例如一个图顶峰时容纳了100万个顶点, 日常只有50万个顶点, 那么日常的状态就可以说是一个稀疏图</p>
+</li>
+<li><p><strong>权</strong></p>
+<p>有的边或者弧具有与它相关的数字, 这个数就被称为 权 (<strong>Weight</strong>). </p>
+</li>
+<li><p><strong>网</strong></p>
+<p>带权的图被称为 网 (<strong>Network</strong>)</p>
+</li>
+</ul>
+<h2 id="顶点与边间关系"><a href="#顶点与边间关系" class="headerlink" title="顶点与边间关系"></a>顶点与边间关系</h2><h3 id="无向图"><a href="#无向图" class="headerlink" title="无向图"></a>无向图</h3><p>对于无向图 G = (V,{E}), 如果边 (v0, v1) 属于 E, 则顶点 v0 和 v1 互为邻接点 (<strong>Adjacent</strong>), 边 (v0, v1) 依附 (<strong>incident</strong>) 或者说关联于顶点 v_0 和 v_1.<br>顶点 v0 的度 (<strong>Degree</strong>), 是和 v0 相关联的边的数目, 记为 TD (v).<br>度和边的关系是 $e= \sum_{i=1}^nTD(v_i)$ 这是因为相对于边来说, 度会被记两次所造成的.</p>
+<h3 id="有向图"><a href="#有向图" class="headerlink" title="有向图"></a>有向图</h3><p>对于有向图, 其顶点之间的邻接关系, 与边与顶点的关联关系与无向图一样<br>对于有向图中的v0来说, 度的定义为 入度(<strong>InDegree</strong>) 与 出度(<strong>OutDegree</strong>) 之和</p>
+<ul>
+<li><p>入度</p>
+<p>以顶点为 Head 的弧的数目</p>
+</li>
+<li><p>出度</p>
+<p>以顶点为 Tail 的弧的数目</p>
+</li>
+</ul>
+<p>顶点 v0 的度为 TD(v) = ID(v)+OD(v)<br>整个图的所有顶点的 入度与出度 之和是相同的, 它们也与该图中 有向边 的总数目相同.</p>
+<h2 id="路径"><a href="#路径" class="headerlink" title="路径"></a>路径</h2><p>路径(<strong>Path</strong>)是一个有起点有终点的顶点序列, 对于无向图$(v=v_{i,0},v_{i,1},…,v_{i,m}=v’)$, 有向图使用尖括号</p>
+<ul>
+<li>路径的长度是路径上边或弧的数目</li>
+<li>序列中顶点不重复出现的路径为简单路径, </li>
+<li>起点与终点相同的路径称为 回路 或者 环 (<strong>Cycle</strong>)</li>
+<li>除了起点和终点之外, 其余顶点不重复出现的回路被称为, 简单回路 或 简单环.</li>
+</ul>
+<h2 id="连通图相关"><a href="#连通图相关" class="headerlink" title="连通图相关"></a>连通图相关</h2><p>无向图中, 如果任意两个顶点都是连通的, 则 G 为连通图 (<strong>Connected Graph</strong>)</p>
+<h3 id="连通分量"><a href="#连通分量" class="headerlink" title="连通分量"></a>连通分量</h3><p>无相图中的极大连通子集称为 连通分量</p>
+<p><img src="/2019/09/05/大话数据结构摘记/资源 2.png" alt="资源 2"></p>
+<ul>
+<li>为子图</li>
+<li>子图要是连通的</li>
+<li>连通子图中含有极大顶点数</li>
+<li>具有极大顶点数的连通子图包含依附于这些顶点的所有边</li>
+</ul>
+<h3 id="强连通分量"><a href="#强连通分量" class="headerlink" title="强连通分量"></a>强连通分量</h3><p>在有向图中, 如果每一对顶点v0, v1, 都存在从 v0 到 v1, 和从v1 到 v0 的<em>路径</em>, 则G被称为强连通图. 有向图中的极大强连通子图被称为有向图的强连通分量, </p>
+<h3 id="生成树"><a href="#生成树" class="headerlink" title="生成树"></a>生成树</h3><p>连通图的生成树为一个极小的连通分量, 它包含全部的顶点, 但只有 n-1 条边</p>
+<h3 id="有向树"><a href="#有向树" class="headerlink" title="有向树"></a>有向树</h3><p>有向图中, 一个顶点的入度为0, 其余顶点入度均为1, 则是一棵有向树</p>
+<h1 id="图的存储方法"><a href="#图的存储方法" class="headerlink" title="图的存储方法"></a>图的存储方法</h1><h2 id="邻接矩阵"><a href="#邻接矩阵" class="headerlink" title="邻接矩阵"></a>邻接矩阵</h2><p><strong>Adjacency Matrix</strong> 使用一个一维数组来存储顶点信息, 一个二维数组(邻接矩阵), 储存图中边或弧的信息, 如果表示的是无向图时, 邻接矩阵是一个对称矩阵</p>
+<h3 id="带权的邻接矩阵"><a href="#带权的邻接矩阵" class="headerlink" title="带权的邻接矩阵"></a>带权的邻接矩阵</h3><p>如果需要表示带权的图, 邻接矩阵中不再存储表示是否连通的0和1, 而是存储 权值 , 如果两个顶点不相连, 其权值为 $\infty$ </p>
+<h3 id="相当高的开销"><a href="#相当高的开销" class="headerlink" title="相当高的开销"></a>相当高的开销</h3><p>为了创建该存储结构的图, 我们需要先建立顶点数组, 再建立二维数组, 再录入信息<br>对于 n 个顶点 和 e 条边的无向图, 其时间复杂度为 $O(n+n^2+e)$<br>除非矩阵比较稠密, 否则使用邻接矩阵会对存储空间造成极大浪费</p>
+<h2 id="邻接表"><a href="#邻接表" class="headerlink" title="邻接表"></a>邻接表</h2><p><strong>Adjacency List</strong> 使用一个数组存储顶点, 每个顶点本身都是个头指针, 指向一个链表, 链表中保存这该顶点的邻接点指针, 如果带权, 那么为链表中的结点加入一个权值成员.<br>创建链表时, 如果不想在一个顶点中保存额外的一个队尾指针, 使用头插.</p>
+<h3 id="逆邻接表"><a href="#逆邻接表" class="headerlink" title="逆邻接表"></a>逆邻接表</h3><p>使用邻接表不方便获得一个顶点的入度, 与判断两点间是否存在弧, 这时候可以建立一份逆邻接表.</p>
+<h1 id="图的优化存储结构"><a href="#图的优化存储结构" class="headerlink" title="图的优化存储结构"></a>图的优化存储结构</h1><h2 id="有向图-十字链表"><a href="#有向图-十字链表" class="headerlink" title="有向图 - 十字链表"></a>有向图 - 十字链表</h2><p><strong>Orthogonal List</strong> 解决了邻接表不能同时获得出入度的问题</p>
+<p><img src="/2019/09/05/大话数据结构摘记/image-20191122161904040.png" alt="image-20191122161904040"></p>
+<p>图像来自  <a href="https://www.cnblogs.com/yghjava/p/6764267.html" target="_blank" rel="noopener">https://www.cnblogs.com/yghjava/p/6764267.html</a> </p>
+<p>横向的结构还是邻接表, 通过增加一些域来实现竖向结构表示逆邻接表, 十字链表的结点中, 存储的是一条边的信息, <code>headlink</code> 保存 head 相同的边的引用, <code>taillink</code> 保存 tail 相同的边的引用</p>
+<p>邻接表中的<code>firstedge</code>域与十字链表中的<code>firstout</code>域对应, 邻接表结点中的<code>next</code>与十字链表 边结点 中的<code>taillink</code>域对应</p>
+<p><img src="/2019/09/05/大话数据结构摘记/资源 4.png" alt="资源 4"></p>
+<p><img src="/2019/09/05/大话数据结构摘记/资源 3.png" alt="资源 3"></p>
+<h2 id="无向图-邻接多重表"><a href="#无向图-邻接多重表" class="headerlink" title="无向图 - 邻接多重表"></a>无向图 - 邻接多重表</h2><p>上述几种链式结构显然可以减小大部分图的开销, 但是如果要删除边的关系则比较繁琐. 就无向图而言, 邻接多重表可以解决这个问题, <code>ilink</code>指向依附于<code>ivex</code>的下一条边, <code>jlink</code>同理</p>
+<p><img src="/2019/09/05/大话数据结构摘记/1x/资源 5.png" alt="资源 5"></p>
+<h1 id="边集数组"><a href="#边集数组" class="headerlink" title="边集数组"></a>边集数组</h1><p>顶点数组之外, 建立一个边数组, 直接保存所有的边的起点和终点以及权重</p>
 
       
     </div>
@@ -840,7 +931,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#随笔"><span class="nav-number">1.</span> <span class="nav-text">随笔</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#基本概念与术语"><span class="nav-number"></span> <span class="nav-text">基本概念与术语</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#逻辑结构与物理结构"><span class="nav-number"></span> <span class="nav-text">逻辑结构与物理结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑结构"><span class="nav-number">1.</span> <span class="nav-text">逻辑结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#物理结构"><span class="nav-number">2.</span> <span class="nav-text">物理结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序储存结构"><span class="nav-number">2.1.</span> <span class="nav-text">顺序储存结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链式储存结构"><span class="nav-number">2.2.</span> <span class="nav-text">链式储存结构</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#抽象数据类型-ADT"><span class="nav-number"></span> <span class="nav-text">抽象数据类型 (ADT)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#树"><span class="nav-number"></span> <span class="nav-text">树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#结点相关术语"><span class="nav-number">1.</span> <span class="nav-text">结点相关术语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结点间关系"><span class="nav-number">2.</span> <span class="nav-text">结点间关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他概念"><span class="nav-number">3.</span> <span class="nav-text">其他概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#顺序表下的实现方法"><span class="nav-number">4.</span> <span class="nav-text">顺序表下的实现方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#父结点表示法"><span class="nav-number">4.1.</span> <span class="nav-text">父结点表示法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#子结点表示法"><span class="nav-number">4.2.</span> <span class="nav-text">子结点表示法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#孩子兄弟表示法"><span class="nav-number">4.3.</span> <span class="nav-text">孩子兄弟表示法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二叉树"><span class="nav-number"></span> <span class="nav-text">二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#递归定义"><span class="nav-number">1.</span> <span class="nav-text">递归定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树特性"><span class="nav-number">2.</span> <span class="nav-text">二叉树特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特殊的二叉树"><span class="nav-number">2.1.</span> <span class="nav-text">特殊的二叉树</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树性质"><span class="nav-number">3.</span> <span class="nav-text">二叉树性质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树储存结构"><span class="nav-number">4.</span> <span class="nav-text">二叉树储存结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序储存结构-1"><span class="nav-number">4.1.</span> <span class="nav-text">顺序储存结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链式存储结构"><span class="nav-number">4.2.</span> <span class="nav-text">链式存储结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树的遍历"><span class="nav-number">5.</span> <span class="nav-text">二叉树的遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通过遍历序列推导遍历结果"><span class="nav-number">5.1.</span> <span class="nav-text">通过遍历序列推导遍历结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建立二叉树"><span class="nav-number">6.</span> <span class="nav-text">建立二叉树</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线索二叉树"><span class="nav-number"></span> <span class="nav-text">线索二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#中序遍历线索化实现"><span class="nav-number">1.</span> <span class="nav-text">中序遍历线索化实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线索二叉树中的头节点"><span class="nav-number">2.</span> <span class="nav-text">线索二叉树中的头节点</span></a></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#随笔"><span class="nav-number">1.</span> <span class="nav-text">随笔</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#基本概念与术语"><span class="nav-number"></span> <span class="nav-text">基本概念与术语</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#逻辑结构与物理结构"><span class="nav-number"></span> <span class="nav-text">逻辑结构与物理结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑结构"><span class="nav-number">1.</span> <span class="nav-text">逻辑结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#物理结构"><span class="nav-number">2.</span> <span class="nav-text">物理结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序储存结构"><span class="nav-number">2.1.</span> <span class="nav-text">顺序储存结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链式储存结构"><span class="nav-number">2.2.</span> <span class="nav-text">链式储存结构</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#抽象数据类型-ADT"><span class="nav-number"></span> <span class="nav-text">抽象数据类型 (ADT)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#树"><span class="nav-number"></span> <span class="nav-text">树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#结点相关术语"><span class="nav-number">1.</span> <span class="nav-text">结点相关术语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结点间关系"><span class="nav-number">2.</span> <span class="nav-text">结点间关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他概念"><span class="nav-number">3.</span> <span class="nav-text">其他概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#顺序表下的实现方法"><span class="nav-number">4.</span> <span class="nav-text">顺序表下的实现方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#父结点表示法"><span class="nav-number">4.1.</span> <span class="nav-text">父结点表示法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#子结点表示法"><span class="nav-number">4.2.</span> <span class="nav-text">子结点表示法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#孩子兄弟表示法"><span class="nav-number">4.3.</span> <span class="nav-text">孩子兄弟表示法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二叉树"><span class="nav-number"></span> <span class="nav-text">二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#递归定义"><span class="nav-number">1.</span> <span class="nav-text">递归定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树特性"><span class="nav-number">2.</span> <span class="nav-text">二叉树特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特殊的二叉树"><span class="nav-number">2.1.</span> <span class="nav-text">特殊的二叉树</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树性质"><span class="nav-number">3.</span> <span class="nav-text">二叉树性质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树储存结构"><span class="nav-number">4.</span> <span class="nav-text">二叉树储存结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序储存结构-1"><span class="nav-number">4.1.</span> <span class="nav-text">顺序储存结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链式存储结构"><span class="nav-number">4.2.</span> <span class="nav-text">链式存储结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树的遍历"><span class="nav-number">5.</span> <span class="nav-text">二叉树的遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通过遍历序列推导遍历结果"><span class="nav-number">5.1.</span> <span class="nav-text">通过遍历序列推导遍历结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建立二叉树"><span class="nav-number">6.</span> <span class="nav-text">建立二叉树</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线索二叉树"><span class="nav-number"></span> <span class="nav-text">线索二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#中序遍历线索化实现"><span class="nav-number">1.</span> <span class="nav-text">中序遍历线索化实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线索二叉树中的头节点"><span class="nav-number">2.</span> <span class="nav-text">线索二叉树中的头节点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图"><span class="nav-number"></span> <span class="nav-text">图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#图的相关定义"><span class="nav-number">1.</span> <span class="nav-text">图的相关定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#顶点与边间关系"><span class="nav-number">2.</span> <span class="nav-text">顶点与边间关系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#无向图"><span class="nav-number">2.1.</span> <span class="nav-text">无向图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有向图"><span class="nav-number">2.2.</span> <span class="nav-text">有向图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#路径"><span class="nav-number">3.</span> <span class="nav-text">路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#连通图相关"><span class="nav-number">4.</span> <span class="nav-text">连通图相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#连通分量"><span class="nav-number">4.1.</span> <span class="nav-text">连通分量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#强连通分量"><span class="nav-number">4.2.</span> <span class="nav-text">强连通分量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成树"><span class="nav-number">4.3.</span> <span class="nav-text">生成树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有向树"><span class="nav-number">4.4.</span> <span class="nav-text">有向树</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图的存储方法"><span class="nav-number"></span> <span class="nav-text">图的存储方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#邻接矩阵"><span class="nav-number">1.</span> <span class="nav-text">邻接矩阵</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#带权的邻接矩阵"><span class="nav-number">1.1.</span> <span class="nav-text">带权的邻接矩阵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相当高的开销"><span class="nav-number">1.2.</span> <span class="nav-text">相当高的开销</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#邻接表"><span class="nav-number">2.</span> <span class="nav-text">邻接表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#逆邻接表"><span class="nav-number">2.1.</span> <span class="nav-text">逆邻接表</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图的优化存储结构"><span class="nav-number"></span> <span class="nav-text">图的优化存储结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#有向图-十字链表"><span class="nav-number">1.</span> <span class="nav-text">有向图 - 十字链表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#无向图-邻接多重表"><span class="nav-number">2.</span> <span class="nav-text">无向图 - 邻接多重表</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#边集数组"><span class="nav-number"></span> <span class="nav-text">边集数组</span></a></li></div>
             
 
           </div>
