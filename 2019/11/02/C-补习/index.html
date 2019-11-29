@@ -107,7 +107,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/11/02/C-补习/image-20191115171152633.png">
 <meta property="og:image" content="http://yoursite.com/2019/11/02/C-补习/image-20191115175257308.png">
 <meta property="og:image" content="http://yoursite.com/AppData/Roaming/Typora/typora-user-images/image-20191115175332500.png">
-<meta property="og:updated_time" content="2019-11-20T05:12:43.636Z">
+<meta property="og:updated_time" content="2019-11-29T06:03:39.614Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++补习">
 <meta name="twitter:description" content="C++使用cout实现格式输出, 类似于C++通过 printf(), cout.setf() 通过设置格式标志来控制输出形式.  标志    功能boolalpha    可以使用单词”true”和”false”进行输入/输出的布尔值.oct    用八进制格式显示数值.dec    用十进制格式显示数值.hex    用十六进制格式显示数值.left    输出调整为左对齐.right">
@@ -354,7 +354,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-11-20 13:12:43" itemprop="dateModified" datetime="2019-11-20T13:12:43+08:00">2019-11-20</time>
+                <time title="Modified: 2019-11-29 14:03:39" itemprop="dateModified" datetime="2019-11-29T14:03:39+08:00">2019-11-29</time>
               
             
           </span>
@@ -431,11 +431,19 @@
 </li>
 <li><p>C++ Lambda</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i1 = <span class="number">0</span>, i2 = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">auto</span> k = [&amp;i1, &amp;i2] () &#123; i1 = <span class="number">3</span>; i2 = <span class="number">5</span>; &#125;;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; i1 &lt;&lt; <span class="string">" "</span> &lt;&lt; i2 &lt;&lt; <span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
-<p>[]为捕获块, 用于捕获 lambda 表达式之外的变量</p>
 <ul>
-<li>=  将局部变量按值传递（包括this指针）</li>
-<li>&amp;  将局部变量按引用传递（包括this指针）</li>
-<li>this this指针</li>
+<li><p>[]为捕获块, 用于捕获 lambda 表达式之外的变量</p>
+<ul>
+<li><strong>=</strong>  将局部变量按值传递（包括this指针）</li>
+<li><strong>&amp;</strong>  将局部变量按引用传递（包括this指针）</li>
+<li><strong>this</strong> this指针</li>
+</ul>
+</li>
+<li><p>()为传参区</p>
+</li>
+<li><p>{}中如果没有return, 将返回void<br>可以显式指明返回类型如</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[] (<span class="keyword">int</span> x, <span class="keyword">int</span> y) -&gt; <span class="keyword">int</span> &#123; <span class="keyword">int</span> z = x + y; <span class="keyword">return</span> z; &#125;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
 <li><p>原生字符串</p>
@@ -448,6 +456,9 @@
 <p>在C++ 11中，我们则可以使得我们自定义的容器对象支持这种列表的形式的初始化方式：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyArray</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  <span class="built_in">vector</span>&lt;T&gt; m_Array;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  MyArray() &#123; &#125;</span><br><span class="line">  </span><br><span class="line">  MyArray(<span class="keyword">const</span> <span class="built_in">initializer_list</span>&lt;T&gt;&amp; il)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> x : il)</span><br><span class="line">      m_Array.push_back(x);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  MyArray&lt;<span class="keyword">int</span>&gt; foo = &#123; <span class="number">3</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">9</span> &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
+<li><p>构造函数快速初始化</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">int</span> a;</span><br><span class="line">	<span class="keyword">float</span> b;</span><br><span class="line">	A(): a(<span class="number">0</span>),b(<span class="number">9.9</span>) &#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>宽字符</p>
 <p>L””</p>
 </li>
@@ -458,6 +469,12 @@
 <li><p>函数中 <code>const</code> 的位置</p>
 <p>函数前面为<code>const</code>意味着返回值是只能被读取的, 需要用<code>const</code>变量去承接</p>
 <p>函数后面的<code>const</code>意味着这个函数不可以修改除了<code>mutable</code>之外的类成员</p>
+</li>
+<li><p>C++ 11/14 <code>constexpr</code></p>
+<p>使用<code>constexpr</code>修饰的函数, 如果向它传递的是常量值或者其他<code>constexpr</code>的函数, 那么编译期就会得到这个结果, 运行时直接会使用结果而不是函数.</p>
+</li>
+<li><p>初始化列表</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdjacencyMatrixMap::AdjacencyMatrixMap(<span class="keyword">const</span> <span class="keyword">int</span> vertexNum) :vertexNum(vertexNum)</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>C++虚函数</p>
 <p>一个类如果有虚函数, 它的虚函数会储存在这个类的最前方, 直接影响sizeof返回的结果, 如果使用override覆写虚函数, 那么这个函数必须重载同名函数, 否则过不了编译, 增强了健壮性</p>
@@ -471,6 +488,12 @@
 <li><p>NULL 和 nullptr</p>
 <p>C++ 11 引入的 nullptr 用于区分 指针和整数 的空状态, nullptr是一个C++关键字</p>
 </li>
+<li><p>decltype 类型推断</p>
+<p>使用auto时, 必须有一个已经赋值完成的该类型实例, decltype可以只推断类型, 不使用其值</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getInt</span><span class="params">()</span></span>;</span><br><span class="line">...</span><br><span class="line"><span class="keyword">decltype</span>(getSize()) dclIntA;</span><br><span class="line"><span class="keyword">decltype</span>(decInt) dcIntB;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
 <li><p>工厂模式下的析构函数</p>
 <p>由于工厂模式下一般是用父类指针去引用子类对象, 由于工厂模式的特点, 其子类对象只能动态创建, 储存在堆中, 我们需要给父类的析构函数定义为<code>virtual</code>这时, 使用delete时, 我们才能正确地调用到子类的析构函数来正确析构</p>
 </li>
@@ -631,7 +654,7 @@
 <p>read() 不为字符串加上 ‘\0’</p>
 </li>
 </ul>
-<h1 id="文件IO"><a href="#文件IO" class="headerlink" title="文件IO"></a>文件IO</h1><p>fstream 头文件包括了 iostream </p>
+<h1 id="文件IO"><a href="#文件IO" class="headerlink" title="文件IO"></a>文件IO</h1><p>fstream 头文件包括了 iostream (Visual C++ 并没有)</p>
 <p>Tips: </p>
 <ul>
 <li>使用 is_open() 来检测文件是否打开成功</li>
@@ -683,6 +706,38 @@
 </table>
 <p>注意: 由于二进制文件不存在换行之类的字符, 必须使用 ios_base::binary 来open二进制文件, 对于二进制文件, 使用指定数据大小的 write 和 read 来输入输出, </p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// binary write</span></span><br><span class="line"><span class="function">ofstream <span class="title">fout</span><span class="params">(<span class="string">"planets.dat"</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">             ios_base::out | ios_base::app | ios_base::binary)</span></span>;</span><br><span class="line">fout.write((<span class="keyword">char</span>*) &amp;pl, <span class="keyword">sizeof</span> pl);</span><br><span class="line"><span class="comment">// binary read</span></span><br><span class="line"><span class="function">ifstream <span class="title">fin</span><span class="params">(<span class="string">"planets.dat"</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">            ios_base::in | ios_base::binary)</span></span>;</span><br><span class="line">fin.read((<span class="keyword">char</span>*) &amp;pl, <span class="keyword">sizeof</span> pl);</span><br></pre></td></tr></table></figure>
+<h1 id="正则"><a href="#正则" class="headerlink" title="正则"></a>正则</h1><p><code>#include&lt;regex&gt;</code></p>
+<ul>
+<li><p>定义正则表达式 <code>std::regex</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="function">regex <span class="title">reg</span><span class="params">(<span class="string">R"()"</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>完全匹配 <code>bool std::regex_match( string , regex )</code></p>
+</li>
+<li><p>获得匹配内容 <code>bool std::regex_match(string, std::cmatch, regex)</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::cmatch m;</span><br><span class="line"><span class="keyword">auto</span> ret = <span class="built_in">std</span>::regex_match(<span class="string">"something to match"</span>, m, <span class="built_in">std</span>::regex(<span class="string">R"(match regex)"</span>));</span><br><span class="line"><span class="keyword">if</span> (ret)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; m.str() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; m.length() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; m.position() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> pos = m.begin(); pos != m.end(); ++pos)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; *pos &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>搜索 (<em>部分匹配</em>) <code>std::regex_search()</code></p>
+<p>用法可以和<code>regex_match</code>一样, 但不需要完全匹配<code>regex</code></p>
+<p>可以使用迭代器定义搜索范围</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="function">regex <span class="title">reg</span><span class="params">(<span class="string">"&lt;(.*)&gt;(.*)&lt;/(\\1)&gt;"</span>)</span></span>;</span><br><span class="line"><span class="built_in">std</span>::<span class="function"><span class="built_in">string</span> <span class="title">content</span><span class="params">(<span class="string">"123&lt;xml&gt;value&lt;/xml&gt;456&lt;widget&gt;center&lt;/widget&gt;hahaha&lt;vertical&gt;window&lt;/vertical&gt;the end"</span>)</span></span>;</span><br><span class="line"><span class="built_in">std</span>::smatch m;</span><br><span class="line"><span class="keyword">auto</span> pos = content.cbegin(); <span class="comment">// c 表示const, C++超级健壮</span></span><br><span class="line"><span class="keyword">auto</span> end = content.cend();</span><br><span class="line"><span class="comment">// 后缀获得全部的匹配项, cmatch 对象通过prefix()和suffix()得到前缀和后缀</span></span><br><span class="line"><span class="keyword">for</span> (; <span class="built_in">std</span>::regex_search(pos, end, m, reg); pos = m.suffix().first)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"----------------"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; m.str() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; m.str(<span class="number">1</span>) &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; m.str(<span class="number">2</span>) &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; m.str(<span class="number">3</span>) &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>分词 <code>std::sregex_token_iterator</code>  </p>
+<p>以regex分割字符串以得到内容</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="function"><span class="built_in">string</span> <span class="title">mail</span><span class="params">(<span class="string">"123@qq.vip.com,456@gmail.com,789@163.com,abcd@my.com"</span>)</span></span>;</span><br><span class="line"><span class="built_in">std</span>::<span class="function">regex <span class="title">reg</span><span class="params">(<span class="string">","</span>)</span></span>;</span><br><span class="line"><span class="comment">// -1表示需要的是正则表达式的子序列, 如果使用0, 得到的是正则表达式的匹配项即 ','</span></span><br><span class="line"><span class="built_in">std</span>::<span class="function">sregex_token_iterator <span class="title">pos</span><span class="params">(mail.begin(), mail.end(), reg, <span class="number">-1</span>)</span></span>;</span><br><span class="line"><span class="keyword">decltype</span>(pos) end;</span><br><span class="line"><span class="keyword">for</span> (; pos != end; ++pos)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; pos-&gt;str() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>替换  <code>std::regex_replace(sourceString, regex, string)</code> </p>
+<ul>
+<li><p>除去不需要内容</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> data[] = <span class="string">"he...ll..o, worl..d!"</span>;</span><br><span class="line"><span class="built_in">std</span>::<span class="function">regex <span class="title">reg</span><span class="params">(<span class="string">"\\."</span>)</span></span>;</span><br><span class="line"><span class="comment">// output: hello, world!</span></span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="built_in">std</span>::regex_replace(data, reg, <span class="string">""</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>分组功能, 用于替换内容</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> data[] = <span class="string">"001-Neo,002-Lucia"</span>;</span><br><span class="line"><span class="built_in">std</span>::<span class="function">regex <span class="title">reg</span><span class="params">(<span class="string">"(\\d+)-(\\w+)"</span>)</span></span>;</span><br><span class="line"><span class="comment">// output: 001 name=Neo,002 name=Lucia</span></span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="built_in">std</span>::regex_replace(data, reg, <span class="string">"$1 name=$2"</span>);</span><br></pre></td></tr></table></figure>
+<p>$N用于获得分组内容, 来将 001-Neo 替换为 001 name=Neo</p>
+</li>
+<li></li>
+</ul>
+</li>
+</ul>
 
       
     </div>
@@ -909,7 +964,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#IO"><span class="nav-number">1.</span> <span class="nav-text">IO</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#设置ios-base"><span class="nav-number">1.1.</span> <span class="nav-text">设置ios_base</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#setf-函数"><span class="nav-number">1.1.1.</span> <span class="nav-text">setf()函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流状态-iostate"><span class="nav-number">1.2.</span> <span class="nav-text">流状态 iostate</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#指定流处于某个状态时为异常"><span class="nav-number">1.2.1.</span> <span class="nav-text">指定流处于某个状态时为异常</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入函数"><span class="nav-number">1.3.</span> <span class="nav-text">输入函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件IO"><span class="nav-number">2.</span> <span class="nav-text">文件IO</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#写入"><span class="nav-number">2.1.</span> <span class="nav-text">写入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#读取"><span class="nav-number">2.2.</span> <span class="nav-text">读取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#open-的第二个参数"><span class="nav-number">2.3.</span> <span class="nav-text">open(,)的第二个参数</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#IO"><span class="nav-number">1.</span> <span class="nav-text">IO</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#设置ios-base"><span class="nav-number">1.1.</span> <span class="nav-text">设置ios_base</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#setf-函数"><span class="nav-number">1.1.1.</span> <span class="nav-text">setf()函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流状态-iostate"><span class="nav-number">1.2.</span> <span class="nav-text">流状态 iostate</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#指定流处于某个状态时为异常"><span class="nav-number">1.2.1.</span> <span class="nav-text">指定流处于某个状态时为异常</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入函数"><span class="nav-number">1.3.</span> <span class="nav-text">输入函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件IO"><span class="nav-number">2.</span> <span class="nav-text">文件IO</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#写入"><span class="nav-number">2.1.</span> <span class="nav-text">写入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#读取"><span class="nav-number">2.2.</span> <span class="nav-text">读取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#open-的第二个参数"><span class="nav-number">2.3.</span> <span class="nav-text">open(,)的第二个参数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#正则"><span class="nav-number">3.</span> <span class="nav-text">正则</span></a></li></ol></div>
             
 
           </div>
